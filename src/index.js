@@ -21,10 +21,9 @@ function initializeFirebase() {
 
 function getFirebaseData(table) {
     var database = firebase.database();
-    var database_reference = database.ref('/' + table + '/')
 
     ReactDOM.render(
-        <App database_reference={database_reference} />,
+        <App database={database} />,
         document.getElementById('root')
     );
 }

@@ -5,53 +5,52 @@ import SuiteSelectorPane from './SuiteSelector';
 import './App.css';
 
 
-const suites = {
-  suite1: {
-    a: {
-      name: 'a testing'
-    },
-    b: {
-      name: 'b testing'
-    }
-  },
-  suite2: {
-    z: {
-      name: 'z testing'
-    },
-    y: {
-      name: 'y testing'
-    }
-  }
-};
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      suite: {}
+      suites: null,
+      suite: null
     };
+    this.onSelect = this.onSelect.bind(this)
   }
 
   componentDidMount() {
-    this.props.database_reference.on('value', (snapshot) => {
+    this.props.database.ref('/').once('value', (snapshot) => {
+      this.setState ({suites: snapshot.val()});
+    });
+  }
+
+  onSelect(buildSelection) {
+    this.props.database.ref(`/${buildSelection.selectedSuite}/${buildSelection.selectedBuild}`).on('value', (snapshot) => {
       this.setState ({suite: snapshot.val()});
     });
   }
 
   render() {
-    if(!this.state.suite){
+    if(!this.state.suites){
       return(
-        <div className='App'>
-          <h1>No data found</h1>
+        <div>
+          <h1>Loading</h1>
         </div>
-      )
+      );
+    } else {
+      if (!this.state.suite) {
+        return(
+            <div className='App'>
+              <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
+              <h1>Select suite and build</h1>
+            </div>
+        );
+      } else {
+        return (
+            <div className='App'>
+              <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
+              <SuitePane suite={{suite: this.state.suite}} />
+            </div>
+        );
+      }
     }
-    return (
-      <div className='App'>
-        <SuiteSelectorPane suites={suites} onSelect={(selected) => console.log(selected)} />
-        <SuitePane suite={{suite: this.state.suite}} />
-      </div>
-    );
   }
 }
 
