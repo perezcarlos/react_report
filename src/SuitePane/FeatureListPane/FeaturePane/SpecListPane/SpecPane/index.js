@@ -5,10 +5,6 @@ const SpecPane = ({spec} ) => {
     var icon_class;
     var class_name;
     switch (spec.status) {
-        case 'error':
-            icon_class = "glyphicon-alert";
-            class_name = "danger";
-            break;
         case "failed":
             icon_class = "glyphicon-remove";
             class_name = "warning";
@@ -20,6 +16,10 @@ const SpecPane = ({spec} ) => {
         case "pending":
             icon_class = "glyphicon-time";
             class_name = "pending";
+            break;
+        default:
+            icon_class = "glyphicon-alert";
+            class_name = "danger";
     }
     return(
         <tr>

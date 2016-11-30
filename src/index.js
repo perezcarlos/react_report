@@ -15,7 +15,7 @@ function initializeFirebase() {
 
     firebase.initializeApp(config);
 
-    getFirebaseData('table');
+    getFirebaseData('CarlosP/0');
 
 }
 
