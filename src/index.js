@@ -14,12 +14,9 @@ function initializeFirebase() {
     };
 
     firebase.initializeApp(config);
-
-    getFirebaseData('CarlosP/0');
-
 }
 
-function getFirebaseData(table) {
+function getFirebaseData() {
     var database = firebase.database();
 
     ReactDOM.render(
@@ -28,6 +25,5 @@ function getFirebaseData(table) {
     );
 }
 
-
-
 initializeFirebase();
+getFirebaseData();
