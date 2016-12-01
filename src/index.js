@@ -10,7 +10,6 @@ var credentials = require('./credentials.json');
 function initializeFirebase() {
 // Initialize Firebase
 
-    console.log("Credentials is:", credentials);
     var config = {
         apiKey: credentials.apiKey,
         authDomain: credentials.authDomain,
