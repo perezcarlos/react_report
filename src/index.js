@@ -4,13 +4,17 @@ import firebase from 'firebase';
 import App from './App';
 import './index.css';
 
+
+var credentials = require('./credentials.json');
+
 function initializeFirebase() {
 // Initialize Firebase
 
+    console.log("Credentials is:", credentials);
     var config = {
-        apiKey: "XXXXXXXXXXXXX",
-        authDomain: "domain.firebaseapp.com",
-        databaseURL: "https://domain.firebaseio.com",
+        apiKey: credentials.apiKey,
+        authDomain: credentials.authDomain,
+        databaseURL: credentials.databaseURL,
     };
 
     firebase.initializeApp(config);
