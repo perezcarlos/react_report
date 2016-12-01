@@ -9,6 +9,9 @@ const ExpectationPane = ({expectation} ) => {
             break;
         case "passed":
             expectation_class = "success";
+            break;
+        default :
+            expectation_class = "error";
 
     }
     return(
