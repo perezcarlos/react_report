@@ -42,3 +42,22 @@ tbody {
 .status-pending i {
   color: #6f6f6f;
 }
+
+.no-suites-found {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.no-suite-loaded {
+  position: fixed;
+  width: 70%;
+  top: 50%;
+  text-align: center;
+}
+
+.selectors {
+  position: relative;
+  top: 5px;
+  text-align: right;
+}

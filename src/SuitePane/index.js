@@ -3,7 +3,6 @@ import FeatureList from './FeatureListPane'
 
 
 const SuitePane = ({suite}) => {
-    console.log("Suite pane receives", suite)
     return(
         <div className="col-md-12">
             {

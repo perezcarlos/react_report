@@ -1,7 +1,7 @@
 import React from 'react';
 import Spec from './SpecPane';
 import ExpectationList from './ExpectationListPane';
-import uuid from 'uuid'
+import uuid from 'uuid';
 
 const SpecListPane = ({specs} ) => {
     const specRows = Object.values(specs).reduce((memo, item) => {

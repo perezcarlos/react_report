@@ -1,4 +1,7 @@
 import React from 'react';
+import uuid from 'uuid';
+import Exception from './Exception';
+import Bacstrace from './Bactrace';
 
 
 const ExpectationPane = ({expectation} ) => {
@@ -14,9 +17,22 @@ const ExpectationPane = ({expectation} ) => {
             expectation_class = "error";
 
     }
-    return(
-        <div className={`alert alert-${expectation_class}`}>{expectation.description}</div>
-    );
+        if (!expectation.exception){
+            return(
+                <div className={`alert alert-${expectation_class}`}>
+                    <p>{expectation.description}</p>
+                </div>
+            );
+        } else {
+            const id = `test-${uuid()}`;
+            return(
+                <div className={`alert alert-${expectation_class}`}>
+                    <p>{expectation.description}</p>
+                    <Exception key={id} exception={expectation.exception} id={id}/>
+                    <Bacstrace key={`${id}-2`} backtrace={expectation.exception_backtrace} id={id} />
+                </div>
+            )
+        }
 };
 
 export default ExpectationPane;

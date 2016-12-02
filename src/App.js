@@ -38,16 +38,18 @@ class App extends Component {
   render() {
     if(!this.state.suites){
       return(
-        <div>
-          <h1>Loading</h1>
+        <div className="no-suites-found">
+          <h1>Looking for saved executions</h1>
         </div>
       );
     } else {
       if (!this.state.suite) {
         return(
             <div className='App'>
-              <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
-              <h1>Select suite and build</h1>
+              <div className="no-suite-loaded">
+                <h1>Select suite and build</h1>
+                <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
+              </div>
             </div>
         );
       } else {
