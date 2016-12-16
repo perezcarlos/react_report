@@ -1,7 +1,8 @@
 import React from 'react';
 import uuid from 'uuid';
 import Exception from './Exception';
-import Bacstrace from './Bactrace';
+import Backtrace from './Bactrace';
+import Attachment from './Attachment';
 
 
 const ExpectationPane = ({expectation} ) => {
@@ -18,18 +19,22 @@ const ExpectationPane = ({expectation} ) => {
 
     }
         if (!expectation.exception){
+            const attachmentId = `attachment-${uuid()}`;
             return(
                 <div className={`alert alert-${expectation_class}`}>
-                    <p>{expectation.description}</p>
+                    <label data-toggle="collapse" href={`#${attachmentId}`}>{expectation.description}</label>
+                    <Attachment key={attachmentId} attachment={expectation.remote_attachment} id={attachmentId}/>
                 </div>
             );
         } else {
-            const id = `test-${uuid()}`;
+            const attachmentId = `attachment-${uuid()}`;
+            const backtraceId = `backtrace-${uuid()}`;
             return(
                 <div className={`alert alert-${expectation_class}`}>
-                    <p>{expectation.description}</p>
-                    <Exception key={id} exception={expectation.exception} id={id}/>
-                    <Bacstrace key={`${id}-2`} backtrace={expectation.exception_backtrace} id={id} />
+                    <label data-toggle="collapse" href={`#${attachmentId}`}>{expectation.description}</label>
+                    <Attachment key={attachmentId} attachment={expectation.remote_attachment} id={attachmentId}/>
+                    <Exception key={backtraceId} exception={expectation.exception} id={backtraceId}/>
+                    <Backtrace key={`${backtraceId}-2`} backtrace={expectation.exception_backtrace} id={backtraceId} />
                 </div>
             )
         }

@@ -6,14 +6,16 @@ import './index.css';
 
 
 var credentials = require('./credentials.json');
+var firebase_credentials = credentials.firebase;
+var amazon3ws_credentials = credentials.amazon3ws;
 
 function initializeFirebase() {
 // Initialize Firebase
 
     var config = {
-        apiKey: credentials.apiKey,
-        authDomain: credentials.authDomain,
-        databaseURL: credentials.databaseURL,
+        apiKey: firebase_credentials.apiKey,
+        authDomain: firebase_credentials.authDomain,
+        databaseURL: firebase_credentials.databaseURL
     };
 
     firebase.initializeApp(config);

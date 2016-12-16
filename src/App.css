@@ -51,8 +51,13 @@ tbody {
 
 .no-suite-loaded {
   position: fixed;
-  width: 70%;
   top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -100px;
+}
+
+.no-suite-loaded .selectors{
   text-align: center;
 }
 
@@ -60,4 +65,20 @@ tbody {
   position: relative;
   top: 5px;
   text-align: right;
+}
+
+.modal-dialog{
+  width: 80%;
+}
+
+label {
+  cursor: pointer;
+}
+
+img {
+  width: 100%;
+}
+
+.thumbnail {
+  width: 30%;
 }
