@@ -59,16 +59,28 @@ tbody {
 
 .no-suite-loaded .selectors{
   text-align: center;
+  margin: 0;
 }
 
 .selectors {
   position: relative;
   top: 5px;
   text-align: right;
+  margin-right: 5%;
 }
 
 .modal-dialog{
   width: 80%;
+}
+
+.feature-name label {
+  cursor: default;
+  font-size: small;
+  color: gray;
+}
+
+.feature-name h2 {
+  margin-bottom: 1px;
 }
 
 label {
@@ -77,6 +89,10 @@ label {
 
 img {
   width: 100%;
+}
+
+a.exception {
+  display: table;
 }
 
 .thumbnail {

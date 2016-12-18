@@ -75,12 +75,4 @@ class SuiteSelectorPane extends Component {
     }
 }
 
-//SuitePane.defaultProps = {
-//    suite: {}
-//};
-
-//SuitePane.propTypes = {
-//    suite: React.PropTypes.hash.isRequired
-//}
-
 export default SuiteSelectorPane;

@@ -32,9 +32,9 @@ const ExpectationPane = ({expectation} ) => {
             return(
                 <div className={`alert alert-${expectation_class}`}>
                     <label data-toggle="collapse" href={`#${attachmentId}`}>{expectation.description}</label>
-                    <Attachment key={attachmentId} attachment={expectation.remote_attachment} id={attachmentId}/>
                     <Exception key={backtraceId} exception={expectation.exception} id={backtraceId}/>
-                    <Backtrace key={`${backtraceId}-2`} backtrace={expectation.exception_backtrace} id={backtraceId} />
+                    <Backtrace key={`${backtraceId}-2`} backtrace={expectation.exception_backtrace} id={backtraceId}/>
+                    <Attachment key={attachmentId} attachment={expectation.remote_attachment} id={attachmentId}/>
                 </div>
             )
         }

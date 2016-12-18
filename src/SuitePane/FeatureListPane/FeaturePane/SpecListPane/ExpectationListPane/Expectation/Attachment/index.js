@@ -1,5 +1,6 @@
 import React from 'react';
 import uuid from 'uuid';
+import Modal from './Modal';
 
 
 const AttachmentPane = ({attachment, id} ) => {
@@ -7,17 +8,9 @@ const AttachmentPane = ({attachment, id} ) => {
     return (
         <div id={id} className="collapse">
             <a className="thumbnail" href="#" data-toggle="modal" data-target={`#${modalId}`} >
-                <img src={attachment}/>
+                <img alt="No attachment found" src={attachment}/>
             </a>
-            <div className="modal fade" id={modalId} role="dialog">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-body">
-                            <img src={attachment}/>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Modal key={modalId} attachment={attachment} id={modalId} />
         </div>
     );
 };

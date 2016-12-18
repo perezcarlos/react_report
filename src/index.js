@@ -7,7 +7,6 @@ import './index.css';
 
 var credentials = require('./credentials.json');
 var firebase_credentials = credentials.firebase;
-var amazon3ws_credentials = credentials.amazon3ws;
 
 function initializeFirebase() {
 // Initialize Firebase
