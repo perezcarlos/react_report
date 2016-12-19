@@ -73,6 +73,10 @@ tbody {
   width: 80%;
 }
 
+.suite-header {
+  text-align: left;
+}
+
 .feature-name label {
   cursor: default;
   font-size: small;
@@ -81,6 +85,11 @@ tbody {
 
 .feature-name h2 {
   margin-bottom: 1px;
+}
+
+pre.additional-info {
+  max-width: 25%;
+  text-align: left;
 }
 
 label {

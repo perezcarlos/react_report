@@ -11,7 +11,8 @@ class App extends Component {
     this.state = {
       suites: null,
       suite: null,
-      buildSelection: null
+      buildSelection: null,
+      additional_info: null
     };
     this.onSelect = this.onSelect.bind(this)
   }
@@ -27,10 +28,16 @@ class App extends Component {
       this.props.database.ref(`/${this.state.buildSelection.selectedSuite}/${this.state.buildSelection.selectedBuild}`).off()
     }
 
-    this.props.database.ref(`/${buildSelection.selectedSuite}/${buildSelection.selectedBuild}`).on('value', (snapshot) => {
+    this.props.database.ref(`/${buildSelection.selectedSuite}/executions/${buildSelection.selectedBuild}`).on('value', (snapshot) => {
       this.setState ({
         suite: snapshot.val(),
         buildSelection: buildSelection
+      });
+    });
+
+    this.props.database.ref(`/${buildSelection.selectedSuite}/additional_info`).once('value', (snapshot) => {
+      this.setState ({
+        additional_info: snapshot.val()
       });
     });
   }
@@ -56,7 +63,7 @@ class App extends Component {
         return (
             <div className='App'>
               <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
-              <SuitePane suite={{suite: this.state.suite}} />
+              <SuitePane suite={{suite: this.state.suite}} additionalInfo={this.state.additional_info} />
             </div>
         );
       }
