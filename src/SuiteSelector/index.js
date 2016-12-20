@@ -17,7 +17,7 @@ class SuiteSelectorPane extends Component {
 
     render () {
         const suite = this.props.suites[this.state.selectedSuite] || {};
-        const executions = suite.executions || {};
+        const executions = Object.values(suite) || {};
         return (
             <div className="selectors">
                 {this.renderSuites(Object.keys(this.props.suites))}

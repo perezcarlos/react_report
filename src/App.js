@@ -28,14 +28,14 @@ class App extends Component {
       this.props.database.ref(`/${this.state.buildSelection.selectedSuite}/${this.state.buildSelection.selectedBuild}`).off()
     }
 
-    this.props.database.ref(`/${buildSelection.selectedSuite}/executions/${buildSelection.selectedBuild}`).on('value', (snapshot) => {
+    this.props.database.ref(`/${buildSelection.selectedSuite}/${buildSelection.selectedBuild}/executions`).on('value', (snapshot) => {
       this.setState ({
         suite: snapshot.val(),
         buildSelection: buildSelection
       });
     });
 
-    this.props.database.ref(`/${buildSelection.selectedSuite}/additional_info`).once('value', (snapshot) => {
+    this.props.database.ref(`/${buildSelection.selectedSuite}/${buildSelection.selectedBuild}/additional_info`).once('value', (snapshot) => {
       this.setState ({
         additional_info: snapshot.val()
       });
