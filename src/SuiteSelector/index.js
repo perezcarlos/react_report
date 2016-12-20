@@ -17,11 +17,13 @@ class SuiteSelectorPane extends Component {
 
     render () {
         const suite = this.props.suites[this.state.selectedSuite] || {};
-        const executions = Object.values(suite) || {};
+        const executions = Object.keys(suite) || {};
+        console.log('This is the suite', suite);
+        console.log('This are the executions', executions);
         return (
             <div className="selectors">
                 {this.renderSuites(Object.keys(this.props.suites))}
-                {this.renderBuilds(Object.keys(executions))}
+                {this.renderBuilds(executions)}
             </div>
         )
     }
