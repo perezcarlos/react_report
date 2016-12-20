@@ -1,6 +1,7 @@
 import React from 'react';
 import FeatureList from './FeatureListPane';
 import AdditionalInfo from './AdditionalInfoPane';
+import SuiteHeader from './SuiteHeaderPane';
 import uuid from 'uuid';
 
 
@@ -12,10 +13,7 @@ const SuitePane = ({suite, additionalInfo}) => {
                 Object.keys(suite).map((key) => {
                     return(
                         <div key={key} id={key}>
-                            <div className="suite-header">
-                                <h1>{`${key}. `}</h1>
-                                <a href={`#${additionalId}`} data-toggle="collapse">Show more info</a>
-                            </div>
+                            <SuiteHeader additionalInfo={additionalInfo} id={additionalId}/>
                             <AdditionalInfo additionalInfo={additionalInfo} id={additionalId}/>
                             <FeatureList features={suite[key]} class="js-features"/>
                         </div>
