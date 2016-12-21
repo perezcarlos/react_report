@@ -43,13 +43,7 @@ tbody {
   color: #6f6f6f;
 }
 
-.no-suites-found {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-}
-
-.no-suite-loaded {
+.no-suites-found, .no-suite-loaded {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -88,8 +82,14 @@ tbody {
 }
 
 pre.additional-info {
-  max-width: 25%;
+  max-width: 40%;
   text-align: left;
+}
+
+pre.additional-info.collapse.in, pre.additional-info.collapsing{
+  display: inline-block;
+  float: left;
+  margin-right: 100%;
 }
 
 label {
