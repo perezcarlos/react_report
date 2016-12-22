@@ -13,7 +13,7 @@ class App extends Component {
       suite: null,
       buildSelection: null,
       additional_info: null,
-      filter: null
+      filter: 'feature'
     };
     this.onSelect = this.onSelect.bind(this)
     this.onFilterChange = this.onFilterChange.bind(this)
