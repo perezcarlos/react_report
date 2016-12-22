@@ -25,7 +25,7 @@ class App extends Component {
 
   onSelect(buildSelection) {
     if (this.state.buildSelection) {
-      this.props.database.ref(`/${this.state.buildSelection.selectedSuite}/${this.state.buildSelection.selectedBuild}`).off()
+      this.props.database.ref(`/${this.state.buildSelection.selectedSuite}/${this.state.buildSelection.selectedBuild}/executions`).off()
     }
 
     this.props.database.ref(`/${buildSelection.selectedSuite}/${buildSelection.selectedBuild}/executions`).on('value', (snapshot) => {
