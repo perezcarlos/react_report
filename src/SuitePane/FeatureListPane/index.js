@@ -1,14 +1,17 @@
 import React from 'react';
-import Feature from './FeaturePane'
+import Feature from './FeaturePane';
+import groupBy from 'lodash.groupby';
 
 
-const FeatureListPane = ({features}) => {
+const FeatureListPane = ({specs, filter}) => {
+    const byFeature = groupBy(specs, (x) => x[filter]);
+    console.log(byFeature)
     return(
         <div>
             {
-                Object.keys(features).map((key) => {
+                Object.keys(byFeature).map((key) => {
                     return(
-                        <Feature key={key} specs={features[key]} id={key} />
+                        <Feature key={key} specs={byFeature[key]} id={key} />
                     )
                 })
             }
