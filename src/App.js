@@ -36,7 +36,7 @@ class App extends Component {
 
     this.props.database.ref(`/${buildSelection.selectedSuite}/${buildSelection.selectedBuild}/executions`).on('value', (snapshot) => {
       this.setState ({
-        suite: snapshot.val(),
+        suite: snapshot.val() || {},
         buildSelection: buildSelection
       });
     });

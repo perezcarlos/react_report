@@ -72,9 +72,21 @@ tbody {
 }
 
 .feature-name label {
-  cursor: default;
   font-size: small;
   color: gray;
+}
+
+a[disabled] {
+  color: gray;
+  pointer-events: none;
+}
+
+.spec-additional-info pre {
+  max-width: 900px;
+}
+
+.spec-additional-info a {
+  float: right;
 }
 
 .feature-name h2 {

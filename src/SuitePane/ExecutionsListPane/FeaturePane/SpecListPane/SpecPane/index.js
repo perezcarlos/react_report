@@ -1,4 +1,5 @@
 import React from 'react';
+import AdditionalSpecInfo from './AdditionalSpecInfoPane';
 
 
 const SpecPane = ({spec} ) => {
@@ -27,7 +28,12 @@ const SpecPane = ({spec} ) => {
                 <i className={`glyphicon ${icon_class}`} ></i>
             </td>
             <td><a href={`#${spec.id}`} data-toggle="collapse">{spec.name}</a></td>
-            <td>{spec.description}</td>
+            <td>
+                <div>
+                    {spec.description}
+                    <AdditionalSpecInfo additionalInfo={spec.additional_spec_info}/>
+                </div>
+            </td>
             <td>{spec.run_time}</td>
         </tr>
     );

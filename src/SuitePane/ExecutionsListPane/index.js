@@ -4,6 +4,16 @@ import groupBy from 'lodash.groupby';
 
 
 const ExecutionsListPane = ({specs, filter}) => {
+    console.log("Specs are", specs)
+    if(Object.keys(specs).length === 0){
+        return(
+            <div>
+                <h1>No data found</h1>
+                <label>Check data and selected suite and build</label>
+            </div>
+
+        )
+    }
     const byFeature = groupBy(specs, (x) => x[filter]);
     return(
         <div>
