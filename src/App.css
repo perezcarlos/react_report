@@ -86,13 +86,27 @@ pre.additional-info {
   text-align: left;
 }
 
-pre.additional-info.collapse.in, pre.additional-info.collapsing{
+pre.additional-info.collapse.in, pre.additional-info.collapsing {
   display: inline-block;
   float: left;
   margin-right: 100%;
 }
 
-label {
+.filter-selector-pane {
+  text-align: left;
+  margin-top: 1%;
+}
+
+.filter-selector {
+  margin-right: 100%;
+  display: inline;
+}
+
+.filter-selector button:focus {
+  color: #6f6f6f;
+}
+
+td label {
   cursor: pointer;
 }
 

@@ -1,14 +1,16 @@
 import React from 'react';
-import Feature from './FeaturePane'
+import Feature from './FeaturePane';
+import groupBy from 'lodash.groupby';
 
 
-const FeatureListPane = ({features}) => {
+const ExecutionsListPane = ({specs, filter}) => {
+    const byFeature = groupBy(specs, (x) => x[filter]);
     return(
         <div>
             {
-                Object.keys(features).map((key) => {
+                Object.keys(byFeature).map((key) => {
                     return(
-                        <Feature key={key} specs={features[key]} id={key} />
+                        <Feature key={key} specs={byFeature[key]} id={key} />
                     )
                 })
             }
@@ -16,4 +18,4 @@ const FeatureListPane = ({features}) => {
     );
 };
 
-export default FeatureListPane;
+export default ExecutionsListPane;

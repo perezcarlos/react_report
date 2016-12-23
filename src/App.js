@@ -12,15 +12,21 @@ class App extends Component {
       suites: null,
       suite: null,
       buildSelection: null,
-      additional_info: null
+      additional_info: null,
+      filter: 'feature'
     };
     this.onSelect = this.onSelect.bind(this)
+    this.onFilterChange = this.onFilterChange.bind(this)
   }
 
   componentDidMount() {
     this.props.database.ref('/').once('value', (snapshot) => {
       this.setState ({suites: snapshot.val()});
     });
+  }
+
+  onFilterChange(value) {
+    this.setState({filter: value})
   }
 
   onSelect(buildSelection) {
@@ -63,7 +69,12 @@ class App extends Component {
         return (
             <div className='App'>
               <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
-              <SuitePane suite={{suite: this.state.suite}} additionalInfo={this.state.additional_info} />
+              <SuitePane
+                  suite={{suite: this.state.suite}}
+                  additionalInfo={this.state.additional_info}
+                  onFilterChange={this.onFilterChange}
+                  filter={this.state.filter}
+              />
             </div>
         );
       }
