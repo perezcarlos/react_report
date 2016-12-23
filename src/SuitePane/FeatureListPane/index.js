@@ -3,9 +3,8 @@ import Feature from './FeaturePane';
 import groupBy from 'lodash.groupby';
 
 
-const FeatureListPane = ({specs, filter}) => {
+const ExecutionsListPane = ({specs, filter}) => {
     const byFeature = groupBy(specs, (x) => x[filter]);
-    console.log(byFeature)
     return(
         <div>
             {
@@ -19,4 +18,4 @@ const FeatureListPane = ({specs, filter}) => {
     );
 };
 
-export default FeatureListPane;
+export default ExecutionsListPane;
