@@ -3,6 +3,7 @@ import uuid from 'uuid';
 import Exception from './Exception';
 import Backtrace from './Bactrace';
 import Attachment from './Attachment';
+import ConsoleOutput from './ConsoleOutputPane'
 
 
 const ExpectationPane = ({expectation} ) => {
@@ -23,6 +24,7 @@ const ExpectationPane = ({expectation} ) => {
             return(
                 <div className={`alert alert-${expectation_class}`}>
                     <label data-toggle="collapse" href={`#${attachmentId}`}>{expectation.description}</label>
+                    <ConsoleOutput consoleOutput={expectation.console_output}/>
                     <Attachment key={attachmentId} attachment={expectation.remote_attachment} id={attachmentId}/>
                 </div>
             );
@@ -32,6 +34,7 @@ const ExpectationPane = ({expectation} ) => {
             return(
                 <div className={`alert alert-${expectation_class}`}>
                     <label data-toggle="collapse" href={`#${attachmentId}`}>{expectation.description}</label>
+                    <ConsoleOutput consoleOutput={expectation.console_output}/>
                     <Exception key={backtraceId} exception={expectation.exception} id={backtraceId}/>
                     <Backtrace key={`${backtraceId}-2`} backtrace={expectation.exception_backtrace} id={backtraceId}/>
                     <Attachment key={attachmentId} attachment={expectation.remote_attachment} id={attachmentId}/>

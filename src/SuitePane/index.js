@@ -1,5 +1,5 @@
 import React from 'react';
-import ExecutionsList from './FeatureListPane';
+import ExecutionsList from './ExecutionsListPane';
 import AdditionalInfo from './AdditionalInfoPane';
 import SuiteHeader from './SuiteHeaderPane';
 import FilterSelector from './FilterSelectorPane';

@@ -81,6 +81,18 @@ tbody {
   margin-bottom: 1px;
 }
 
+.console-output {
+  display: inline;
+}
+
+.console-output pre {
+  max-width: 700px;
+}
+
+.console-output a {
+  float: right;
+}
+
 pre.additional-info {
   max-width: 40%;
   text-align: left;
