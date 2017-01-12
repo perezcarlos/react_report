@@ -64,7 +64,7 @@ class SuiteSelectorPane extends Component {
             <select value={this.state.selectedBuild} onChange={this.onSelectBuild}>
                 <option disabled={true} value={-1}> -- select a build -- </option>
                 {
-                    builds.map((buildName, index)=>{
+                    builds.reverse().map((buildName, index)=>{
                         return(
                             <option key={index} name={buildName}>
                                 {buildName}

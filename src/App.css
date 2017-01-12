@@ -119,6 +119,7 @@ pre.additional-info.collapse.in, pre.additional-info.collapsing {
 .filter-selector-pane {
   text-align: left;
   margin-top: 1%;
+  padding-bottom: 20px;
 }
 
 .filter-selector {
