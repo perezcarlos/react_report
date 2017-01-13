@@ -26,6 +26,7 @@ class App extends Component {
   }
 
   onFilterChange(value) {
+    console.log(value);
     this.setState({filter: value})
   }
 

@@ -4,7 +4,6 @@ import groupBy from 'lodash.groupby';
 
 
 const ExecutionsListPane = ({specs, filter}) => {
-    console.log("Specs are", specs)
     if(Object.keys(specs).length === 0){
         return(
             <div>

@@ -127,8 +127,8 @@ pre.additional-info.collapse.in, pre.additional-info.collapsing {
   display: inline;
 }
 
-.filter-selector button:focus {
-  color: #6f6f6f;
+.filter-selector .selected {
+  background: gainsboro;
 }
 
 td label {
