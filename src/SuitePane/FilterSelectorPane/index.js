@@ -32,8 +32,7 @@ class FilterSelectorPane extends Component {
     }
 
     onSelectFilter (event){
-        console.log(event.target);
-        this.setState({selectedFilter: event.target.textContent}, () => {
+        this.setState({selectedFilter: event.target.value}, () => {
             this.props.onChange(this.state.selectedFilter)
         })
     }
@@ -41,11 +40,11 @@ class FilterSelectorPane extends Component {
     renderFilter(filter, key) {
         if(this.state.selectedFilter === filter){
             return(
-                <button key={key} type="button" className="btn btn-default selected" onClick={this.onSelectFilter}>{filter}</button>
+                <button key={key} value={filter} type="button" className="btn btn-default selected" onClick={this.onSelectFilter}>{filter}</button>
             )
         }
         return(
-            <button key={key} type="button" className="btn btn-default" onClick={this.onSelectFilter}>{filter}</button>
+            <button key={key} value={filter} type="button" className="btn btn-default" onClick={this.onSelectFilter}>{filter}</button>
         )
     }
 

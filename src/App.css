@@ -127,6 +127,10 @@ pre.additional-info.collapse.in, pre.additional-info.collapsing {
   display: inline;
 }
 
+.filter-selector button {
+  text-transform: capitalize;
+}
+
 .filter-selector .selected {
   background: gainsboro;
 }
