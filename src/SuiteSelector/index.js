@@ -67,7 +67,7 @@ class SuiteSelectorPane extends Component {
                     Object.keys(suites).reverse().map((key) => {
                         var option_string = '';
                         if (suites[key].additional_info.environment) {
-                            const environment = suites[key].additional_info.environment.split('.')[0].split('//')[1] || '';
+                            const environment = suites[key].additional_info.environment.split('.staging')[0].split('//')[1] || '';
                             option_string = `${key} => ${environment}`
                         }
                         else {
