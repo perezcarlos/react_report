@@ -65,12 +65,13 @@ class SuiteSelectorPane extends Component {
                 <option disabled={true} value={-1}> -- select a build --</option>
                 {
                     Object.keys(suites).reverse().map((key) => {
+                        var option_string = '';
                         if (suites[key].additional_info.environment) {
                             const environment = suites[key].additional_info.environment.split('.')[0].split('//')[1] || '';
-                            var option_string = `${key} => ${environment}`
+                            option_string = `${key} => ${environment}`
                         }
                         else {
-                            var option_string = key
+                            option_string = key
                         }
                         return (
                             <option key={key} name={key} value={key}>
