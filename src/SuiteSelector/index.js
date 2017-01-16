@@ -17,7 +17,7 @@ class SuiteSelectorPane extends Component {
 
     render () {
         const suite = this.props.suites[this.state.selectedSuite] || {};
-        const executions = Object.keys(suite) || {};
+        const executions = suite || {};
         return (
             <div className="selectors">
                 {this.renderSuites(Object.keys(this.props.suites))}
@@ -53,25 +53,33 @@ class SuiteSelectorPane extends Component {
         )
     }
 
-    renderBuilds (builds) {
-        if(!builds){
-            return(
+    renderBuilds (suites) {
+        if (!suites) {
+            return (
                 <select disabled={true}>
                 </select>
             )
         }
         return(
             <select value={this.state.selectedBuild} onChange={this.onSelectBuild}>
-                <option disabled={true} value={-1}> -- select a build -- </option>
+                <option disabled={true} value={-1}> -- select a build --</option>
                 {
-                    builds.reverse().map((buildName, index)=>{
-                        return(
-                            <option key={index} name={buildName}>
-                                {buildName}
+                    Object.keys(suites).reverse().map((key) => {
+                        if (suites[key].additional_info.environment) {
+                            const environment = suites[key].additional_info.environment.split('.')[0].split('//')[1] || '';
+                            var option_string = `${key} => ${environment}`
+                        }
+                        else {
+                            var option_string = key
+                        }
+                        return (
+                            <option key={key} name={key} value={key}>
+                                {option_string}
                             </option>
                         )
                     })
                 }
+            )
             </select>
         )
     }
