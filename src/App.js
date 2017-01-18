@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
+import loading from './Images/loading.gif'
 import SuitePane from './SuitePane';
 import SuiteSelectorPane from './SuiteSelector';
 import './App.css';
@@ -52,6 +53,7 @@ class App extends Component {
     if(!this.state.suites){
       return(
         <div className="no-suites-found">
+          <img src={loading} alt=""/>
           <h1>Looking for saved executions</h1>
         </div>
       );

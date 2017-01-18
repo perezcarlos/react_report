@@ -51,6 +51,16 @@ tbody {
   margin-left: -100px;
 }
 
+.no-suites-found img {
+  width: 30%;
+  float: left;
+}
+
+.status-image {
+  width: 40px;
+  float: left;
+}
+
 .no-suite-loaded .selectors{
   text-align: center;
   margin: 0;
