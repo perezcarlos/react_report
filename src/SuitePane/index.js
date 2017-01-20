@@ -11,33 +11,23 @@ import uuid from 'uuid';
 
 const SuitePane = ({suite, additionalInfo, onFilterChange, filter}) => {
 
-    var status = 'passed';
+    var statuses = [];
 
     Object.values(suite).find((specs) => {
         Object.values(specs).forEach((spec) => {
-            if (spec.status === 'pending'){
-                status = 'pending';
-            }
-            else{
-                if (spec.status === 'failed'){
-                    status = 'failed';
-                }
-            }
+            statuses.push(spec.status)
         });
         return status;
     });
 
     var status_image = null;
 
-    switch (status) {
-        case 'passed':
-            status_image = passed;
-            break;
-        case 'failed':
-            status_image = failed;
-            break;
-        default:
-            status_image = pending;
+    if (statuses.some((status) => { return status === 'pending'})) {
+        status_image = pending;
+    } else if (statuses.some((status) => {return status === 'failed'})) {
+        status_image = failed;
+    } else {
+        status_image = passed;
     }
 
     const additionalId = `additional-${uuid()}`;
