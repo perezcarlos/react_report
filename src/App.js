@@ -16,14 +16,33 @@ class App extends Component {
       additional_info: null,
       filter: 'feature'
     };
-    this.onSelect = this.onSelect.bind(this)
-    this.onFilterChange = this.onFilterChange.bind(this)
+    this.onSelect = this.onSelect.bind(this);
+    this.onFilterChange = this.onFilterChange.bind(this);
   }
 
   componentDidMount() {
-    this.props.database.ref('/').once('value', (snapshot) => {
-      this.setState ({suites: snapshot.val()});
-    });
+
+    const regexp = /suite\/(\w*)\/build\/(\d*)/;
+
+    if (regexp.test(window.location.href)){
+      var found = regexp.exec(window.location.href);
+
+      this.props.database.ref(`/${found[1]}/${found[2]}`).on('value', (snapshot) => {
+        this.setState ({
+          suites: {loading: 'loading'},
+          suite: snapshot.val().executions || {},
+          additional_info: snapshot.val().additional_info
+        });
+      });
+
+      this.props.database.ref('/').once('value', (snapshot) => {
+        this.setState ({suites: snapshot.val()});
+      });
+    } else {
+      this.props.database.ref('/').once('value', (snapshot) => {
+        this.setState ({suites: snapshot.val()});
+      });
+    }
   }
 
   onFilterChange(value) {
@@ -34,6 +53,8 @@ class App extends Component {
     if (this.state.buildSelection) {
       this.props.database.ref(`/${this.state.buildSelection.selectedSuite}/${this.state.buildSelection.selectedBuild}/executions`).off()
     }
+
+    location.replace(`/suite/${buildSelection.selectedSuite}/build/${buildSelection.selectedBuild}`);
 
     this.props.database.ref(`/${buildSelection.selectedSuite}/${buildSelection.selectedBuild}/executions`).on('value', (snapshot) => {
       this.setState ({
