@@ -1,33 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import firebase from 'firebase';
-import App from './App';
+import App from './Modules/App';
 import './index.css';
+import { Router, Route, hashHistory } from 'react-router'
+import SuitePaneRoute from './Modules/SuitePaneRoute/index'
 
+const NoMatch = () => <p>:(</p>;
 
-var credentials = require('./credentials.json');
-var firebase_credentials = credentials.firebase;
-
-function initializeFirebase() {
-// Initialize Firebase
-
-    var config = {
-        apiKey: firebase_credentials.apiKey,
-        authDomain: firebase_credentials.authDomain,
-        databaseURL: firebase_credentials.databaseURL
-    };
-
-    firebase.initializeApp(config);
-}
-
-function getFirebaseData() {
-    var database = firebase.database();
-
-    ReactDOM.render(
-        <App database={database} />,
-        document.getElementById('root')
-    );
-}
-
-initializeFirebase();
-getFirebaseData();
+ReactDOM.render((
+    <Router history={hashHistory} >
+        <Route path="/" component={App} >
+            <Route path="/suite/:selectedSuite/build/:selectedBuild" component={SuitePaneRoute} />
+            <Route path="*" component={NoMatch}/>
+        </Route>
+    </Router>
+),document.getElementById('root'));

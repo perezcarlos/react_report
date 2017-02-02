@@ -1,11 +1,11 @@
 import React from 'react';
-import ExecutionsList from './ExecutionsListPane';
-import AdditionalInfo from './AdditionalInfoPane';
-import SuiteHeader from './SuiteHeaderPane';
-import FilterSelector from './FilterSelectorPane';
-import passed from '../Images/passed.png'
-import failed from '../Images/failed.png'
-import pending from '../Images/pending.gif'
+import ExecutionsList from './ExecutionsListPane/index';
+import AdditionalInfo from './AdditionalInfoPane/index';
+import SuiteHeader from './SuiteHeaderPane/index';
+import FilterSelector from './FilterSelectorPane/index';
+import passed from '../../../Images/passed.png'
+import failed from '../../../Images/failed.png'
+import pending from '../../../Images/pending.gif'
 import uuid from 'uuid';
 
 
