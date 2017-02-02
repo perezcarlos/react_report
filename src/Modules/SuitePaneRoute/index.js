@@ -15,20 +15,23 @@ class SuitePaneRoute extends Component {
             filter: this.props.location.query.filter
         };
         this.onFilterChange = this.onFilterChange.bind(this);
+        this.getBuildData = this.getBuildData.bind(this);
     }
 
     componentDidMount() {
-        database.ref(`/${this.props.params.selectedSuite}/${this.props.params.selectedBuild}/executions`).on('value', (snapshot) => {
-            this.setState ({
-                suite: snapshot.val() || {}
-            });
-        });
+        this.getBuildData()
+    }
 
-        database.ref(`/${this.props.params.selectedSuite}/${this.props.params.selectedBuild}/additional_info`).once('value', (snapshot) => {
-            this.setState ({
-                additional_info: snapshot.val() || {}
-            });
-        });
+    componentDidUpdate(prevProps) {
+        const prevSelectedSuite = prevProps.params.selectedSuite;
+        const prevSelectedBuild = prevProps.params.selectedBuild;
+
+        const newSelectedSuite = this.props.params.selectedSuite;
+        const newSelectedBuild = this.props.params.selectedBuild;
+
+        if (prevSelectedSuite !== newSelectedSuite || prevSelectedBuild !== newSelectedBuild) {
+            this.getBuildData()
+        }
     }
 
     onFilterChange(value) {
@@ -38,6 +41,15 @@ class SuitePaneRoute extends Component {
             const path = `${this.props.location.pathname}?filter=${value}`;
             hashHistory.push(path);
         })
+    }
+
+    getBuildData() {
+        database.ref(`/${this.props.params.selectedSuite}/${this.props.params.selectedBuild}/`).on('value', (snapshot) => {
+            this.setState ({
+                suite: snapshot.val().executions || {},
+                additional_info: snapshot.val().additional_info
+            });
+        });
     }
 
     render() {
