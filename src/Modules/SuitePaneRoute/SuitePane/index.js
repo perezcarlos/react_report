@@ -40,7 +40,7 @@ const SuitePane = ({suite, additionalInfo, onFilterChange, filter}) => {
                             <img className="status-image" src={status_image} alt="" />
                             <SuiteHeader additionalInfo={additionalInfo} id={additionalId}/>
                             <AdditionalInfo additionalInfo={additionalInfo} id={additionalId}/>
-                            <FilterSelector onChange={onFilterChange} />
+                            <FilterSelector onChange={onFilterChange} filter={filter} />
                             <ExecutionsList specs={suite[key]} filter={filter} class="executions"/>
                         </div>
                     );

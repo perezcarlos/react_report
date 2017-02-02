@@ -7,7 +7,7 @@ class FilterSelectorPane extends Component {
 
         this.state = {
             filters: ['feature', 'status'],
-            selectedFilter: 'feature'
+            selectedFilter: this.props.filter
         };
 
         this.onSelectFilter=this.onSelectFilter.bind(this);
