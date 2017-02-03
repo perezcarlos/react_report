@@ -54,7 +54,6 @@ class SuitePaneRoute extends Component {
 
     render() {
         if (this.state.suite) {
-            console.log(this.state.suite);
             return (
                 <SuitePane
                     suite={{suite: this.state.suite}}
