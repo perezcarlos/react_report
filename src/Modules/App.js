@@ -45,7 +45,7 @@ class App extends Component {
       buildSelection: buildSelection,
       suite_loaded: true
     }, () => {
-      const filter = this.props.location.query.filter || 'feature';
+      const filter = this.props.location.query.filter || 'status';
       const path = `/suite/${this.state.buildSelection.selectedSuite}/build/${this.state.buildSelection.selectedBuild}?filter=${filter}`;
       hashHistory.push(path);
     });

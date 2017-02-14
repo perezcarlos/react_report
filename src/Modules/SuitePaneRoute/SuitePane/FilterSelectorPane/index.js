@@ -6,7 +6,7 @@ class FilterSelectorPane extends Component {
         super(props);
 
         this.state = {
-            filters: ['feature', 'status'],
+            filters: ['status', 'feature'],
             selectedFilter: this.props.filter
         };
 
