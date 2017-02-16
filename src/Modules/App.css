@@ -126,6 +126,11 @@ pre.additional-info.collapse.in, pre.additional-info.collapsing {
   margin-right: 100%;
 }
 
+.console-output pre p {
+  width: 685px;
+  white-space: pre-wrap;
+}
+
 .filter-selector-pane {
   text-align: left;
   margin-top: 1%;
