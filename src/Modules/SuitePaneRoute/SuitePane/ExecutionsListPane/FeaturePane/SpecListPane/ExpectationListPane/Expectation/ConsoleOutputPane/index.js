@@ -20,7 +20,7 @@ const ConsoleOutputPane = ({consoleOutput}) => {
                                     Object.keys(output).map((key) => {
                                         return(
                                             <p key={key}>
-                                            <b>{key}</b>{`:\n${output[key]}`}
+                                            <b>{key}</b>{`:\n${JSON.stringify(output[key])}`}
                                             </p>
                                         )
                                     })
