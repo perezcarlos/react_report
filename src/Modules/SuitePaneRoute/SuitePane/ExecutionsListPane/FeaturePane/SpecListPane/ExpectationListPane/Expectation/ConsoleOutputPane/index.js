@@ -8,7 +8,7 @@ const ConsoleOutputPane = ({consoleOutput}) => {
                     <a disabled="disabled" href="#">Console output</a>
                 </div>
             );
-        } else {
+        } else if (typeof consoleOutput === 'object') {
             const id = uuid();
             return(
                 <div className="console-output">
@@ -28,6 +28,14 @@ const ConsoleOutputPane = ({consoleOutput}) => {
                             })
                         }
                     </pre>
+                </div>
+            )
+        } else {
+            const id = uuid();
+            return(
+                <div className="console-output">
+                    <a data-toggle="collapse" href={`#${id}`}>Console output</a>
+                    <pre className="collapse" id={id}>{consoleOutput}</pre>
                 </div>
             )
         }
