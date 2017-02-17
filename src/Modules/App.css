@@ -112,7 +112,7 @@ a[disabled] {
 }
 
 .console-output pre p {
-  width: 685px;
+  width: 99%;
   white-space: pre-wrap;
 }
 
