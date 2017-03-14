@@ -3,7 +3,7 @@ import Spec from './SpecPane';
 import ExpectationList from './ExpectationListPane';
 import uuid from 'uuid';
 
-const SpecListPane = ({specs} ) => {
+const SpecListPane = ({specs, onValidate} ) => {
     const specRows = Object.values(specs).reduce((memo, item) => {
         const id = `test-${uuid()}`;
         memo.push({
@@ -20,6 +20,7 @@ const SpecListPane = ({specs} ) => {
         <table className="table table-striped">
             <thead>
             <tr>
+                <th>Validated</th>
                 <th>Status</th>
                 <th>Spec</th>
                 <th>Describe</th>
@@ -31,7 +32,7 @@ const SpecListPane = ({specs} ) => {
                 specRows.map((item, index) => {
                     if (index % 2 === 0) {
                         return(
-                            <Spec key={`${item.id}-foobar`} spec={item} />
+                            <Spec key={`${item.id}-foobar`} spec={item} onValidate={onValidate} />
                         );
                     } else {
                         return (

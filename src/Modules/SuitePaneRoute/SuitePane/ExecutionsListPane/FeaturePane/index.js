@@ -2,7 +2,7 @@ import React from 'react';
 import SpecList from './SpecListPane';
 
 
-const FeaturePane = ({specs, id} ) => {
+const FeaturePane = ({specs, id, onValidate} ) => {
     return(
         <div>
             <div key={id}>
@@ -10,7 +10,7 @@ const FeaturePane = ({specs, id} ) => {
                     <h2>{id}</h2>
                     <label>Specs {Object.values(specs).length}</label>
                 </div>
-                <SpecList key={id} specs={specs} />
+                <SpecList key={id} specs={specs} onValidate={onValidate} />
             </div>
         </div>
     )

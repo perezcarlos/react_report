@@ -3,7 +3,7 @@ import Feature from './FeaturePane';
 import groupBy from 'lodash.groupby';
 
 
-const ExecutionsListPane = ({specs, filter}) => {
+const ExecutionsListPane = ({specs, filter, onValidate}) => {
     if(Object.keys(specs).length === 0){
         return(
             <div>
@@ -19,7 +19,12 @@ const ExecutionsListPane = ({specs, filter}) => {
             {
                 Object.keys(byFeature).map((key) => {
                     return(
-                        <Feature key={key} specs={byFeature[key]} id={key} />
+                        <Feature
+                            key={key}
+                            specs={byFeature[key]}
+                            id={key}
+                            onValidate={onValidate}
+                        />
                     )
                 })
             }

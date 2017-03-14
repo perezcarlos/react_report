@@ -1,14 +1,15 @@
 import React from 'react';
 import AdditionalSpecInfo from './AdditionalSpecInfoPane';
+import Validated from './ValidatedPane'
 
 
-const SpecPane = ({spec} ) => {
+const SpecPane = ({spec, onValidate}) => {
     var icon_class;
     var class_name;
     switch (spec.status) {
         case "failed":
             icon_class = "glyphicon-remove";
-            class_name = "warning";
+            class_name = "failed";
             break;
         case "passed":
             icon_class = "glyphicon-ok";
@@ -20,11 +21,14 @@ const SpecPane = ({spec} ) => {
             break;
         default:
             icon_class = "glyphicon-alert";
-            class_name = "danger";
+            class_name = "warning";
     }
     return(
         <tr>
-            <td className={`status-${class_name} text-center`}>
+            <td className="validated">
+                <Validated spec={spec} onValidate={onValidate} />
+            </td>
+            <td className={`status status-${class_name} text-center`}>
                 <i className={`glyphicon ${icon_class}`} ></i>
             </td>
             <td><a href={`#${spec.id}`} data-toggle="collapse">{spec.name}</a></td>
