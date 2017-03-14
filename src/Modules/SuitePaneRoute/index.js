@@ -16,6 +16,7 @@ class SuitePaneRoute extends Component {
         };
         this.onFilterChange = this.onFilterChange.bind(this);
         this.getBuildData = this.getBuildData.bind(this);
+        this.onValidate = this.onValidate.bind(this);
     }
 
     componentDidMount() {
@@ -52,6 +53,14 @@ class SuitePaneRoute extends Component {
         });
     }
 
+    onValidate(value) {
+        const status = value.validated ? 'warning' : 'failed';
+        database.ref(`/${this.props.params.selectedSuite}/${this.props.params.selectedBuild}/executions/${value.specName}`).update({
+            validated: value.validated,
+            status: status
+        })
+    }
+
     render() {
         if (this.state.suite) {
             return (
@@ -59,6 +68,7 @@ class SuitePaneRoute extends Component {
                     suite={{suite: this.state.suite}}
                     additionalInfo={this.state.additional_info}
                     onFilterChange={this.onFilterChange}
+                    onValidate={this.onValidate}
                     filter={this.state.filter}
                 />
             )

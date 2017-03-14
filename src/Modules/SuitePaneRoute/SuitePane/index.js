@@ -9,7 +9,7 @@ import pending from '../../../Images/pending.gif'
 import uuid from 'uuid';
 
 
-const SuitePane = ({suite, additionalInfo, onFilterChange, filter}) => {
+const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) => {
 
     var statuses = [];
 
@@ -41,7 +41,12 @@ const SuitePane = ({suite, additionalInfo, onFilterChange, filter}) => {
                             <SuiteHeader additionalInfo={additionalInfo} id={additionalId}/>
                             <AdditionalInfo additionalInfo={additionalInfo} id={additionalId}/>
                             <FilterSelector onChange={onFilterChange} filter={filter} />
-                            <ExecutionsList specs={suite[key]} filter={filter} class="executions"/>
+                            <ExecutionsList
+                                specs={suite[key]}
+                                filter={filter}
+                                className="executions"
+                                onValidate={onValidate}
+                            />
                         </div>
                     );
                 })

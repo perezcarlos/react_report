@@ -31,8 +31,8 @@ tbody {
   color: #67b168;
 }
 
-.status-danger i {
-  color: #d9534f;
+.status-failed i {
+  color: #b64743;
 }
 
 .status-warning i {
@@ -64,6 +64,11 @@ tbody {
 .no-suite-loaded .selectors{
   text-align: center;
   margin: 0;
+}
+
+.validated, .status {
+  text-align: center;
+  width: 2px;
 }
 
 .selectors {
