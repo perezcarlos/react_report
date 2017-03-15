@@ -54,11 +54,23 @@ class SuitePaneRoute extends Component {
     }
 
     onValidate(value) {
-        const status = value.validated ? 'warning' : 'failed';
-        database.ref(`/${this.props.params.selectedSuite}/${this.props.params.selectedBuild}/executions/${value.specName}`).update({
-            validated: value.validated,
-            status: status
-        })
+        var spec_found = null;
+
+        database.ref(`/${this.props.params.selectedSuite}/${this.props.params.selectedBuild}/executions/${value.specName}`).once('value', (snaphot) => {
+            spec_found = snaphot.val();
+            console.log(spec_found);
+        });
+
+        if (spec_found) {
+            const status = value.validated ? 'warning' : 'failed';
+            database.ref(`/${this.props.params.selectedSuite}/${this.props.params.selectedBuild}/executions/${value.specName}`).update({
+                validated: value.validated,
+                status: status
+            })
+        }
+        else {
+            return null
+        }
     }
 
     render() {
