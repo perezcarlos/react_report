@@ -5,6 +5,7 @@ import SuiteHeader from './SuiteHeaderPane/index';
 import FilterSelector from './FilterSelectorPane/index';
 import passed from '../../../Images/passed.png'
 import failed from '../../../Images/failed.png'
+import warning from '../../../Images/warning.png'
 import pending from '../../../Images/pending.gif'
 import uuid from 'uuid';
 
@@ -26,6 +27,8 @@ const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) 
         status_image = pending;
     } else if (statuses.some((status) => {return status === 'failed'})) {
         status_image = failed;
+    } else if (statuses.some((status) => {return status === 'warning'})) {
+        status_image = warning;
     } else {
         status_image = passed;
     }
