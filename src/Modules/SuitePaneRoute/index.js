@@ -58,7 +58,6 @@ class SuitePaneRoute extends Component {
 
         database.ref(`/${this.props.params.selectedSuite}/${this.props.params.selectedBuild}/executions/${value.specName}`).once('value', (snaphot) => {
             spec_found = snaphot.val();
-            console.log(spec_found);
         });
 
         if (spec_found) {
