@@ -27,6 +27,11 @@ tbody {
   text-align: left;
 }
 
+.error {
+  padding-top: 2%;
+  color: #b64743;
+}
+
 .status-success i {
   color: #67b168;
 }
@@ -152,7 +157,27 @@ pre.additional-info.collapse.in, pre.additional-info.collapsing {
 }
 
 .filter-selector .selected {
-  background: gainsboro;
+  background: #cbcbcb;
+}
+
+.filter-selector .btn-group {
+  display: inline-flex;
+  padding-right: 5px;
+}
+
+.sub-filter-selector button {
+  border: 0;
+  background: inherit;
+  width: 100%;
+}
+
+.sub-filter-selector {
+  max-height: 470px;
+  overflow: scroll;
+}
+
+.sub-filter-selector li {
+  padding-bottom: 5px;
 }
 
 td label {

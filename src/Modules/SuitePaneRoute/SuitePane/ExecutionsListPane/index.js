@@ -13,23 +13,44 @@ const ExecutionsListPane = ({specs, filter, onValidate}) => {
 
         )
     }
-    const byFeature = groupBy(specs, (x) => x[filter]);
-    return(
-        <div>
-            {
-                Object.keys(byFeature).map((key) => {
-                    return(
-                        <Feature
-                            key={key}
-                            specs={byFeature[key]}
-                            id={key}
-                            onValidate={onValidate}
-                        />
-                    )
-                })
-            }
-        </div>
-    );
+    const byFeature = groupBy(specs, (x) => x[filter.filter]);
+    if(filter.subFilter === 'all'){
+        return(
+            <div>
+                {
+                    Object.keys(byFeature).map((key) => {
+                        return(
+                            <Feature
+                                key={key}
+                                specs={byFeature[key]}
+                                id={key}
+                                onValidate={onValidate}
+                            />
+                        )
+                    })
+                }
+            </div>
+        )
+    } else if(JSON.stringify(Object.keys(byFeature)).indexOf(filter.subFilter) === -1) {
+        const error_text = `Subfilter [${filter.subFilter}] is not found for this build`;
+        console.error(error_text);
+        return (
+            <div className="error">
+                <p>{`Subfilter [${filter.subFilter}] is not found for this build.`}</p>
+                <p>Please select another subfilter</p>
+            </div>
+        )
+    }
+    else {
+        return(
+            <Feature
+                key={filter.subFilter}
+                specs={byFeature[filter.subFilter]}
+                id={filter.subFilter}
+                onValidate={onValidate}
+            />
+        )
+    }
 };
 
 export default ExecutionsListPane;
