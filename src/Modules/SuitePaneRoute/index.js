@@ -9,10 +9,16 @@ class SuitePaneRoute extends Component {
     constructor(props){
         super(props);
 
+        const fullFilter = this.props.location.query.filter ? this.props.location.query.filter.split("-") : [null, null];
+        const filter = {
+            filter: fullFilter[0] || 'status',
+            subFilter: fullFilter[1] || 'all'
+        };
+
         this.state = {
             suite: null,
             additional_info: null,
-            filter: this.props.location.query.filter
+            filter: filter
         };
         this.onFilterChange = this.onFilterChange.bind(this);
         this.getBuildData = this.getBuildData.bind(this);
@@ -39,7 +45,7 @@ class SuitePaneRoute extends Component {
         this.setState ({
             filter: value
         }, () => {
-            const path = `${this.props.location.pathname}?filter=${value}`;
+            const path = `${this.props.location.pathname}?filter=${value.filter}-${value.subFilter}`;
             hashHistory.push(path);
         })
     }

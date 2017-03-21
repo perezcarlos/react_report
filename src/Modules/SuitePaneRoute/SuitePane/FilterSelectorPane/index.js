@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import groupBy from 'lodash.groupby';
 
 
 class FilterSelectorPane extends Component {
@@ -12,6 +13,18 @@ class FilterSelectorPane extends Component {
 
         this.onSelectFilter=this.onSelectFilter.bind(this);
         this.renderFilter=this.renderFilter.bind(this);
+        this.renderSubFilter=this.renderSubFilter.bind(this);
+        this.getSubFilters=this.getSubFilters.bind(this);
+        this.getFilterButtonClass=this.getFilterButtonClass.bind(this);
+    }
+
+    getSubFilters(filter) {
+        const byFeature = groupBy(this.props.specs, (x) => x[filter]);
+        if(!byFeature){
+            return null
+        } else {
+            return Object.keys(byFeature)
+        }
     }
 
     render() {
@@ -32,22 +45,79 @@ class FilterSelectorPane extends Component {
     }
 
     onSelectFilter (event){
-        this.setState({selectedFilter: event.target.value}, () => {
-            this.props.onChange(this.state.selectedFilter)
-        })
-    }
-
-    renderFilter(filter, key) {
-        if(this.state.selectedFilter === filter){
-            return(
-                <button key={key} value={filter} type="button" className="btn btn-default selected" onClick={this.onSelectFilter}>{filter}</button>
-            )
-        }
-        return(
-            <button key={key} value={filter} type="button" className="btn btn-default" onClick={this.onSelectFilter}>{filter}</button>
+        const fullFilter = event.target.value;
+        this.setState(
+            {
+                selectedFilter:
+                    {
+                        filter: fullFilter.split("-")[0],
+                        subFilter: fullFilter.split("-")[1]
+                    }
+            }, () => {
+                this.props.onChange(this.state.selectedFilter)
+            }
         )
     }
 
+    getFilterButtonClass (filter){
+        if(this.state.selectedFilter.filter === filter){
+            return "btn btn-default selected"
+        } else {
+            return "btn btn-default"
+        }
+    }
+
+    renderFilter(filter, key) {
+        return(
+            <div key={key} className="btn-group">
+                <button
+                    key={key}
+                    value={`${filter}-all`}
+                    type="button"
+                    className={this.getFilterButtonClass(filter)}
+                    onClick={this.onSelectFilter}
+                >
+                    {filter}
+                </button>
+                {this.renderSubFilter(filter)}
+            </div>
+        )
+    }
+
+    renderSubFilter(filter){
+        return (
+            <div>
+                <button
+                    type="button"
+                    className="btn btn-default dropdown-toggle"
+                    data-toggle="dropdown"
+                >
+                    <span className="caret"></span>
+                    <span className="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul className="dropdown-menu sub-filter-selector">
+                    {
+                        this.getSubFilters(filter).map((subfilter) => {
+                            const subFilterClass = this.state.selectedFilter.subFilter === subfilter ?
+                                `${subfilter} selected` : {subfilter};
+                            return(
+                                <li key={subfilter}>
+                                    <button
+                                        key={subfilter}
+                                        value={`${filter}-${subfilter}`}
+                                        className={subFilterClass}
+                                        onClick={this.onSelectFilter}
+                                    >
+                                        {subfilter}
+                                    </button>
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+            </div>
+        )
+    }
 };
 
 export default FilterSelectorPane;
