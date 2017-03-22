@@ -32,6 +32,11 @@ tbody {
   color: #b64743;
 }
 
+.error div {
+  display: inline;
+  float: left;
+}
+
 .status-success i {
   color: #67b168;
 }

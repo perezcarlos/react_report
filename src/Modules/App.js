@@ -15,6 +15,13 @@ class App extends Component {
       buildSelection: null
     };
     this.onSelect = this.onSelect.bind(this);
+    this.loadData = this.loadData.bind(this);
+  }
+
+  loadData() {
+    database.ref('/').once('value', (snapshot) => {
+      this.setState ({suites: snapshot.val()});
+    })
   }
 
   componentDidMount() {
@@ -23,15 +30,11 @@ class App extends Component {
         suite_loaded: true,
         suites: {}
       }, () => {
-          database.ref('/').once('value', (snapshot) => {
-              this.setState ({suites: snapshot.val()});
-          })
+          this.loadData()
         }
       )
     } else {
-      database.ref('/').once('value', (snapshot) => {
-          this.setState ({suites: snapshot.val()});
-      })
+      this.loadData()
     }
 
   }

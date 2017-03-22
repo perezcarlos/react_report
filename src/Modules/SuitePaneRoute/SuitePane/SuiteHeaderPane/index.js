@@ -11,7 +11,7 @@ const SuiteHeaderPane = ({id, additionalInfo}) => {
     }
     return(
         <div className="suite-header">
-            <h1>{additionalInfo.suite}</h1>
+            <h1>{additionalInfo.suite || "ERROR"}</h1>
             <a href={`#${id}`} data-toggle="collapse">Show more info</a>
         </div>
     )
