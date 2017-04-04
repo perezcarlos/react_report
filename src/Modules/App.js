@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   loadData() {
-    database.ref('/').once('value', (snapshot) => {
+    database.ref('suites/').on('value', (snapshot) => {
       this.setState ({suites: snapshot.val()});
     })
   }
@@ -41,7 +41,7 @@ class App extends Component {
 
   onSelect(buildSelection) {
     if (this.state.buildSelection) {
-      database.ref(`/${this.state.buildSelection.selectedSuite}/${this.state.buildSelection.selectedBuild}/`).off()
+      database.ref(`builds/${this.state.buildSelection.selectedSuite}_${this.state.buildSelection.selectedBuild}/`).off()
     }
 
     this.setState ({

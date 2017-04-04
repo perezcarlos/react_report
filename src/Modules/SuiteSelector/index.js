@@ -53,8 +53,8 @@ class SuiteSelectorPane extends Component {
         )
     }
 
-    renderBuilds (suites) {
-        if (!suites) {
+    renderBuilds (suite) {
+        if (!suite.builds) {
             return (
                 <select disabled={true}>
                 </select>
@@ -64,10 +64,10 @@ class SuiteSelectorPane extends Component {
             <select value={this.state.selectedBuild} onChange={this.onSelectBuild}>
                 <option disabled={true} value={-1}> -- select a build --</option>
                 {
-                    Object.keys(suites).reverse().map((key) => {
+                    Object.keys(suite.builds).reverse().map((key) => {
                         var option_string = '';
-                        if (suites[key].additional_info.environment) {
-                            const environment = suites[key].additional_info.environment.split('.staging')[0].split('//')[1] || '';
+                        if (suite.builds[key].environment) {
+                            const environment = suite.builds[key].environment.split('.staging')[0].split('//')[1] || '';
                             option_string = `${key} => ${environment}`
                         }
                         else {
