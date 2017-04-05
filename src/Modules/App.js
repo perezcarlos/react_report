@@ -67,8 +67,8 @@ class App extends Component {
         return(
             <div className='App'>
               <div className="no-suite-loaded">
-                <h1>Select suite and build</h1>
                 <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
+                <div className="h1">Select a suite and a build</div>
               </div>
             </div>
         );

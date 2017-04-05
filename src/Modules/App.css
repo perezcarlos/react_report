@@ -92,9 +92,14 @@ tbody {
   padding: 5px;
 }
 
+.selectors button {
+  width: 100%;
+  margin: 1px;
+}
+
 .suite-pane {
   position: relative;
-  max-width: 79%;
+  max-width: 84%;
   border: solid;
   top: 5px;
 }
