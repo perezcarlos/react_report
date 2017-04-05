@@ -33,7 +33,7 @@ const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) 
     }
 
     return(
-        <div className="col-md-12">
+        <div className="suite-pane col-md-12">
             {
                 Object.keys(suite).map((key) => {
                     return(

@@ -20,6 +20,7 @@ class SuiteSelectorPane extends Component {
         const executions = suite || {};
         return (
             <div className="selectors">
+                <p className="h3">Please select a suite: </p>
                 {this.renderSuites(Object.keys(this.props.suites))}
                 {this.renderBuilds(executions)}
             </div>

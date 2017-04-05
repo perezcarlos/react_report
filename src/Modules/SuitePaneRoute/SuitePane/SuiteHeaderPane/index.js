@@ -11,7 +11,8 @@ const SuiteHeaderPane = ({additionalInfo}) => {
     }
     return(
         <div className="suite-header">
-            <h1>{additionalInfo.suite || "ERROR"}</h1>
+            <span className="suite-title h1">{additionalInfo.suite || "ERROR"}</span>
+            <span className="build-number h4">{`\t#${additionalInfo.build}`}</span>
         </div>
     )
 };

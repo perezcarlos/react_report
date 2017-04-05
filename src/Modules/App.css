@@ -84,8 +84,19 @@ tbody {
 .selectors {
   position: relative;
   top: 5px;
-  text-align: right;
-  margin-right: 5%;
+  text-align: left;
+  float: left;
+  width: 15%;
+  border: solid;
+  margin-left: 5px;
+  padding: 5px;
+}
+
+.suite-pane {
+  position: relative;
+  max-width: 79%;
+  border: solid;
+  top: 5px;
 }
 
 .additional-build-info {
@@ -98,6 +109,7 @@ tbody {
 
 .suite-header {
   text-align: left;
+  margin-top: 1%;
 }
 
 .feature-name label {
