@@ -88,6 +88,10 @@ tbody {
   margin-right: 5%;
 }
 
+.additional-build-info {
+  text-align: left;
+}
+
 .modal-dialog{
   width: 80%;
 }

@@ -7,7 +7,6 @@ import passed from '../../../Images/passed.png'
 import failed from '../../../Images/failed.png'
 import warning from '../../../Images/warning.png'
 import pending from '../../../Images/pending.gif'
-import uuid from 'uuid';
 
 
 const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) => {
@@ -33,7 +32,6 @@ const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) 
         status_image = passed;
     }
 
-    const additionalId = `additional-${uuid()}`;
     return(
         <div className="col-md-12">
             {
@@ -41,8 +39,8 @@ const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) 
                     return(
                         <div key={key} id={key}>
                             <img className="status-image" src={status_image} alt="" />
-                            <SuiteHeader additionalInfo={additionalInfo} id={additionalId}/>
-                            <AdditionalInfo additionalInfo={additionalInfo} id={additionalId}/>
+                            <SuiteHeader additionalInfo={additionalInfo}/>
+                            <AdditionalInfo additionalInfo={additionalInfo}/>
                             <FilterSelector
                                 onChange={onFilterChange}
                                 filter={filter}
