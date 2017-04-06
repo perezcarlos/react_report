@@ -99,7 +99,12 @@ class SuiteSelectorPane extends Component {
                             option_string = key
                         }
                         return (
-                            <button key={key} value={key} onClick={this.onSelectBuild}>
+                            <button
+                                key={key}
+                                value={key}
+                                onClick={this.onSelectBuild}
+                                className={this.buildOptionClass(key)}
+                            >
                                 {option_string}
                             </button>
                         )
