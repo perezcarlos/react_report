@@ -55,29 +55,32 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.suites)
     if(!this.state.suites){
       return(
-        <div className="no-suites-found">
-          <img src={loading} alt=""/>
-          <h1>Looking for saved executions</h1>
+        <div className="App">
+          <div className="no-suites-found">
+            <img src={loading} alt=""/>
+            <h1>Looking for saved executions</h1>
+          </div>
         </div>
       );
     } else {
       if (!this.state.suite_loaded) {
         return(
-            <div className='App'>
-              <div className="no-suite-loaded">
-                <h1>Select suite and build</h1>
-                <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
-              </div>
+          <div className='App'>
+            <div className="no-suite-loaded">
+              <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
+              <div className="h1">Select a suite and a build</div>
             </div>
+          </div>
         );
       } else {
         return (
-            <div className='App'>
-              <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
-              {this.props.children}
-            </div>
+          <div className='App'>
+            <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
+            {this.props.children}
+          </div>
         );
       }
     }

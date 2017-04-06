@@ -54,16 +54,13 @@ tbody {
 }
 
 .no-suites-found, .no-suite-loaded {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -100px;
+  vertical-align: middle;
 }
 
 .no-suites-found img {
-  width: 30%;
+  width: 4%;
   float: left;
+  vertical-align: middle;
 }
 
 .status-image {
@@ -84,8 +81,36 @@ tbody {
 .selectors {
   position: relative;
   top: 5px;
-  text-align: right;
-  margin-right: 5%;
+  text-align: left;
+  float: left;
+  width: 15%;
+  margin-left: 5px;
+  padding: 5px;
+}
+
+.selectors button {
+  width: 100%;
+  margin: 1px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+button:not(.selected) {
+  background: linear-gradient(to top, gainsboro, ghostwhite);;
+}
+
+button.selected {
+  pointer-events: none;
+}
+
+button {
+  text-transform: capitalize;
+}
+
+.suite-pane {
+  position: relative;
+  max-width: 84%;
+  top: 5px;
 }
 
 .additional-build-info {
@@ -98,6 +123,7 @@ tbody {
 
 .suite-header {
   text-align: left;
+  margin-top: 1%;
 }
 
 .feature-name label {
@@ -159,10 +185,6 @@ pre.additional-info.collapse.in, pre.additional-info.collapsing {
 .filter-selector {
   margin-right: 100%;
   display: inline;
-}
-
-.filter-selector button {
-  text-transform: capitalize;
 }
 
 .filter-selector .selected {
