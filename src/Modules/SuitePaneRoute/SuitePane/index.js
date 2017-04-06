@@ -40,7 +40,7 @@ const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) 
             </div>
         )
     }
-    console.log(suite);
+
     return (
         <div className="suite-pane col-md-12">
             <div className="panel panel-default">
