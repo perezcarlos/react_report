@@ -43,19 +43,25 @@ const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) 
     console.log(suite);
     return (
         <div className="suite-pane col-md-12">
-            <SuiteHeader additionalInfo={additionalInfo} status_image={status_image}/>
-            <AdditionalInfo additionalInfo={additionalInfo}/>
-            <FilterSelector
-                onChange={onFilterChange}
-                filter={filter}
-                specs={suite}
-            />
-            <ExecutionsList
-                specs={suite}
-                filter={filter}
-                className="executions"
-                onValidate={onValidate}
-            />
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <SuiteHeader additionalInfo={additionalInfo} status_image={status_image}/>
+                </div>
+                <div className="panel-body">
+                    <AdditionalInfo additionalInfo={additionalInfo}/>
+                    <FilterSelector
+                        onChange={onFilterChange}
+                        filter={filter}
+                        specs={suite}
+                    />
+                    <ExecutionsList
+                        specs={suite}
+                        filter={filter}
+                        className="executions"
+                        onValidate={onValidate}
+                    />
+                </div>
+            </div>
         </div>
     )
 };

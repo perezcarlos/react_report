@@ -70,8 +70,10 @@ class App extends Component {
         return(
           <div className='App'>
             <div className="App-header">QA Report</div>
-            <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
-            {this.props.children}
+            <div className="App-body">
+              <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
+                {this.props.children}
+            </div>
           </div>
         );
     }
