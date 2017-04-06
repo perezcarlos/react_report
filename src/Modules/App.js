@@ -34,6 +34,7 @@ class App extends Component {
         }
       )
     } else {
+      hashHistory.push('/noSuite');
       this.loadData()
     }
 
@@ -55,10 +56,10 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.suites)
     if(!this.state.suites){
       return(
         <div className="App">
+          <div className="App-header"> Report</div>
           <div className="no-suites-found">
             <img src={loading} alt=""/>
             <h1>Looking for saved executions</h1>
@@ -66,23 +67,13 @@ class App extends Component {
         </div>
       );
     } else {
-      if (!this.state.suite_loaded) {
         return(
           <div className='App'>
-            <div className="no-suite-loaded">
-              <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
-              <div className="h1">Select a suite and a build</div>
-            </div>
-          </div>
-        );
-      } else {
-        return (
-          <div className='App'>
+            <div className="App-header">QA Report</div>
             <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
             {this.props.children}
           </div>
         );
-      }
     }
   }
 }

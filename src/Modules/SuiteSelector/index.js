@@ -22,11 +22,23 @@ class SuiteSelectorPane extends Component {
         const executions = suite || {};
         return (
             <div className="selectors">
-                <p className="h3">Select a suite: </p>
-                {this.renderSuites(Object.keys(this.props.suites))}
+                <div className="panel panel-default">
+                    <div className="panel-heading">
+                        <h3 className="panel-title">Select a suite: </h3>
+                    </div>
+                    <div className="panel-body">
+                        {this.renderSuites(Object.keys(this.props.suites))}
+                    </div>
+                </div>
 
-                <p className="h3">Select a build: </p>
-                {this.renderBuilds(executions)}
+                <div className="panel panel-default">
+                    <div className="panel-heading">
+                        <h3 className="panel-title">Select a build: </h3>
+                    </div>
+                    <div className="panel-body">
+                        {this.renderBuilds(executions)}
+                    </div>
+                </div>
             </div>
         )
     }
@@ -36,30 +48,30 @@ class SuiteSelectorPane extends Component {
     }
 
     onSelectBuild (event) {
-        this.setState({selectedBuild: event.target.value}, () => {
+        this.setState({selectedBuild: event.currentTarget.value}, () => {
             this.props.onSelect({selectedSuite: this.state.selectedSuite, selectedBuild: this.state.selectedBuild})
         })
     }
 
     suiteOptionClass(option) {
         if(this.state.selectedSuite === option ){
-            return (`suite-selector option ${option} selected`)
+            return (`list-group-item suite-selector-option ${option} active`)
         }else {
-            return(`suite-selector option ${option}`)
+            return(`list-group-item suite-selector-option ${option}`)
         }
     }
 
     buildOptionClass(option) {
         if(this.state.selectedBuild === option ){
-            return (`suite-selector option ${option} selected`)
+            return (`list-group-item build-selector-option ${option} active`)
         }else {
-            return(`suite-selector option ${option}`)
+            return(`list-group-item build-selector-option ${option}`)
         }
     }
 
     renderSuites (suites) {
         return (
-            <div className="suite-selector">
+            <div className="suite-selector list-group">
                 {
                     suites.map((suiteName, index)=>{
                         return(
@@ -69,7 +81,7 @@ class SuiteSelectorPane extends Component {
                                 value={suiteName}
                                 onClick={this.onSelectSuite}
                             >
-                                {suiteName}
+                                {suiteName.replace(/[_-]/g, " ")}
                             </button>
                         )
                     })
@@ -81,16 +93,17 @@ class SuiteSelectorPane extends Component {
     renderBuilds (suite) {
         if (!suite.builds) {
             return (
-                <button disabled={true}>
-                    First select a suite
+                <button disabled={true} className="list-group-item active">
+                    <h5 className="list-group-item-heading">First select a suite</h5>
                 </button>
             )
         }
         return(
-            <div className="build-selector">
+            <div className="build-selector list-group">
                 {
                     Object.keys(suite.builds).reverse().map((key) => {
                         var option_string = '';
+                        const date = new Date(suite.builds[key].date);
                         if (suite.builds[key].environment) {
                             const environment = suite.builds[key].environment.split('.staging')[0].split('//')[1] || '';
                             option_string = `${key} => ${environment}`
@@ -105,7 +118,8 @@ class SuiteSelectorPane extends Component {
                                 onClick={this.onSelectBuild}
                                 className={this.buildOptionClass(key)}
                             >
-                                {option_string}
+                                <b className="list-group-item-heading">{option_string}</b>
+                                <p className="list-group-item-text">{`date: ${date}`}</p>
                             </button>
                         )
                     })

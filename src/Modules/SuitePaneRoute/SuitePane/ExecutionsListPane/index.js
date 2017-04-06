@@ -18,7 +18,7 @@ const ExecutionsListPane = ({specs, filter, onValidate}) => {
     const byFeature = groupBy(specs, (x) => x[filter.filter]);
     if(filter.subFilter === 'all'){
         return(
-            <div>
+            <div className="execution-list">
                 {
                     Object.keys(byFeature).map((key) => {
                         return(

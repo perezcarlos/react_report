@@ -13,12 +13,11 @@ const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) 
 
     var statuses = [];
 
-    Object.values(suite).find((specs) => {
-        Object.values(specs).forEach((spec) => {
+    if(suite) {
+        Object.values(suite).forEach((spec) => {
             statuses.push(spec.status)
         });
-        return status;
-    });
+    }
 
     var status_image = null;
 
@@ -32,30 +31,31 @@ const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) 
         status_image = passed;
     }
 
-    return(
+    if(!suite){
+        return (
+            <div className="suite-pane col-md-12">
+                <div className="no-suite-loaded">
+                    <h1>No suite has been selected</h1>
+                </div>
+            </div>
+        )
+    }
+    console.log(suite);
+    return (
         <div className="suite-pane col-md-12">
-            {
-                Object.keys(suite).map((key) => {
-                    return(
-                        <div key={key} id={key}>
-                            <img className="status-image" src={status_image} alt="" />
-                            <SuiteHeader additionalInfo={additionalInfo}/>
-                            <AdditionalInfo additionalInfo={additionalInfo}/>
-                            <FilterSelector
-                                onChange={onFilterChange}
-                                filter={filter}
-                                specs={suite[key]}
-                            />
-                            <ExecutionsList
-                                specs={suite[key]}
-                                filter={filter}
-                                className="executions"
-                                onValidate={onValidate}
-                            />
-                        </div>
-                    );
-                })
-            }
+            <SuiteHeader additionalInfo={additionalInfo} status_image={status_image}/>
+            <AdditionalInfo additionalInfo={additionalInfo}/>
+            <FilterSelector
+                onChange={onFilterChange}
+                filter={filter}
+                specs={suite}
+            />
+            <ExecutionsList
+                specs={suite}
+                filter={filter}
+                className="executions"
+                onValidate={onValidate}
+            />
         </div>
     )
 };

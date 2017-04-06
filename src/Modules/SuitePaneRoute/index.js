@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { hashHistory } from 'react-router'
 import SuitePane from './SuitePane/index';
 import database from '../../database';
-import loading from '../../Images/loading.gif'
 
 
 class SuitePaneRoute extends Component {
@@ -79,25 +78,15 @@ class SuitePaneRoute extends Component {
     }
 
     render() {
-        if (this.state.suite) {
-            return (
-                <SuitePane
-                    suite={{suite: this.state.suite}}
-                    additionalInfo={this.state.additional_info}
-                    onFilterChange={this.onFilterChange}
-                    onValidate={this.onValidate}
-                    filter={this.state.filter}
-                />
-            )
-        }
-        else{
-            return(
-                <div className="no-suites-found">
-                    <img src={loading} alt=""/>
-                    <h1>Looking for build</h1>
-                </div>
-            )
-        }
+        return (
+            <SuitePane
+                suite={this.state.suite}
+                additionalInfo={this.state.additional_info}
+                onFilterChange={this.onFilterChange}
+                onValidate={this.onValidate}
+                filter={this.state.filter}
+            />
+        )
     }
 };
 

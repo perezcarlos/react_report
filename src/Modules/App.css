@@ -8,10 +8,12 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  background-color: white;
+  height: 5%;
+  margin: 5px;
+  font-size: 40px;
+  border: solid 1px transparent;
+  border-radius: 5px;
 }
 
 .App-intro {
@@ -21,6 +23,10 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+body {
+  background-color: whitesmoke;
 }
 
 tbody {
@@ -86,21 +92,32 @@ tbody {
   width: 15%;
   margin-left: 5px;
   padding: 5px;
+  background-color: white;
+  border-radius: 5px;
+  margin-right: 6px;
 }
 
-.selectors button {
-  width: 100%;
-  margin: 1px;
-  border: 1px solid transparent;
-  border-radius: 4px;
+.selectors .panel-body {
+  padding: inherit;
 }
 
-button:not(.selected) {
-  background: linear-gradient(to top, gainsboro, ghostwhite);;
-}
-
-button.selected {
+.selectors button.active,
+.selectors button.active:focus,
+.selectors button.active:hover{
   pointer-events: none;
+  background-image: linear-gradient(to bottom,#51575d  0,#51565a 100%);
+  text-shadow: 0 -1px 0 #1f1f20;
+  border-color: black;
+  background-color: #6f6f6f;
+}
+
+.suite-selector, .build-selector {
+  max-height: 310px;
+  overflow: scroll;
+}
+
+.list-group {
+  margin-bottom: inherit;
 }
 
 button {
@@ -111,6 +128,12 @@ button {
   position: relative;
   max-width: 84%;
   top: 5px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.suite-title {
+  text-transform: capitalize;
 }
 
 .additional-build-info {
@@ -178,8 +201,6 @@ pre.additional-info.collapse.in, pre.additional-info.collapsing {
 
 .filter-selector-pane {
   text-align: left;
-  margin-top: 1%;
-  padding-bottom: 20px;
 }
 
 .filter-selector {
@@ -209,6 +230,10 @@ pre.additional-info.collapse.in, pre.additional-info.collapsing {
 
 .sub-filter-selector li {
   padding-bottom: 5px;
+}
+
+.execution-list {
+  padding: 2%;
 }
 
 td label {
