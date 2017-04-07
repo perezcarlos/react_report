@@ -5,8 +5,8 @@ class SuiteSelectorPane extends Component {
         super(props);
 
         this.state = {
-            selectedSuite: '',
-            selectedBuild: ''
+            selectedSuite: this.props.buildSelection.selectedSuite || '',
+            selectedBuild: this.props.buildSelection.selectedBuild || ''
         };
 
         this.renderSuites=this.renderSuites.bind(this);

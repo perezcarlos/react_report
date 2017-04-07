@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {
       suite_loaded: null,
       suites: null,
-      buildSelection: null
+      buildSelection: this.props.params || null
     };
     this.onSelect = this.onSelect.bind(this);
     this.loadData = this.loadData.bind(this);
@@ -71,7 +71,7 @@ class App extends Component {
           <div className='App'>
             <div className="App-header">QA Report</div>
             <div className="App-body">
-              <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} />
+              <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} buildSelection={this.state.buildSelection}/>
                 {this.props.children}
             </div>
           </div>

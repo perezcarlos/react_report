@@ -133,6 +133,10 @@ button {
   height: 83vh;
 }
 
+.suite-pane .panel-title {
+  text-align: left;
+}
+
 .suite-title {
   text-transform: capitalize;
 }
