@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { hashHistory } from 'react-router'
 
 
-const NoSuitePane = () => {
-    return (
-        <div className="suite-pane col-md-12">
-            <div className="no-suite-loaded">
-                <h1>No suite has been selected</h1>
+class NoSuitePane extends Component {
+
+    constructor (props) {
+        super(props);
+
+        this.goToNewCreation=this.goToNewCreation.bind(this);
+    }
+
+    goToNewCreation () {
+        hashHistory.push('newSuite');
+    }
+
+    render () {
+        return (
+            <div className="suite-pane col-md-12">
+                <div className="no-suite-loaded panel panel-default">
+                    <div className="panel-heading">
+                        <div className="panel-title">
+                            <h1>No suite has been selected</h1>
+                        </div>
+                    </div>
+                    <div className="panel-body">
+                        <div className="new-suite">
+                            <h3>If you wish you can launch a new one</h3>
+                            <button className="launch" onClick={this.goToNewCreation}>Launch</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 };
 
 export default NoSuitePane;

@@ -260,3 +260,8 @@ a.exception {
 .thumbnail {
   width: 30%;
 }
+
+.features-selection {
+  background: white;
+  border: solid 1px #cccccc;
+}
