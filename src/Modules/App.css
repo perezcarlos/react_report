@@ -128,6 +128,11 @@ button {
   border-radius: 5px;
 }
 
+.suite-pane .panel-body {
+  overflow-y: scroll;
+  height: 83vh;
+}
+
 .suite-title {
   text-transform: capitalize;
 }
@@ -211,6 +216,10 @@ pre.additional-info.collapse.in, pre.additional-info.collapsing {
 .filter-selector .btn-group {
   display: inline-flex;
   padding-right: 5px;
+}
+
+.btn-group.filter-selector {
+  display: table-row-group;
 }
 
 .sub-filter-selector button {
