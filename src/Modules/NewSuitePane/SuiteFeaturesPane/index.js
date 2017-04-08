@@ -9,11 +9,21 @@ class SuiteFeaturesPane extends Component {
             selectedFeatures: [],
             features: this.props.features
         };
-        this.onSelectFeatures=this.onSelectFeatures.bind(this);
+        this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
     }
 
-    onSelectFeatures () {
-
+    onSelectedFeatures (event) {
+        const position = this.state.selectedFeatures.indexOf(event.currentTarget.value);
+        if(event.currentTarget.checked) {
+            if (!~position){
+                this.state.selectedFeatures.push(event.currentTarget.value)
+            }
+        } else {
+            if (~position) {
+                this.state.selectedFeatures.splice(position, 1);
+            }
+        }
+        this.props.onSelectedFeatures(this.state.selectedFeatures);
     }
 
     render () {
@@ -25,7 +35,13 @@ class SuiteFeaturesPane extends Component {
                     Object.keys(this.props.features).map((key) => {
                         return (
                             <div key={key}>
-                                <input key={`${key}-input`} className={key} type="checkbox"/>
+                                <input
+                                    key={`${key}-input`}
+                                    className={key}
+                                    type="checkbox"
+                                    value={key}
+                                    onChange={this.onSelectedFeatures}
+                                />
                                 <p key={`${key}-text`} className={key}>{key}</p>
                             </div>
                         )

@@ -12,12 +12,14 @@ class NewSuitePane extends Component {
         this.state = {
             features: {},
             environment: 'release',
-            branch: 'master'
+            branch: 'master',
+            selectedFeatures: []
         };
 
         this.renderTextFields=this.renderTextFields.bind(this);
         this.onFilledBranch=this.onFilledBranch.bind(this);
         this.onFilledEnvironment=this.onFilledEnvironment.bind(this);
+        this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
     }
 
     componentDidMount () {
@@ -42,6 +44,12 @@ class NewSuitePane extends Component {
                 environment: event.currentTarget.value
             }
         )
+    }
+
+    onSelectedFeatures (selectedFeatures) {
+        this.setState({
+            selectedFeatures: selectedFeatures
+        })
     }
 
     renderTextFields () {
@@ -79,7 +87,7 @@ class NewSuitePane extends Component {
                         <div className="launch-new-suite">
                             <pre>
                                 {this.renderTextFields()}
-                                <SuiteFeatures features={this.state.features}/>
+                                <SuiteFeatures features={this.state.features} onSelectedFeatures={this.onSelectedFeatures}/>
                                 <button>Launch</button>
                             </pre>
                         </div>
