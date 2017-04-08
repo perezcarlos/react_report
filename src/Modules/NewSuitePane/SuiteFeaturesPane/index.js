@@ -10,6 +10,7 @@ class SuiteFeaturesPane extends Component {
             features: this.props.features
         };
         this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
+        this.renderFeaturesBox=this.renderFeaturesBox.bind(this);
     }
 
     onSelectedFeatures (event) {
@@ -26,27 +27,48 @@ class SuiteFeaturesPane extends Component {
         this.props.onSelectedFeatures(this.state.selectedFeatures);
     }
 
+    renderFeaturesBox () {
+        return(
+            Object.keys(this.props.features).map((key) => {
+                return (
+                    <div className={`feature-pair ${key}`} key={key}>
+                        <input
+                            key={`${key}-input`}
+                            className={key}
+                            type="checkbox"
+                            value={key}
+                            onChange={this.onSelectedFeatures}
+                            />
+                        <p
+                            key={`${key}-name`}
+                            className={`feature-name ${key}`}
+                        >
+                            {key}
+                        </p>
+                        <p key={`specs-number ${key}-specs`}>
+                            {`${this.props.features[key].specs_number} specs`}
+                        </p>
+                    </div>
+                )
+            })
+        )
+    }
+
     render () {
+        if(!this.props.features){
+            return(
+                <div className="suite-features-pane">
+                    <p>No features found check data</p>
+                    <div className="features-selection no-suites-found">
+                    </div>
+                </div>
+            )
+        }
         return (
             <div className="suite-features-pane">
-                <label>Select the features you want to launch</label>
+                <p>Select the features you want to launch: </p>
                 <div className="features-selection">
-                {
-                    Object.keys(this.props.features).map((key) => {
-                        return (
-                            <div key={key}>
-                                <input
-                                    key={`${key}-input`}
-                                    className={key}
-                                    type="checkbox"
-                                    value={key}
-                                    onChange={this.onSelectedFeatures}
-                                />
-                                <p key={`${key}-text`} className={key}>{key}</p>
-                            </div>
-                        )
-                    })
-                }
+                    {this.renderFeaturesBox()}
                 </div>
             </div>
         )

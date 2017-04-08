@@ -264,4 +264,10 @@ a.exception {
 .features-selection {
   background: white;
   border: solid 1px #cccccc;
+  display: inline-block;
+}
+
+.feature-pair {
+  float: left;
+  padding: 5px;
 }

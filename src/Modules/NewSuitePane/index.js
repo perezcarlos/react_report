@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import database from '../../database';
+import jenkins from '../../jenkins'
 import SuiteFeatures from './SuiteFeaturesPane'
 //import { hashHistory } from 'react-router'
 
@@ -10,7 +11,7 @@ class NewSuitePane extends Component {
         super(props);
 
         this.state = {
-            features: {},
+            features: null,
             environment: 'release',
             branch: 'master',
             selectedFeatures: []
@@ -20,6 +21,7 @@ class NewSuitePane extends Component {
         this.onFilledBranch=this.onFilledBranch.bind(this);
         this.onFilledEnvironment=this.onFilledEnvironment.bind(this);
         this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
+        this.onSend=this.onSend.bind(this);
     }
 
     componentDidMount () {
@@ -50,6 +52,15 @@ class NewSuitePane extends Component {
         this.setState({
             selectedFeatures: selectedFeatures
         })
+    }
+
+    onSend () {
+        const response = jenkins.send({
+            features: this.state.selectedFeatures.join(),
+            environment: this.state.environment,
+            branch: this.state.branch
+        });
+        console.log(response);
     }
 
     renderTextFields () {
@@ -88,7 +99,7 @@ class NewSuitePane extends Component {
                             <pre>
                                 {this.renderTextFields()}
                                 <SuiteFeatures features={this.state.features} onSelectedFeatures={this.onSelectedFeatures}/>
-                                <button>Launch</button>
+                                <button className="send" onClick={this.onSend}>Send</button>
                             </pre>
                         </div>
                     </div>
