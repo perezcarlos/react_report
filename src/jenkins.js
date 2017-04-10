@@ -1,22 +1,16 @@
-import credentials from './credentials.json';
+import jsonp from 'jsonp'
 
 var Jenkins = class {
-    constructor() {
-        this.jenkins_credentials = credentials.jenkins;
+    constructor(jobName = null) {
+        this.jobName = jobName || 'caper';
     }
 
-    send = function(params) {
-        const xhttp = new XMLHttpRequest();
+    send = function(params, callback) {
+        const host = `https://server2.qa.redbooth.com:8446/job/${this.jobName}/buildWithParameters?`;
         const parameters = `branch=${params.branch}&environment=${params.environment}&features=${params.features}`;
-        const host = "https://server2.qa.redbooth.com:8446/job/caper/buildWithParameters?";
 
-        xhttp.open("POST", `${host}${parameters}`, false);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.setRequestHeader("Authorization", this.jenkins_credentials.authorization);
-        xhttp.send();
-
-        return JSON.parse(xhttp.responseText);
+        jsonp(`${host}${parameters}`, callback)
     }
 };
 
-export default new Jenkins;
+export default new Jenkins();

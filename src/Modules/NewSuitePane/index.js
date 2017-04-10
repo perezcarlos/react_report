@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import database from '../../database';
 import jenkins from '../../jenkins'
 import SuiteFeatures from './SuiteFeaturesPane'
-//import { hashHistory } from 'react-router'
 
 
 class NewSuitePane extends Component {
@@ -14,13 +13,15 @@ class NewSuitePane extends Component {
             features: null,
             environment: 'release',
             branch: 'master',
-            selectedFeatures: []
+            selectedFeatures: [],
+            maxSelectedFeatures: 30
         };
 
         this.renderTextFields=this.renderTextFields.bind(this);
         this.onFilledBranch=this.onFilledBranch.bind(this);
         this.onFilledEnvironment=this.onFilledEnvironment.bind(this);
         this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
+        this.isButtonEnabled=this.isButtonEnabled.bind(this);
         this.onSend=this.onSend.bind(this);
     }
 
@@ -55,34 +56,48 @@ class NewSuitePane extends Component {
     }
 
     onSend () {
-        const response = jenkins.send({
+        jenkins.send({
             features: this.state.selectedFeatures.join(),
             environment: this.state.environment,
             branch: this.state.branch
+        }, (response) => {
+            console.log(response);
         });
-        console.log(response);
+
     }
 
     renderTextFields () {
         return (
-            <div>
-                <label id='branch'>{'Branch: '}</label>
-                <input
-                    label={'#branch'}
-                    type="text"
-                    value={this.state.branch}
-                    onChange={this.onFilledBranch}
-                />
+            <div className="text-fields">
+                <div className="branch">
+                    <label id='branch'>{'Branch: '}</label>
+                    <input
+                        label='#branch'
+                        type="text"
+                        value={this.state.branch}
+                        onChange={this.onFilledBranch}
+                    />
+                </div>
 
-                <label id='environment'>{'Environment: '}</label>
-                <input
-                    label={'#environment'}
-                    type="text"
-                    value={this.state.environment}
-                    onChange={this.onFilledEnvironment}
-                />
+                <div className="environment">
+                    <label id='environment'>{'Environment: '}</label>
+                    <input
+                        label='#environment'
+                        type="text"
+                        value={this.state.environment}
+                        onChange={this.onFilledEnvironment}
+                    />
+                </div>
             </div>
         )
+    }
+
+    isButtonEnabled (){
+        if(!this.state.selectedFeatures.length > 0) {
+            return{disabled: true}
+        } else {
+            return null
+        }
     }
 
     render () {
@@ -95,12 +110,16 @@ class NewSuitePane extends Component {
                         </div>
                     </div>
                     <div className="panel-body">
-                        <div className="launch-new-suite">
-                            <pre>
+                        <div className="launch-new-suite well">
+                            <div>
                                 {this.renderTextFields()}
-                                <SuiteFeatures features={this.state.features} onSelectedFeatures={this.onSelectedFeatures}/>
-                                <button className="send" onClick={this.onSend}>Send</button>
-                            </pre>
+                                <SuiteFeatures
+                                    features={this.state.features}
+                                    onSelectedFeatures={this.onSelectedFeatures}
+                                    maxSelectedFeatures={this.state.maxSelectedFeatures}
+                                />
+                                <button className="sendButton btn btn-default" {...this.isButtonEnabled()} onClick={this.onSend}>Send</button>
+                            </div>
                         </div>
                     </div>
                 </div>

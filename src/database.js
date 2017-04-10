@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 
 var credentials = require('./credentials.json');
-var firebase_credentials = credentials.firebase_test;
+var firebase_credentials = credentials.firebase;
 
 
 function initializeFirebase() {

@@ -11,6 +11,10 @@ class SuiteFeaturesPane extends Component {
         };
         this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
         this.renderFeaturesBox=this.renderFeaturesBox.bind(this);
+        this.checkboxProperties=this.checkboxProperties.bind(this);
+        this.renderSelectedFeaturesLabel=this.renderSelectedFeaturesLabel.bind(this);
+        this.isChecked=this.isChecked.bind(this);
+        this.isDisabled=this.isDisabled.bind(this);
     }
 
     onSelectedFeatures (event) {
@@ -27,30 +31,55 @@ class SuiteFeaturesPane extends Component {
         this.props.onSelectedFeatures(this.state.selectedFeatures);
     }
 
+    isChecked (feature) {
+        return (this.state.selectedFeatures.some( (feat) => feat === feature ))
+    }
+
+    isDisabled (feature) {
+        return (!this.isChecked(feature) && this.state.selectedFeatures.length === this.props.maxSelectedFeatures)
+    }
+
+    checkboxProperties (feature) {
+        return {
+            checked: this.isChecked(feature),
+            disabled: this.isDisabled(feature)
+        }
+    }
+
     renderFeaturesBox () {
         return(
-            Object.keys(this.props.features).map((key) => {
+            this.props.features.map((feature) => {
                 return (
-                    <div className={`feature-pair ${key}`} key={key}>
+                    <div
+                        className={`feature-pair ${feature}`}
+                        key={feature}
+                        value={feature}
+                    >
                         <input
-                            key={`${key}-input`}
-                            className={key}
+                            key={`${feature}-input`}
+                            className={feature}
                             type="checkbox"
-                            value={key}
+                            value={feature}
                             onChange={this.onSelectedFeatures}
-                            />
+                            {...this.checkboxProperties(feature)}
+                        />
                         <p
-                            key={`${key}-name`}
-                            className={`feature-name ${key}`}
+                            key={`${feature}-name`}
+                            className={`feature-name ${feature}`}
                         >
-                            {key}
-                        </p>
-                        <p key={`specs-number ${key}-specs`}>
-                            {`${this.props.features[key].specs_number} specs`}
+                            {feature.replace(/_/g, " ")}
                         </p>
                     </div>
                 )
             })
+        )
+    }
+
+    renderSelectedFeaturesLabel () {
+        return(
+            <label capture="selected-features-count">
+                {`${this.state.selectedFeatures.length}/${this.props.maxSelectedFeatures} Max`}
+            </label>
         )
     }
 
@@ -67,6 +96,7 @@ class SuiteFeaturesPane extends Component {
         return (
             <div className="suite-features-pane">
                 <p>Select the features you want to launch: </p>
+                {this.renderSelectedFeaturesLabel()}
                 <div className="features-selection">
                     {this.renderFeaturesBox()}
                 </div>
