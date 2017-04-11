@@ -17,7 +17,6 @@ class App extends Component {
     };
     this.onSelect = this.onSelect.bind(this);
     this.loadData = this.loadData.bind(this);
-    this.onHeaderNavigation = this.onHeaderNavigation.bind(this);
   }
 
   loadData() {
@@ -55,10 +54,6 @@ class App extends Component {
       const path = `/suite/${this.state.buildSelection.selectedSuite}/build/${this.state.buildSelection.selectedBuild}?filter=${filter}`;
       hashHistory.push(path);
     });
-  }
-
-  onHeaderNavigation(section) {
-
   }
 
   render() {

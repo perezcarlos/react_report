@@ -6,70 +6,59 @@ class SuiteFeaturesPane extends Component {
         super(props);
 
         this.state = {
-            selectedFeatures: [],
             features: this.props.features
         };
         this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
         this.renderFeaturesBox=this.renderFeaturesBox.bind(this);
-        this.checkboxProperties=this.checkboxProperties.bind(this);
+        this.buttonClass=this.buttonClass.bind(this);
         this.renderSelectedFeaturesLabel=this.renderSelectedFeaturesLabel.bind(this);
-        this.isChecked=this.isChecked.bind(this);
+        this.isSelected=this.isSelected.bind(this);
         this.isDisabled=this.isDisabled.bind(this);
     }
 
     onSelectedFeatures (event) {
-        const position = this.state.selectedFeatures.indexOf(event.currentTarget.value);
-        if(event.currentTarget.checked) {
-            if (!~position){
-                this.state.selectedFeatures.push(event.currentTarget.value)
-            }
-        } else {
-            if (~position) {
-                this.state.selectedFeatures.splice(position, 1);
-            }
+        const position = this.props.selectedFeatures.indexOf(event.currentTarget.value);
+
+        if (!~position){
+            this.props.selectedFeatures.push(event.currentTarget.value)
+        } else if (~position) {
+            this.props.selectedFeatures.splice(position, 1);
         }
-        this.props.onSelectedFeatures(this.state.selectedFeatures);
+
+        this.props.onSelectedFeatures(this.props.selectedFeatures);
     }
 
-    isChecked (feature) {
-        return (this.state.selectedFeatures.some( (feat) => feat === feature ))
+    isSelected (feature) {
+        return (this.props.selectedFeatures.some( (feat) => feat === feature ))
     }
 
     isDisabled (feature) {
-        return (!this.isChecked(feature) && this.state.selectedFeatures.length === this.props.maxSelectedFeatures)
+        if (!this.isSelected(feature) && this.props.selectedFeatures.length === this.props.maxSelectedFeatures){
+            return{
+                disabled: true
+            }
+        }
     }
 
-    checkboxProperties (feature) {
-        return {
-            checked: this.isChecked(feature),
-            disabled: this.isDisabled(feature)
-        }
+    buttonClass (feature) {
+        return(
+            this.isSelected(feature) ? `feature-select-option ${feature} selected` : `feature-select-option ${feature}`
+        )
     }
 
     renderFeaturesBox () {
         return(
             this.props.features.map((feature) => {
                 return (
-                    <div
-                        className={`feature-pair ${feature}`}
+                    <button
+                        className={this.buttonClass(feature)}
                         key={feature}
                         value={feature}
+                        onClick={this.onSelectedFeatures}
+                        {...this.isDisabled(feature)}
                     >
-                        <input
-                            key={`${feature}-input`}
-                            className={feature}
-                            type="checkbox"
-                            value={feature}
-                            onChange={this.onSelectedFeatures}
-                            {...this.checkboxProperties(feature)}
-                        />
-                        <p
-                            key={`${feature}-name`}
-                            className={`feature-name ${feature}`}
-                        >
-                            {feature.replace(/_/g, " ")}
-                        </p>
-                    </div>
+                        {feature.replace(/_/g, " ")}
+                    </button>
                 )
             })
         )
@@ -78,7 +67,7 @@ class SuiteFeaturesPane extends Component {
     renderSelectedFeaturesLabel () {
         return(
             <label capture="selected-features-count">
-                {`${this.state.selectedFeatures.length}/${this.props.maxSelectedFeatures} Max`}
+                {`${this.props.selectedFeatures.length}/${this.props.maxSelectedFeatures} Max`}
             </label>
         )
     }

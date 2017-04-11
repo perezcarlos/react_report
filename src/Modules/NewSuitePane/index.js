@@ -61,7 +61,10 @@ class NewSuitePane extends Component {
             environment: this.state.environment,
             branch: this.state.branch
         }, (response) => {
-            console.log(response);
+            this.setState({
+                selectedFeatures: []
+            });
+            alert('The suite has been launched look for it in "Qa Test Job" suite');
         });
 
     }
@@ -110,13 +113,14 @@ class NewSuitePane extends Component {
                         </div>
                     </div>
                     <div className="panel-body">
-                        <div className="launch-new-suite well">
+                        <div className="launch-new-suite">
                             <div>
                                 {this.renderTextFields()}
                                 <SuiteFeatures
                                     features={this.state.features}
                                     onSelectedFeatures={this.onSelectedFeatures}
                                     maxSelectedFeatures={this.state.maxSelectedFeatures}
+                                    selectedFeatures={this.state.selectedFeatures}
                                 />
                                 <button className="sendButton btn btn-default" {...this.isButtonEnabled()} onClick={this.onSend}>Send</button>
                             </div>

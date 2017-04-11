@@ -26,7 +26,7 @@ class NoSuitePane extends Component {
                     <div className="panel-body">
                         <div className="new-suite">
                             <h3>If you wish you can launch a new one</h3>
-                            <button className="launch" onClick={this.goToNewCreation}>Launch</button>
+                            <button className="launch btn btn-default" onClick={this.goToNewCreation}>Launch</button>
                         </div>
                     </div>
                 </div>

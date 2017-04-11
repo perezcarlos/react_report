@@ -289,23 +289,27 @@ a.exception {
 .features-selection {
   background: white;
   border: solid 1px #cccccc;
-  display: block;
   text-align: left;
+  display: inline-block;
 }
 
-.feature-pair {
-  padding: 5px;
-  display: inline-block;
-  width: 150px;
-  height: 70px;
+.feature-select-option {
+  width: 10%;
+  height: 60px;
   overflow: hidden;
   overflow-y: hidden;
   white-space: pre-wrap;
   word-wrap: break-word;
   text-align: center;
+  float: left;
 }
 
-.feature-pair:hover {
+.feature-select-option.selected {
+  background: #cbcbcb;
+  border-color: #6c6c6c #d6d6d6 #d6d6d6 #6c6c6c;
+}
+
+.feature-select-option:hover {
   background-color: #e0e0e0;
 }
 
