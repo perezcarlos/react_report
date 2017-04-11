@@ -8,12 +8,37 @@
 }
 
 .App-header {
-  background-color: white;
+  text-align: left;
+  color: #fff;
   height: 5%;
   margin: 5px;
   font-size: 40px;
-  border: solid 1px gainsboro;
+  border: solid 1px #000;
   border-radius: 5px;
+  background-image: linear-gradient(180deg,#51575d 0,#51565a);
+  text-shadow: 0 -1px 0 #1f1f20;
+  background-color: #6f6f6f;
+}
+
+.App-header a {
+  padding: 1%;
+  color: #fff;
+  text-decoration: none;
+  border-right: solid 1px;
+  border-radius: 5px;
+}
+
+.App-header span {
+  margin-left: 5px;
+}
+
+.App-header li a:hover, .App-header li a:focus {
+  background-color: #2d2d2d;
+  border: solid 1px;
+}
+
+button:disabled {
+  color: #bababa;
 }
 
 .App-intro {
@@ -130,7 +155,7 @@ button {
 
 .suite-pane .panel-body {
   overflow-y: scroll;
-  height: 83vh;
+  height: 80vh;
 }
 
 .suite-pane .panel-title {
@@ -259,4 +284,39 @@ a.exception {
 
 .thumbnail {
   width: 30%;
+}
+
+.features-selection {
+  background: white;
+  border: solid 1px #cccccc;
+  text-align: left;
+  display: inline-block;
+}
+
+.feature-select-option {
+  width: 10%;
+  height: 60px;
+  overflow: hidden;
+  overflow-y: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: center;
+  float: left;
+}
+
+.feature-select-option.selected {
+  background: #cbcbcb;
+  border-color: #6c6c6c #d6d6d6 #d6d6d6 #6c6c6c;
+}
+
+.feature-select-option:hover {
+  background-color: #e0e0e0;
+}
+
+.text-fields {
+  text-align: left;
+}
+
+.sendButton {
+  margin-top: 10px;
 }

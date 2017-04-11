@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { hashHistory } from 'react-router'
 import loading from '../Images/loading.gif'
+import AppHeader from './AppHeader'
 import SuiteSelectorPane from './SuiteSelector/index';
-import './App.css';
 import database from '../database';
+import './App.css';
 
 
 class App extends Component {
@@ -59,17 +60,19 @@ class App extends Component {
     if(!this.state.suites){
       return(
         <div className="App">
-          <div className="App-header"> Report</div>
-          <div className="no-suites-found">
-            <img src={loading} alt=""/>
-            <h1>Looking for saved executions</h1>
+          <AppHeader onNavigate={this.onHeaderNavigation}/>
+          <div className="App-body">
+            <div className="no-suites-found">
+              <img src={loading} alt=""/>
+              <h1>Looking for saved executions</h1>
+            </div>
           </div>
         </div>
       );
     } else {
         return(
           <div className='App'>
-            <div className="App-header">QA Report</div>
+            <AppHeader onNavigate={this.onHeaderNavigation}/>
             <div className="App-body">
               <SuiteSelectorPane suites={this.state.suites} onSelect={this.onSelect} buildSelection={this.state.buildSelection}/>
                 {this.props.children}
