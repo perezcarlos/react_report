@@ -41,9 +41,16 @@ class SuiteFeaturesPane extends Component {
     }
 
     buttonClass (feature) {
-        return(
-            this.isSelected(feature) ? `feature-select-option ${feature} selected` : `feature-select-option ${feature}`
-        )
+        const base_class = `btn btn-default feature-select-option ${feature}`;
+        if(this.isSelected(feature)) {
+            return(
+                `${base_class} selected`
+            )
+        } else {
+            return(
+                base_class
+            )
+        }
     }
 
     renderFeaturesBox () {

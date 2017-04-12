@@ -15,9 +15,8 @@
   font-size: 40px;
   border: solid 1px #000;
   border-radius: 5px;
-  background-image: linear-gradient(180deg,#51575d 0,#51565a);
+  background-image: linear-gradient(180deg,#51575d 0,#51565A);
   text-shadow: 0 -1px 0 #1f1f20;
-  background-color: #6f6f6f;
 }
 
 .App-header a {
@@ -294,6 +293,7 @@ a.exception {
 }
 
 .feature-select-option {
+  border-radius: 1px;
   width: 10%;
   height: 60px;
   overflow: hidden;
@@ -305,12 +305,13 @@ a.exception {
 }
 
 .feature-select-option.selected {
-  background: #cbcbcb;
+  background-image: linear-gradient(180deg,#cbcbcb 0, #cdcdcd);
   border-color: #6c6c6c #d6d6d6 #d6d6d6 #6c6c6c;
+  border-width: 5px 3px 3px 5px;
 }
 
-.feature-select-option:hover {
-  background-color: #e0e0e0;
+.feature-select-option.selected:hover, .feature-select-option.selected:focus {
+  background-color: #cbcbcb;
 }
 
 .text-fields {
