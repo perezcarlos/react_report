@@ -36,6 +36,11 @@
   border: solid 1px;
 }
 
+.App-body {
+  display: inline-block;
+  width: 100%;
+}
+
 button:disabled {
   color: #bababa;
 }
@@ -152,6 +157,21 @@ button {
   border-radius: 5px;
 }
 
+.suite-pane .panel-heading {
+  display: inline-block;
+  width: 100%;
+}
+
+.suite-pane .suite-header {
+  float: left;
+}
+
+.suite-pane .rebuild-pane {
+  float: right;
+  max-width: 40%;
+  margin-top: 1%;
+}
+
 .suite-pane .panel-body {
   overflow-y: scroll;
   height: 80vh;
@@ -159,6 +179,7 @@ button {
 
 .suite-pane .panel-title {
   text-align: left;
+  max-width: 60%;
 }
 
 .suite-title {
