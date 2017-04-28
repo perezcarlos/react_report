@@ -6,7 +6,8 @@ class SuiteFeaturesPane extends Component {
         super(props);
 
         this.state = {
-            features: this.props.features
+            features: this.props.features,
+            filter: ''
         };
         this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
         this.renderFeaturesBox=this.renderFeaturesBox.bind(this);
@@ -14,6 +15,7 @@ class SuiteFeaturesPane extends Component {
         this.renderSelectedFeaturesLabel=this.renderSelectedFeaturesLabel.bind(this);
         this.isSelected=this.isSelected.bind(this);
         this.isDisabled=this.isDisabled.bind(this);
+        this.onFilter=this.onFilter.bind(this);
     }
 
     onSelectedFeatures (event) {
@@ -53,20 +55,42 @@ class SuiteFeaturesPane extends Component {
         }
     }
 
+    onFilter (event) {
+        this.setState({
+            filter: event.currentTarget.value
+        })
+    }
+
     renderFeaturesBox () {
         return(
             this.props.features.map((feature) => {
-                return (
-                    <button
-                        className={this.buttonClass(feature)}
-                        key={feature}
-                        value={feature}
-                        onClick={this.onSelectedFeatures}
-                        {...this.isDisabled(feature)}
-                    >
-                        {feature.replace(/_/g, " ")}
-                    </button>
-                )
+                if(this.state.filter === '') {
+                    return (
+                        <button
+                            className={this.buttonClass(feature)}
+                            key={feature}
+                            value={feature}
+                            onClick={this.onSelectedFeatures}
+                            {...this.isDisabled(feature)}
+                        >
+                            {feature.replace(/_/g, " ")}
+                        </button>
+                    )
+                } else if (feature.includes(this.state.filter)){
+                    return (
+                        <button
+                            className={this.buttonClass(feature)}
+                            key={feature}
+                            value={feature}
+                            onClick={this.onSelectedFeatures}
+                            {...this.isDisabled(feature)}
+                        >
+                            {feature.replace(/_/g, " ")}
+                        </button>
+                    )
+                } else {
+                    return null;
+                }
             })
         )
     }
@@ -93,6 +117,11 @@ class SuiteFeaturesPane extends Component {
             <div className="suite-features-pane">
                 <p>Select the features you want to launch: </p>
                 {this.renderSelectedFeaturesLabel()}
+                <input
+                    className="features-filter"
+                    type="text" placeholder="Search"
+                    onChange={this.onFilter}
+                />
                 <div className="features-selection">
                     {this.renderFeaturesBox()}
                 </div>

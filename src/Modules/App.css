@@ -311,6 +311,7 @@ a.exception {
   border: solid 1px #cccccc;
   text-align: left;
   display: inline-block;
+  width: 100%;
 }
 
 .feature-select-option {
@@ -333,6 +334,11 @@ a.exception {
 
 .feature-select-option.selected:hover, .feature-select-option.selected:focus {
   background-color: #cbcbcb;
+}
+
+.features-filter{
+  float: right;
+  margin-left: 100%;
 }
 
 .text-fields {
