@@ -27,6 +27,21 @@ const SuiteHeaderPane = ({additionalInfo, status_image}) => {
       )
     };
 
+    const renderRetried = () => {
+        if (additionalInfo.retried === "true") {
+            return (
+                <i
+                    className="retried glyphicon glyphicon-repeat"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Retried execution"
+                />
+            )
+        } else {
+            return null
+        }
+    };
+
     if (!additionalInfo){
         return(
             <div className="suite-header panel-title">
@@ -40,6 +55,7 @@ const SuiteHeaderPane = ({additionalInfo, status_image}) => {
                     <img className="status-image" src={status_image} alt="" />
                     <span className="suite-title h1">{additionalInfo.suite || "ERROR"}</span>
                     <span className="build-number h4">{`\t#${additionalInfo.build}`}</span>
+                    {renderRetried()}
                 </div>
                 {renderRebuild()}
             </div>

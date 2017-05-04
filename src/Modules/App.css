@@ -348,3 +348,7 @@ a.exception {
 .sendButton {
   margin-top: 10px;
 }
+
+.retried {
+  margin-left: 5px;
+}
