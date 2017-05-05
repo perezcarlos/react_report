@@ -13,7 +13,8 @@ class NewSuitePane extends Component {
             features: null,
             environment: 'release',
             branch: 'master',
-            selectedFeatures: [],
+            selectedFeatures: this.props.selectedFeatures || [],
+            filter: '',
             maxSelectedFeatures: 30
         };
 
@@ -22,6 +23,7 @@ class NewSuitePane extends Component {
         this.onFilledEnvironment=this.onFilledEnvironment.bind(this);
         this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
         this.isButtonEnabled=this.isButtonEnabled.bind(this);
+        this.onFilter=this.onFilter.bind(this);
         this.onSend=this.onSend.bind(this);
     }
 
@@ -55,6 +57,12 @@ class NewSuitePane extends Component {
         })
     }
 
+    onFilter(filter){
+        this.setState({
+            filter: filter
+        })
+    }
+
     onSend () {
         jenkins.send({
             features: this.state.selectedFeatures.join(),
@@ -62,7 +70,8 @@ class NewSuitePane extends Component {
             branch: this.state.branch
         }, (response) => {
             this.setState({
-                selectedFeatures: []
+                selectedFeatures: [],
+                filter: ''
             });
             alert('The suite has been launched look for it in "Qa Test Job" suite');
         });
@@ -121,6 +130,8 @@ class NewSuitePane extends Component {
                                     onSelectedFeatures={this.onSelectedFeatures}
                                     maxSelectedFeatures={this.state.maxSelectedFeatures}
                                     selectedFeatures={this.state.selectedFeatures}
+                                    onFilter={this.onFilter}
+                                    filter={this.state.filter}
                                 />
                                 <button className="sendButton btn btn-default" {...this.isButtonEnabled()} onClick={this.onSend}>Send</button>
                             </div>

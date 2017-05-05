@@ -6,8 +6,7 @@ class SuiteFeaturesPane extends Component {
         super(props);
 
         this.state = {
-            features: this.props.features,
-            filter: ''
+            features: this.props.features
         };
         this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
         this.renderFeaturesBox=this.renderFeaturesBox.bind(this);
@@ -56,15 +55,17 @@ class SuiteFeaturesPane extends Component {
     }
 
     onFilter (event) {
-        this.setState({
-            filter: event.currentTarget.value
-        })
+        this.props.onFilter(event.currentTarget.value)
     }
 
     renderFeaturesBox () {
+        const filter = this.props.filter;
+        const filterMatcher = new RegExp(`^${filter}| ${filter}`, 'g');
+
         return(
             this.props.features.map((feature) => {
-                if(this.state.filter === '') {
+                const shownFeature = feature.replace(/_/g, " ")
+                if(this.props.filter === '') {
                     return (
                         <button
                             className={this.buttonClass(feature)}
@@ -73,10 +74,10 @@ class SuiteFeaturesPane extends Component {
                             onClick={this.onSelectedFeatures}
                             {...this.isDisabled(feature)}
                         >
-                            {feature.replace(/_/g, " ")}
+                            {shownFeature}
                         </button>
                     )
-                } else if (feature.includes(this.state.filter)){
+                } else if (shownFeature.match(filterMatcher)){
                     return (
                         <button
                             className={this.buttonClass(feature)}
@@ -85,7 +86,7 @@ class SuiteFeaturesPane extends Component {
                             onClick={this.onSelectedFeatures}
                             {...this.isDisabled(feature)}
                         >
-                            {feature.replace(/_/g, " ")}
+                            {shownFeature}
                         </button>
                     )
                 } else {
@@ -121,6 +122,7 @@ class SuiteFeaturesPane extends Component {
                     className="features-filter"
                     type="text" placeholder="Search"
                     onChange={this.onFilter}
+                    value={this.props.filter}
                 />
                 <div className="features-selection">
                     {this.renderFeaturesBox()}

@@ -27,6 +27,18 @@
   border-radius: 5px;
 }
 
+.App-header a:not(.title){
+  padding-bottom: 15px;
+}
+
+.App-header a i{
+  vertical-align: text-bottom;
+}
+
+.App-header a span{
+  vertical-align: text-top;
+}
+
 .App-header span {
   margin-left: 5px;
 }
@@ -321,7 +333,6 @@ a.exception {
   overflow: hidden;
   overflow-y: hidden;
   white-space: pre-wrap;
-  word-wrap: break-word;
   text-align: center;
   float: left;
 }

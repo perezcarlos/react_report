@@ -16,14 +16,17 @@ class AppHeader extends Component {
             <div className="App-header">
                 <ul className="nav nav-tabs">
                     <li role="presentation">
-                        <a href="#/noSuite" className="glyphicon glyphicon-home title home">
+                        <a href="#/noSuite" className="title home">
+                            <i className="glyphicon glyphicon-home"/>
                             <span>
                                 QA-Report
                             </span>
                         </a>
                     </li>
                     <li role="presentation">
-                        <a href="#/newSuite" className="new-suite glyphicon glyphicon-plus-sign"/>
+                        <a href="#/newSuite" className="new-suite ">
+                            <i className="glyphicon glyphicon-plus-sign"/>
+                        </a>
                     </li>
                 </ul>
             </div>
