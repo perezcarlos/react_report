@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import database from '../../database';
 import jenkins from '../../jenkins'
 import SuiteFeatures from './SuiteFeaturesPane'
+import TabSelector from './TabSelectorPane'
 
 
 class NewSuitePane extends Component {
@@ -15,13 +16,15 @@ class NewSuitePane extends Component {
             branch: 'master',
             selectedFeatures: this.props.selectedFeatures || [],
             filter: '',
-            maxSelectedFeatures: 30
+            maxSelectedFeatures: 30,
+            selectedTab: 'features'
         };
 
         this.renderTextFields=this.renderTextFields.bind(this);
         this.onFilledBranch=this.onFilledBranch.bind(this);
         this.onFilledEnvironment=this.onFilledEnvironment.bind(this);
         this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
+        this.onSelectTab=this.onSelectTab.bind(this);
         this.isButtonEnabled=this.isButtonEnabled.bind(this);
         this.onFilter=this.onFilter.bind(this);
         this.onSend=this.onSend.bind(this);
@@ -60,6 +63,12 @@ class NewSuitePane extends Component {
     onFilter(filter){
         this.setState({
             filter: filter
+        })
+    }
+
+    onSelectTab(tab){
+        this.setState({
+            selectedTab: tab
         })
     }
 
@@ -125,6 +134,10 @@ class NewSuitePane extends Component {
                         <div className="launch-new-suite">
                             <div>
                                 {this.renderTextFields()}
+                                <TabSelector
+                                    selectedTab={this.state.selectedTab}
+                                    onSelectTab={this.onSelectTab}
+                                />
                                 <SuiteFeatures
                                     features={this.state.features}
                                     onSelectedFeatures={this.onSelectedFeatures}
