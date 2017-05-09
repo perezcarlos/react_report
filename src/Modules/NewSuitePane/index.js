@@ -107,20 +107,43 @@ class NewSuitePane extends Component {
     }
 
     onSend () {
-        jenkins.send({
-            features: this.state.selectedFeatures.join(),
-            suites: this.state.selectedSuites,
-            environment: this.state.environment,
-            branch: this.state.branch
-        }, (response) => {
-            this.setState({
-                selectedFeatures: [],
-                selectedSuites: [],
-                filter: ''
-            });
-            alert('The suite has been launched look for it in "Qa Test Job" suite');
-        });
+        if (this.state.selectedTab === 'features') {
+            return (
+                jenkins.launchByFeatures({
+                    features: this.state.selectedFeatures.join(),
+                    environment: this.state.environment,
+                    branch: this.state.branch
+                }, (response) => {
+                    this.setState({
+                        selectedFeatures: [],
+                        filter: ''
+                    });
 
+                    alert('The suite has been launched look for it in "Qa Test Job" suite');
+                })
+            )
+        } else if (this.state.selectedTab === 'suites') {
+            return (
+                this.state.selectedSuites.map( (suite) => {
+                    return (
+                        jenkins.launchBySuite({
+                            jobName: suite,
+                            environment: this.state.environment,
+                            branch: this.state.branch
+                        }, (response) => {
+                            this.setState({
+                                selectedSuites: [],
+                                filter: ''
+                            });
+
+                            alert('The suites have been launched look for results in each selected suite');
+                        })
+                    )
+                })
+            )
+        } else {
+            return null;
+        }
     }
 
     renderTextFields () {
@@ -150,8 +173,10 @@ class NewSuitePane extends Component {
     }
 
     isButtonEnabled (){
-        if(!this.state.selectedFeatures.length > 0) {
-            return{disabled: true}
+        if (this.state.selectedTab === 'features' && !this.state.selectedFeatures.length > 0) {
+            return {disabled: true}
+        } else if (this.state.selectedTab === 'suites' && !this.state.selectedSuites.length > 0) {
+            return {disabled: true}
         } else {
             return null
         }
