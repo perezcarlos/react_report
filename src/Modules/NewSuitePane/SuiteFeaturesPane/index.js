@@ -63,7 +63,7 @@ class SuiteFeaturesPane extends Component {
         const filterMatcher = new RegExp(`^${filter}| ${filter}`, 'g');
 
         return(
-            this.props.features.map((feature) => {
+            this.props.features.sort().map((feature) => {
                 const shownFeature = feature.replace(/_/g, " ")
                 if(this.props.filter === '') {
                     return (
