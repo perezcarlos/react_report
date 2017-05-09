@@ -114,7 +114,6 @@ class SuitesPane extends Component {
     }
 
     render () {
-        console.log(this.state.suites)
         if(!this.state.suites){
             return(
                 <div className="suite-features-pane">
