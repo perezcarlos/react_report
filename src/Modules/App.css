@@ -318,6 +318,18 @@ a.exception {
   width: 30%;
 }
 
+.selected-tab{
+  border: solid whitesmoke 1px;
+  margin-top: 5px;
+  padding: 0px 5px 5px 5px;
+}
+
+.new-suite-tab-selector {
+  float: left;
+  width: 150px;
+  margin-right: 100%;
+}
+
 .features-selection {
   background: white;
   border: solid 1px #cccccc;
@@ -326,7 +338,7 @@ a.exception {
   width: 100%;
 }
 
-.feature-select-option {
+.feature-select-option, .suite-select-option {
   border-radius: 1px;
   width: 10%;
   height: 60px;
@@ -337,7 +349,7 @@ a.exception {
   float: left;
 }
 
-.feature-select-option.selected {
+.feature-select-option.selected, .suite-select-option.selected {
   background-image: linear-gradient(180deg,#cbcbcb 0, #cdcdcd);
   border-color: #6c6c6c #d6d6d6 #d6d6d6 #6c6c6c;
   border-width: 5px 3px 3px 5px;

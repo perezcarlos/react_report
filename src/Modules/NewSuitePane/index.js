@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import database from '../../database';
-import jenkins from '../../jenkins'
-import SuiteFeatures from './SuiteFeaturesPane'
-import TabSelector from './TabSelectorPane'
+import jenkins from '../../jenkins';
+import SuiteFeatures from './SuiteFeaturesPane';
+import TabSelector from './TabSelectorPane';
+import Suites from './SuitesPane';
 
 
 class NewSuitePane extends Component {
@@ -14,7 +15,8 @@ class NewSuitePane extends Component {
             features: null,
             environment: 'release',
             branch: 'master',
-            selectedFeatures: this.props.selectedFeatures || [],
+            selectedFeatures: [],
+            selectedSuites: [],
             filter: '',
             maxSelectedFeatures: 30,
             selectedTab: 'features'
@@ -24,10 +26,12 @@ class NewSuitePane extends Component {
         this.onFilledBranch=this.onFilledBranch.bind(this);
         this.onFilledEnvironment=this.onFilledEnvironment.bind(this);
         this.onSelectedFeatures=this.onSelectedFeatures.bind(this);
+        this.onSelectedSuites=this.onSelectedSuites.bind(this);
         this.onSelectTab=this.onSelectTab.bind(this);
         this.isButtonEnabled=this.isButtonEnabled.bind(this);
         this.onFilter=this.onFilter.bind(this);
         this.onSend=this.onSend.bind(this);
+        this.renderSelectedTab=this.renderSelectedTab.bind(this);
     }
 
     componentDidMount () {
@@ -60,26 +64,58 @@ class NewSuitePane extends Component {
         })
     }
 
-    onFilter(filter){
+    onSelectedSuites (selectedSuites) {
+        this.setState({
+            selectedSuites: selectedSuites
+        })
+    }
+
+    onFilter (filter){
         this.setState({
             filter: filter
         })
     }
 
-    onSelectTab(tab){
+    onSelectTab (tab){
         this.setState({
             selectedTab: tab
         })
     }
 
+    renderSelectedTab () {
+        if (this.state.selectedTab === 'features') {
+            return (
+                <SuiteFeatures
+                    features={this.state.features}
+                    onSelectedFeatures={this.onSelectedFeatures}
+                    maxSelectedFeatures={this.state.maxSelectedFeatures}
+                    selectedFeatures={this.state.selectedFeatures}
+                    onFilter={this.onFilter}
+                    filter={this.state.filter}
+                />
+            )
+        } else {
+            return (
+                <Suites
+                    onSelectedSuites={this.onSelectedSuites}
+                    selectedSuites={this.state.selectedSuites}
+                    onFilter={this.onFilter}
+                    filter={this.state.filter}
+                />
+            )
+        }
+    }
+
     onSend () {
         jenkins.send({
             features: this.state.selectedFeatures.join(),
+            suites: this.state.selectedSuites,
             environment: this.state.environment,
             branch: this.state.branch
         }, (response) => {
             this.setState({
                 selectedFeatures: [],
+                selectedSuites: [],
                 filter: ''
             });
             alert('The suite has been launched look for it in "Qa Test Job" suite');
@@ -134,18 +170,13 @@ class NewSuitePane extends Component {
                         <div className="launch-new-suite">
                             <div>
                                 {this.renderTextFields()}
-                                <TabSelector
-                                    selectedTab={this.state.selectedTab}
-                                    onSelectTab={this.onSelectTab}
-                                />
-                                <SuiteFeatures
-                                    features={this.state.features}
-                                    onSelectedFeatures={this.onSelectedFeatures}
-                                    maxSelectedFeatures={this.state.maxSelectedFeatures}
-                                    selectedFeatures={this.state.selectedFeatures}
-                                    onFilter={this.onFilter}
-                                    filter={this.state.filter}
-                                />
+                                <div className={`selected-tab ${this.state.selectedTab}`}>
+                                    <TabSelector
+                                        selectedTab={this.state.selectedTab}
+                                        onSelectTab={this.onSelectTab}
+                                    />
+                                    {this.renderSelectedTab()}
+                                </div>
                                 <button className="sendButton btn btn-default" {...this.isButtonEnabled()} onClick={this.onSend}>Send</button>
                             </div>
                         </div>

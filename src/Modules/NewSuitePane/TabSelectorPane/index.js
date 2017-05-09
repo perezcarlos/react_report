@@ -27,19 +27,24 @@ class TabSelectorPane extends Component {
 
     render () {
         return(
-            <div className="btn-group new-suite-tab-selector">
-                {this.state.selectableTabs.map( (tab) => {
-                    return(
-                        <button
-                            key={tab}
-                            className={this.getTabClass(tab)}
-                            value={tab}
-                            onClick={this.onSelectTab}
-                        >
-                            <span>{tab}</span>
-                        </button>
-                    )
-                } )}
+            <div className="new-suite-tab-selector">
+                <label>Launch new suite by:</label>
+                <div className="btn-group buttons">
+                    {
+                        this.state.selectableTabs.map( (tab) => {
+                            return(
+                                <button
+                                    key={tab}
+                                    className={this.getTabClass(tab)}
+                                    value={tab}
+                                    onClick={this.onSelectTab}
+                                >
+                                    <span>{tab}</span>
+                                </button>
+                            )
+                        })
+                    }
+                </div>
             </div>
         )
     }
