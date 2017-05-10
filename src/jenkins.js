@@ -24,9 +24,18 @@ var Jenkins = class {
     };
 
     rebuild = function(params, callback) {
-        const url = `https://server2.qa.redbooth.com:8446/job/${params.suite}/${params.build}/retry`;
+        const url = `https://server2.qa.redbooth.com:8446/job/${params.suite}`;
+        var rebuild_url = '';
 
-        jsonp(`${url}`, {timeout: 5000}, function (error, response) {callback(error, response)})
+        if (params.features_list){
+            const environment = params.environment.split('.staging')[0].split('//')[1] || '';
+            const parameters = `branch=${params.branch}&environment=${environment}&features=${params.features_list.join()}`;
+            rebuild_url = `${url}/buildWithParameters?${parameters}`
+        } else {
+            rebuild_url = `${url}/${params.build}/retry`;
+        }
+
+        jsonp(`${rebuild_url}`, {timeout: 5000}, function (error, response) {callback(error, response)})
     }
 };
 
