@@ -13,7 +13,8 @@ class App extends Component {
     this.state = {
       suite_loaded: null,
       suites: null,
-      buildSelection: this.props.params || null
+      buildSelection: this.props.params || null,
+      failedSpecs: ''
     };
     this.onSelect = this.onSelect.bind(this);
     this.loadData = this.loadData.bind(this);

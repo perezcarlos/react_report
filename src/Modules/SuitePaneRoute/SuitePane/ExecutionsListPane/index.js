@@ -16,20 +16,6 @@ const ExecutionsListPane = ({specs, filter, onValidate}) => {
         )
     }
 
-    const writeFailedSpecsCookie = () => {
-        const filtered = groupBy(specs, (x) => x['status']);
-        const failedSpecs = [...filtered.failed || [], ...filtered.warning || []];
-
-        const specList = failedSpecs.map( (spec) => spec.file_path );
-
-        var d = new Date();
-        d.setTime(d.getTime() + (7*24*60*60*1000));
-        var expires = "expires="+ d.toUTCString();
-
-        document.cookie = 'failedSpecs=' + specList + ";" + expires + ";path=" + window.location.href;
-    };
-
-    writeFailedSpecsCookie();
     const byFeature = groupBy(specs, (x) => x[filter.filter]);
     if(filter.subFilter === 'all'){
         return(
