@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import jenkins from './../../../../jenkins';
 
 
-const SuiteHeaderPane = ({additionalInfo, status_image}) => {
+class SuiteHeaderPane extends Component {
 
-    const onRebuild = () => {
+    constructor (props){
+        super(props);
+
+        this.onRebuild=this.onRebuild.bind(this);
+        this.onRebuildFailed=this.onRebuildFailed.bind(this);
+        this.getFailedSpecs=this.getFailedSpecs.bind(this);
+        this.renderRebuild=this.renderRebuild.bind(this);
+        this.renderRetried=this.renderRetried.bind(this);
+        this.rebuildFailedButtonClass=this.rebuildFailedButtonClass.bind(this);
+    }
+
+    getFailedSpecs () {
+        return ''
+    };
+
+    onRebuild () {
         return (
-            jenkins.rebuild(additionalInfo, (error, response) => {
+            jenkins.rebuild(this.props.additionalInfo, (error, response) => {
                 if (error) {
                     console.log("There is an error", error)
                 }
@@ -17,18 +32,53 @@ const SuiteHeaderPane = ({additionalInfo, status_image}) => {
         )
     };
 
-    const renderRebuild = () => {
+    onRebuildFailed () {
+        const params = Object.assign({}, this.props.additionalInfo, {
+            failedSpecs: this.props.failedSpecs
+        });
+        return (
+            jenkins.rebuildFailed(params, (error, response) => {
+                if (error) {
+                    console.log("There is an error", error)
+                }
+                else {
+                    console.log("The response is", response)
+                }
+            })
+        )
+    };
+
+    rebuildFailedButtonClass () {
+        if (this.props.failedSpecs.length === 0) {
+            return {
+                disabled: true
+            }
+        } else {
+            return {
+                disabled: false
+            }
+        }
+    }
+
+    renderRebuild () {
       return (
-          <div className="rebuild-pane">
-              <button className="btn btn-default" onClick={onRebuild}>
+          <div className="rebuild-pane btn-group">
+              <button
+                  className="btn btn-default"
+                  onClick={this.onRebuildFailed}
+                  {...this.rebuildFailedButtonClass()}
+              >
+                  Rebuild Failed
+              </button>
+              <button className="btn btn-default" onClick={this.onRebuild}>
                   Rebuild
               </button>
           </div>
       )
     };
 
-    const renderRetried = () => {
-        if (additionalInfo.retried === "true") {
+    renderRetried () {
+        if (this.props.additionalInfo.retried === "true") {
             return (
                 <i
                     className="retried glyphicon glyphicon-repeat"
@@ -42,24 +92,26 @@ const SuiteHeaderPane = ({additionalInfo, status_image}) => {
         }
     };
 
-    if (!additionalInfo){
-        return(
-            <div className="suite-header panel-title">
-                <h1>Suite</h1>
-            </div>
-        )
-    } else {
-        return(
-            <div>
+    render () {
+        if (!this.props.additionalInfo) {
+            return (
                 <div className="suite-header panel-title">
-                    <img className="status-image" src={status_image} alt="" />
-                    <span className="suite-title h1">{additionalInfo.suite || "ERROR"}</span>
-                    <span className="build-number h4">{`\t#${additionalInfo.build}`}</span>
-                    {renderRetried()}
+                    <h1>Suite</h1>
                 </div>
-                {renderRebuild()}
-            </div>
-        )
+            )
+        } else {
+            return (
+                <div>
+                    <div className="suite-header panel-title">
+                        <img className="status-image" src={this.props.status_image} alt=""/>
+                        <span className="suite-title h1">{this.props.additionalInfo.suite || "ERROR"}</span>
+                        <span className="build-number h4">{`\t#${this.props.additionalInfo.build}`}</span>
+                        {this.renderRetried()}
+                    </div>
+                    {this.renderRebuild()}
+                </div>
+            )
+        }
     }
 };
 

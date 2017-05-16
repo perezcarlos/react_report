@@ -15,6 +15,7 @@ const ExecutionsListPane = ({specs, filter, onValidate}) => {
             </div>
         )
     }
+
     const byFeature = groupBy(specs, (x) => x[filter.filter]);
     if(filter.subFilter === 'all'){
         return(

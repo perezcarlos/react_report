@@ -1,4 +1,5 @@
 import React from 'react';
+import groupBy from 'lodash.groupby';
 import ExecutionsList from './ExecutionsListPane/index';
 import AdditionalInfo from './AdditionalInfoPane/index';
 import SuiteHeader from './SuiteHeaderPane/index';
@@ -8,15 +9,20 @@ import failed from '../../../Images/failed.png'
 import warning from '../../../Images/warning.png'
 import pending from '../../../Images/pending.gif'
 
-
 const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) => {
 
     var statuses = [];
+    var failedSpecs = '';
 
     if(suite) {
         Object.values(suite).forEach((spec) => {
             statuses.push(spec.status)
         });
+
+        const filtered = groupBy(suite, (x) => x['status']);
+        const specList = [...filtered.failed || [], ...filtered.warning || []];
+
+        failedSpecs = specList.map( (spec) => spec.file_path )
     }
 
     var status_image = null;
@@ -45,7 +51,11 @@ const SuitePane = ({suite, additionalInfo, onFilterChange, filter, onValidate}) 
         <div className="suite-pane col-md-12">
             <div className="panel panel-default">
                 <div className="panel-heading">
-                    <SuiteHeader additionalInfo={additionalInfo} status_image={status_image}/>
+                    <SuiteHeader
+                        additionalInfo={additionalInfo}
+                        status_image={status_image}
+                        failedSpecs={failedSpecs}
+                    />
                 </div>
                 <div className="panel-body">
                     <AdditionalInfo additionalInfo={additionalInfo}/>
