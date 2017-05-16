@@ -4,6 +4,21 @@ import jenkins from './../../../../jenkins';
 
 const SuiteHeaderPane = ({additionalInfo, status_image}) => {
 
+    const getFailedSpecsCookie = () => {
+        var name = 'failedSpecs=';
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    };
+
     const onRebuild = () => {
         return (
             jenkins.rebuild(additionalInfo, (error, response) => {
@@ -17,9 +32,28 @@ const SuiteHeaderPane = ({additionalInfo, status_image}) => {
         )
     };
 
+    const onRebuildFailed = () => {
+        const params = Object.assign({}, additionalInfo, {
+            failedSpecs: getFailedSpecsCookie()
+        });
+        return (
+            jenkins.rebuildFailed(params, (error, response) => {
+                if (error) {
+                    console.log("There is an error", error)
+                }
+                else {
+                    console.log("The response is", response)
+                }
+            })
+        )
+    };
+
     const renderRebuild = () => {
       return (
-          <div className="rebuild-pane">
+          <div className="rebuild-pane btn-group">
+              <button className="btn btn-default" onClick={onRebuildFailed}>
+                  Rebuild Failed
+              </button>
               <button className="btn btn-default" onClick={onRebuild}>
                   Rebuild
               </button>

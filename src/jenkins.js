@@ -1,4 +1,5 @@
-import jsonp from 'jsonp'
+import jsonp from 'jsonp';
+//import $ from 'jquery';
 
 var Jenkins = class {
     constructor(jobName = null) {
@@ -36,7 +37,17 @@ var Jenkins = class {
         }
 
         jsonp(`${rebuild_url}`, {timeout: 5000}, function (error, response) {callback(error, response)})
-    }
+    };
+
+    rebuildFailed = function(params, callback) {
+        const environment = params.environment.split('.staging')[0].split('//')[1] || '';
+
+        const url = `https://server2.qa.redbooth.com:8446/job/${params.suite}`;
+        const parameters = `branch=${params.branch}&environment=${environment}&FAILED_SPECS=${params.failedSpecs}`;
+        const rebuild_url = `${url}/buildWithParameters?${parameters}`;
+
+        jsonp(`${rebuild_url}`, {timeout: 5000}, function (error, response) {callback(error, response)})
+    };
 };
 
 export default new Jenkins();
