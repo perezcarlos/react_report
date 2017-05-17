@@ -31,7 +31,15 @@ const SpecPane = ({spec, onValidate}) => {
             <td className={`status status-${class_name} text-center`}>
                 <i className={`glyphicon ${icon_class}`} ></i>
             </td>
-            <td><a href={`#${spec.id}`} data-toggle="collapse">{spec.name}</a></td>
+            <td>
+                <button
+                    href={`#${spec.id}`}
+                    className="spec-name"
+                    data-toggle="collapse"
+                >
+                    {spec.name}
+                </button>
+            </td>
             <td>
                 <div>
                     {spec.description}

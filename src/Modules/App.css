@@ -229,6 +229,22 @@ a[disabled] {
   float: right;
 }
 
+.spec-name {
+  border: none;
+  background: transparent;
+  color: #337ab7;
+  text-transform: none;
+}
+
+.spec-name:hover {
+  cursor: hand;
+  text-decoration: underline;
+}
+
+.spec-name:focus {
+  outline:0;
+}
+
 .feature-name h2 {
   margin-bottom: 1px;
 }

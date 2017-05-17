@@ -19,28 +19,29 @@ const ExpectationPane = ({expectation} ) => {
             expectation_class = "error";
 
     }
-        if (!expectation.exception){
-            const attachmentId = `attachment-${uuid()}`;
-            return(
-                <div className={`alert alert-${expectation_class}`}>
-                    <label data-toggle="collapse" href={`#${attachmentId}`}>{expectation.description}</label>
-                    <ConsoleOutput consoleOutput={expectation.console_output}/>
-                    <Attachment key={attachmentId} attachment={expectation.remote_attachment} id={attachmentId}/>
-                </div>
-            );
-        } else {
-            const attachmentId = `attachment-${uuid()}`;
-            const backtraceId = `backtrace-${uuid()}`;
-            return(
-                <div className={`alert alert-${expectation_class}`}>
-                    <label data-toggle="collapse" href={`#${attachmentId}`}>{expectation.description}</label>
-                    <ConsoleOutput consoleOutput={expectation.console_output}/>
-                    <Exception key={backtraceId} exception={expectation.exception} id={backtraceId}/>
-                    <Backtrace key={`${backtraceId}-2`} backtrace={expectation.exception_backtrace} id={backtraceId}/>
-                    <Attachment key={attachmentId} attachment={expectation.remote_attachment} id={attachmentId}/>
-                </div>
-            )
-        }
+
+    if (!expectation.exception){
+        const attachmentId = `attachment-${uuid()}`;
+        return(
+            <div className={`alert alert-${expectation_class}`}>
+                <label data-toggle="collapse" href={`#${attachmentId}`}>{expectation.description}</label>
+                <ConsoleOutput consoleOutput={expectation.console_output}/>
+                <Attachment key={attachmentId} attachment={expectation.remote_attachment} id={attachmentId}/>
+            </div>
+        );
+    } else {
+        const attachmentId = `attachment-${uuid()}`;
+        const backtraceId = `backtrace-${uuid()}`;
+        return(
+            <div className={`alert alert-${expectation_class}`}>
+                <label data-toggle="collapse" href={`#${attachmentId}`}>{expectation.description}</label>
+                <ConsoleOutput consoleOutput={expectation.console_output}/>
+                <Exception key={backtraceId} exception={expectation.exception} id={backtraceId}/>
+                <Backtrace key={`${backtraceId}-2`} backtrace={expectation.exception_backtrace} id={backtraceId}/>
+                <Attachment key={attachmentId} attachment={expectation.remote_attachment} id={attachmentId}/>
+            </div>
+        )
+    }
 };
 
 export default ExpectationPane;
