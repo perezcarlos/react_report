@@ -5,19 +5,38 @@ import uuid from 'uuid';
 
 class ExpectationListPane extends Component {
     constructor(props){
-        super(props)
+        super(props);
 
-        this.onSelected=this.onSelected.bind(this)
+        this.state={
+          selected: false
+        };
+
+        this.isSelected=this.isSelected.bind(this);
+        this.isCollapsedClass=this.isCollapsedClass.bind(this);
     }
 
-    onSelected () {
-        return null
+    componentDidMount () {
+        this.setState({
+            selected: this.isSelected()
+        })
+    }
+
+    isSelected () {
+        return (this.props.selectedSpecs.some( (selSpec) => selSpec === this.props.spec.name ))
+    }
+
+    isCollapsedClass () {
+        if (this.state.selected) {
+            return 'collapse in'
+        } else {
+            return 'collapse'
+        }
     }
 
     render () {
         return(
-            <tr className="collapse" id={this.props.id}>
-                <td colSpan="4">
+            <tr className={this.isCollapsedClass()} id={this.props.id}>
+                <td colSpan="5">
                     {
                         this.props.expectations.map((expectation) => {
                             var key = uuid();
