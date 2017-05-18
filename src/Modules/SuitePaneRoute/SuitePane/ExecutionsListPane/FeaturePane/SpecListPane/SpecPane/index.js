@@ -13,6 +13,7 @@ class SpecPane extends Component {
         };
 
         this.onSelectSpec=this.onSelectSpec.bind(this);
+        this.isSpecDisabled=this.isSpecDisabled.bind(this);
     }
 
     componentDidMount () {
@@ -57,6 +58,18 @@ class SpecPane extends Component {
         this.props.onSelectedSpecs(this.props.selectedSpecs);
     }
 
+    isSpecDisabled () {
+        if (this.props.spec.expectations){
+            return {
+                disabled: false
+            }
+        } else {
+            return {
+                disabled: true
+            }
+        }
+    }
+
     render () {
         return (
             <tr>
@@ -73,6 +86,7 @@ class SpecPane extends Component {
                         data-toggle="collapse"
                         value={this.props.spec.name}
                         onClick={this.onSelectSpec}
+                        {...this.isSpecDisabled()}
                     >
                         {this.props.spec.name}
                     </button>
