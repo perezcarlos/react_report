@@ -34,20 +34,25 @@ class ExpectationListPane extends Component {
     }
 
     render () {
-        return(
-            <tr className={this.isCollapsedClass()} id={this.props.id}>
-                <td colSpan="5">
-                    {
-                        this.props.expectations.map((expectation) => {
-                            var key = uuid();
-                            return(
-                                <Expectation key={key} expectation={expectation}/>
-                            );
-                        })
-                    }
-                </td>
-            </tr>
-        )
+        if (this.props.expectations) {
+            return (
+                <tr className={this.isCollapsedClass()} id={this.props.id}>
+                    <td colSpan="5">
+                        {
+                            this.props.expectations.map((expectation) => {
+                                var key = uuid();
+                                return (
+                                    <Expectation key={key} expectation={expectation}/>
+                                );
+                            })
+                        }
+                    </td>
+                </tr>
+            )
+        }
+        else {
+            return null
+        }
     }
 }
 
