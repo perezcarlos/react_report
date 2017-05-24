@@ -3,12 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.7.0"
+    "chai": "^3.5.0",
+    "mocha": "^3.4.1",
+    "mz": "^2.6.0",
+    "nodemon": "^1.11.0",
+    "react-scripts": "0.7.0",
+    "supertest": "^3.0.0",
+    "supertest-as-promised": "^4.0.2"
   },
   "dependencies": {
+    "axios": "^0.16.1",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-http-proxy": "^1.0.3",
     "firebase": "^3.6.1",
     "jsonp": "^0.2.1",
     "lodash.groupby": "^4.6.0",
+    "morgan": "^1.8.1",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.1",
@@ -17,8 +28,20 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:server": "node server",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/react-scripts/config/eslint.js",
+    "env": {
+      "browser": true,
+      "mocha": true,
+      "node": true
+    },
+    "rules": {
+      "strict": 0
+    }
   }
 }
