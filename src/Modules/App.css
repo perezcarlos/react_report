@@ -35,8 +35,13 @@
   vertical-align: text-bottom;
 }
 
-.App-header a span{
+.App-header a span {
   vertical-align: text-top;
+}
+
+.App-header .new-user i i {
+  float: right;
+  font-size: 20px;
 }
 
 .App-header span {
@@ -394,6 +399,37 @@ a.exception {
   margin-top: 10px;
 }
 
+
 .retried {
   margin-left: 5px;
+}
+
+.create-new-user .fields-pane {
+  text-align: left;
+  border: solid 1px #cccccc;
+  width: 32%;
+  margin: 1%;
+  padding: 1%;
+  border-radius: 5px;
+}
+
+.create-new-user div.environment {
+  width: 100%;
+}
+
+.create-new-user .fields-pane div, .create-new-user .fields-pane div label {
+  margin: 2%;
+}
+
+.new-user-fields {
+  display: inline-flex;
+  width: 100%;
+  text-align: center;
+  border: solid 1px #cccccc;
+  background-color: whitesmoke;
+  border-radius: 5px;
+}
+
+input[type="textField"] {
+  min-width: 300px;
 }

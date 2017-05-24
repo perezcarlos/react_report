@@ -88,6 +88,6 @@ class SuitePaneRoute extends Component {
             />
         )
     }
-};
+}
 
 export default SuitePaneRoute;

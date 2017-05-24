@@ -28,6 +28,13 @@ class AppHeader extends Component {
                             <i className="glyphicon glyphicon-plus-sign"/>
                         </a>
                     </li>
+                    <li role="presentation">
+                        <a href="#/newUser" className="new-user">
+                            <i className="glyphicon glyphicon-user">
+                                <i className="glyphicon glyphicon-plus-sign"/>
+                            </i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         )
