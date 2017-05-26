@@ -31,6 +31,7 @@ class NewSuitePane extends Component {
         this.isButtonEnabled=this.isButtonEnabled.bind(this);
         this.onFilter=this.onFilter.bind(this);
         this.onSend=this.onSend.bind(this);
+        this.responseHandle=this.responseHandle.bind(this);
         this.renderSelectedTab=this.renderSelectedTab.bind(this);
     }
 
@@ -106,35 +107,49 @@ class NewSuitePane extends Component {
         }
     }
 
+    responseHandle (response, error) {
+        if (error) {
+                if(error.response.data.error) {
+                    console.error(error.response.data.error);
+                } else {
+                    console.error(error);
+                }
+        } else {
+            this.setState({
+                selectedFeatures: [],
+                selectedSuites: [],
+                filter: ''
+            }, console.log(response));
+        }
+    }
+
     onSend () {
         if (this.state.selectedTab === 'features') {
             return (
-                jenkins.launchByFeatures({
+                jenkins.launch({
                     features: this.state.selectedFeatures.join(),
                     environment: this.state.environment,
                     branch: this.state.branch
-                }, (response) => {
+                }, (response, error) => {
                     this.setState({
                         selectedFeatures: [],
                         filter: ''
-                    });
-
-                    alert('The suite has been launched look for it in "Qa Test Job" suite');
+                    }, this.responseHandle(response, error));
                 })
             )
         } else if (this.state.selectedTab === 'suites') {
             return (
                 this.state.selectedSuites.map( (suite) => {
                     return (
-                        jenkins.launchBySuite({
+                        jenkins.launch({
                             jobName: suite,
                             environment: this.state.environment,
                             branch: this.state.branch
-                        }, (response) => {
+                        }, (response, error) => {
                             this.setState({
                                 selectedSuites: [],
                                 filter: ''
-                            });
+                            }, this.responseHandle(response, error));
 
                             alert('The suites have been launched look for results in each selected suite');
                         })

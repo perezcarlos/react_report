@@ -21,7 +21,7 @@ class SuiteHeaderPane extends Component {
 
     onRebuild () {
         return (
-            jenkins.rebuild(this.props.additionalInfo, (error, response) => {
+            jenkins.launch(this.props.additionalInfo, (error, response) => {
                 if (error) {
                     console.log("There is an error", error)
                 }
@@ -37,7 +37,7 @@ class SuiteHeaderPane extends Component {
             failedSpecs: this.props.failedSpecs
         });
         return (
-            jenkins.rebuildFailed(params, (error, response) => {
+            jenkins.launch(params, (error, response) => {
                 if (error) {
                     console.log("There is an error", error)
                 }
