@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { hashHistory } from 'react-router'
+import { hashHistory } from 'react-router';
 import SuitePane from './SuitePane/index';
 import database from '../../database';
+import jenkins from '../../jenkins';
 
 
 class SuitePaneRoute extends Component {
@@ -16,11 +17,13 @@ class SuitePaneRoute extends Component {
 
         this.state = {
             suite: null,
+            jenkinsBuildInfo: null,
             additional_info: null,
             filter: filter
         };
         this.onFilterChange = this.onFilterChange.bind(this);
         this.getBuildData = this.getBuildData.bind(this);
+        this.getJenkinsBuildData = this.getJenkinsBuildData.bind(this);
         this.onValidate = this.onValidate.bind(this);
     }
 
@@ -54,9 +57,34 @@ class SuitePaneRoute extends Component {
             this.setState ({
                 suite: snapshot.val() ? snapshot.val().executions : {},
                 additional_info: snapshot.val() ? snapshot.val().additional_info : {}
-            });
+            }, this.getJenkinsBuildData());
         });
     }
+
+    getJenkinsBuildData() {
+        const retryIfEmpty = function () {
+            if (!this.state.jenkinsBuildInfo){
+                setTimeout(this.getJenkinsBuildData(), 200)
+            }
+        };
+
+        const { selectedSuite, selectedBuild } = this.props.params;
+
+        jenkins.getBuildData(selectedSuite, selectedBuild, (response, error) => {
+            console.log(error);
+            console.log(response);
+
+            if (response) {
+                this.setState({jenkinsBuildInfo: {data: response.data}}, retryIfEmpty)
+            }
+            else if (error && error.response && error.response.data && error.response.data.error) {
+                this.setState({jenkinsBuildInfo: {error: error.response.data.error}}, retryIfEmpty)
+            } else {
+                this.setState({jenkinsBuildInfo: {error: error}}, retryIfEmpty)
+            }
+        });
+    }
+
 
     onValidate(value) {
         var spec_found = null;
@@ -84,6 +112,7 @@ class SuitePaneRoute extends Component {
                 additionalInfo={this.state.additional_info}
                 onFilterChange={this.onFilterChange}
                 onValidate={this.onValidate}
+                jenkinsInfo={this.state.jenkinsBuildInfo}
                 filter={this.state.filter}
             />
         )

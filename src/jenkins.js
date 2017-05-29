@@ -1,4 +1,3 @@
-const jsonp = require('jsonp');
 const axios = require('axios');
 
 var Jenkins = class {
@@ -59,6 +58,38 @@ var Jenkins = class {
                 callback(null, error)
             });
     };
+
+    getSuiteData = function(suiteName, callback) {
+        axios({
+            url: `/jenkins/job/${suiteName}/api/json`,
+            method: 'get',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+            .then(function(response){
+                callback(response, null)
+            })
+            .catch(function(error){
+                callback(null, error)
+            });
+    };
+
+    getBuildData = function(suiteName, buildNumber, callback) {
+        axios({
+            url: `/jenkins/job/${suiteName}/${buildNumber}/api/json`,
+            method: 'get',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+            .then(function(response){
+                callback(response, null)
+            })
+            .catch(function(error){
+                callback(null, error)
+            });
+    }
 };
 
 export default new Jenkins();

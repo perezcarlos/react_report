@@ -103,7 +103,7 @@ class SuiteHeaderPane extends Component {
             return (
                 <div>
                     <div className="suite-header panel-title">
-                        <img className="status-image" src={this.props.status_image} alt=""/>
+                        <img className="status-image" src={this.props.statusImage} alt=""/>
                         <span className="suite-title h1">{this.props.additionalInfo.suite || "ERROR"}</span>
                         <span className="build-number h4">{`\t#${this.props.additionalInfo.build}`}</span>
                         {this.renderRetried()}
