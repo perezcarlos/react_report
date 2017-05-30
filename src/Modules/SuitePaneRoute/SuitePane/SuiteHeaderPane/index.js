@@ -71,7 +71,7 @@ class SuiteHeaderPane extends Component {
                   Rebuild Failed
               </button>
               <button className="btn btn-default" onClick={this.onRebuild}>
-                  Rebuild
+                  Rebuild All
               </button>
           </div>
       )
@@ -103,9 +103,17 @@ class SuiteHeaderPane extends Component {
             return (
                 <div>
                     <div className="suite-header panel-title">
-                        <img className="status-image" src={this.props.statusImage} alt=""/>
-                        <span className="suite-title h1">{this.props.additionalInfo.suite || "ERROR"}</span>
-                        <span className="build-number h4">{`\t#${this.props.additionalInfo.build}`}</span>
+                        <img
+                            className="status-image"
+                            src={this.props.statusImage}
+                            alt="" title={this.props.loadState}
+                        />
+                        <span className="suite-title h1">
+                            {this.props.additionalInfo.suite || this.props.locationParams.selectedSuite}
+                        </span>
+                        <span className="build-number h4">
+                            {`\t#${this.props.additionalInfo.build || this.props.locationParams.selectedBuild}`}
+                        </span>
                         {this.renderRetried()}
                     </div>
                     {this.renderRebuild()}

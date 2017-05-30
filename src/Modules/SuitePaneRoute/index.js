@@ -110,6 +110,7 @@ class SuitePaneRoute extends Component {
             <SuitePane
                 suite={this.state.suite}
                 additionalInfo={this.state.additional_info}
+                locationParams={this.props.params}
                 onFilterChange={this.onFilterChange}
                 onValidate={this.onValidate}
                 jenkinsInfo={this.state.jenkinsBuildInfo}

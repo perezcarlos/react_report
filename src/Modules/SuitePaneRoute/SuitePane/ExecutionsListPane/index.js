@@ -4,6 +4,14 @@ import groupBy from 'lodash.groupby';
 
 
 const ExecutionsListPane = ({specs, filter, onValidate}) => {
+    if (!specs) {
+        return(
+            <div>
+                fooo
+            </div>
+        )
+    }
+
     if(Object.keys(specs).length === 0){
         return(
             <div className="error">
@@ -46,8 +54,7 @@ const ExecutionsListPane = ({specs, filter, onValidate}) => {
                 </div>
             </div>
         )
-    }
-    else {
+    } else {
         return(
             <Feature
                 key={filter.subFilter}
