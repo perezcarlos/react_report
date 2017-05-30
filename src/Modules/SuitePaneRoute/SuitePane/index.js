@@ -74,11 +74,11 @@ class SuitePane extends Component {
                 loadState: 'loaded'
             });
             if (this.props.jenkinsInfo && this.props.jenkinsInfo.data) {
-                if (this.props.jenkinsInfo.data.building == true) {
+                if (this.props.jenkinsInfo.data.building === true) {
                     this.setState({
                         statusImage: pending
                     })
-                } else if (this.props.jenkinsInfo.data.result == 'ABORTED') {
+                } else if (this.props.jenkinsInfo.data.result === 'ABORTED') {
                     this.setState({
                         statusImage: aborted
                     })
