@@ -51,8 +51,18 @@ var Jenkins = class {
             },
             params: parameters
         })
-            .then(function(response){
-                callback(response, null)
+            .then(() => {
+                this.getSuiteData(usedJobName, (response, error) => {
+                    callback(
+                        {
+                            suiteData: response.data,
+                            suiteName: usedJobName,
+                            nextBuildId: response.data.nextBuildNumber
+                        },
+                        error
+                    )
+                })
+
             })
             .catch(function(error){
                 callback(null, error)

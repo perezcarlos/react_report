@@ -44,7 +44,7 @@ class App extends Component {
 
   onSelect(buildSelection) {
     if (this.state.buildSelection) {
-      database.ref(`builds/${this.state.buildSelection.selectedSuite}_${this.state.buildSelection.selectedBuild}/`).off()
+      database.ref(`builds/${this.state.buildSelection.selectedSuite.replace(/[-\s]/g, "_")}_${this.state.buildSelection.selectedBuild}/`).off()
     }
 
     this.setState ({

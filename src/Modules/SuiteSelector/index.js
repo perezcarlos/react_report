@@ -18,7 +18,7 @@ class SuiteSelectorPane extends Component {
     }
 
     render () {
-        const suite = this.props.suites[this.state.selectedSuite] || {};
+        const suite = this.props.suites[this.state.selectedSuite.replace(/[-\s]/g, "_")] || {};
         const executions = suite || {};
         return (
             <div className="selectors">
@@ -27,7 +27,7 @@ class SuiteSelectorPane extends Component {
                         <h3 className="panel-title">Select a suite: </h3>
                     </div>
                     <div className="panel-body">
-                        {this.renderSuites(Object.keys(this.props.suites))}
+                        {this.renderSuites(this.props.suites)}
                     </div>
                 </div>
 
@@ -44,12 +44,12 @@ class SuiteSelectorPane extends Component {
     }
 
     onSelectSuite (event) {
-        this.setState({selectedSuite: event.target.value, selectedBuild: ''})
+        this.setState({selectedSuite: event.currentTarget.value, selectedBuild: ''})
     }
 
     onSelectBuild (event) {
         this.setState({selectedBuild: event.currentTarget.value}, () => {
-            this.props.onSelect({selectedSuite: this.state.selectedSuite, selectedBuild: this.state.selectedBuild})
+            this.props.onSelect(this.state)
         })
     }
 
@@ -73,15 +73,15 @@ class SuiteSelectorPane extends Component {
         return (
             <div className="suite-selector list-group">
                 {
-                    suites.map((suiteName, index)=>{
+                    Object.keys(suites).map((key, index)=>{
                         return(
                             <button
-                                className={this.suiteOptionClass(suiteName)}
+                                className={this.suiteOptionClass(suites[key].job_name || key)}
                                 key={index}
-                                value={suiteName}
+                                value={suites[key].job_name || key}
                                 onClick={this.onSelectSuite}
                             >
-                                {suiteName.replace(/[_-]/g, " ")}
+                                {key.replace(/[_-]/g, " ")}
                             </button>
                         )
                     })

@@ -53,7 +53,7 @@ class SuitePaneRoute extends Component {
     }
 
     getBuildData() {
-        database.ref(`builds/${this.props.params.selectedSuite}_${this.props.params.selectedBuild}/`).on('value', (snapshot) => {
+        database.ref(`builds/${this.props.params.selectedSuite.replace(/[-\s]/g, "_")}_${this.props.params.selectedBuild}/`).on('value', (snapshot) => {
             this.setState ({
                 suite: snapshot.val() ? snapshot.val().executions : {},
                 additional_info: snapshot.val() ? snapshot.val().additional_info : {}
@@ -71,9 +71,6 @@ class SuitePaneRoute extends Component {
         const { selectedSuite, selectedBuild } = this.props.params;
 
         jenkins.getBuildData(selectedSuite, selectedBuild, (response, error) => {
-            console.log(error);
-            console.log(response);
-
             if (response) {
                 this.setState({jenkinsBuildInfo: {data: response.data}}, retryIfEmpty)
             }
