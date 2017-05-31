@@ -137,8 +137,10 @@ class NewSuitePane extends Component {
                         filter: ''
                     }, () => {
                         this.responseHandle(response, error);
-                        const path = `suite/${response.suiteName}/build/${response.nextBuildId}`;
-                        setTimeout(hashHistory.push, 5000, path);
+                        if (response) {
+                            const path = `suite/${response.suiteName}/build/${response.nextBuildId}`;
+                            setTimeout(hashHistory.push, 5000, path);
+                        }
                     });
                 })
             )
