@@ -11,7 +11,8 @@ class ExecutionsListPane extends Component {
             filteredSpecs: null
         });
         
-        this.getFilteredSpecs=this.getFilteredSpecs.bind(this)
+        this.getFilteredSpecs=this.getFilteredSpecs.bind(this);
+        this.errorsRender=this.errorsRender.bind(this);
     }
     
     componentDidMount () {
@@ -38,8 +39,8 @@ class ExecutionsListPane extends Component {
         })
     }
 
-    render () {
-        if (!this.state.filteredSpecs) {
+    errorsRender () {
+        if (this.props.loadState === 'loading') {
             return (
                 <div className="error">
                     <div className="alert alert-info">
@@ -49,9 +50,16 @@ class ExecutionsListPane extends Component {
                     </div>
                 </div>
             )
+        } else if (this.props.loadState === 'aborted') {
+            <div className="error">
+                <div className="alert alert-danger">
+                    <label>
+                        <strong>No data found!</strong>{` Job could be aborted, check for jenkins job`}
+                    </label>
+                </div>
+            </div>
         }
-
-        if (Object.keys(this.state.filteredSpecs).length === 0) {
+        else {
             return (
                 <div className="error">
                     <div className="alert alert-danger">
@@ -62,7 +70,12 @@ class ExecutionsListPane extends Component {
                 </div>
             )
         }
+    }
 
+    render () {
+        if (!this.state.filteredSpecs || Object.keys(this.state.filteredSpecs).length === 0) {
+            return this.errorsRender()
+        }
         if (this.props.filter.subFilter === 'all') {
             return (
                 <div className="execution-list">

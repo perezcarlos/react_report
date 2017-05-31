@@ -138,7 +138,7 @@ class NewSuitePane extends Component {
                     }, () => {
                         this.responseHandle(response, error);
                         const path = `suite/${response.suiteName}/build/${response.nextBuildId}`;
-                        setTimeout(hashHistory.push(path), 5000);
+                        setTimeout(hashHistory.push, 5000, path);
                     });
                 })
             )

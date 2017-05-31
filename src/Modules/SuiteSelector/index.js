@@ -17,6 +17,15 @@ class SuiteSelectorPane extends Component {
         this.buildOptionClass=this.buildOptionClass.bind(this);
     }
 
+    componentDidUpdate (prevProps) {
+        if (prevProps !== this.props) {
+            this.setState({
+                selectedSuite: this.props.buildSelection.selectedSuite || '',
+                selectedBuild: this.props.buildSelection.selectedBuild || ''
+            })
+        }
+    }
+
     render () {
         const suite = this.props.suites[this.state.selectedSuite.replace(/[-\s]/g, "_")] || {};
         const executions = suite || {};

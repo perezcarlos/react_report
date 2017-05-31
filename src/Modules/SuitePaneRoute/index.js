@@ -18,6 +18,7 @@ class SuitePaneRoute extends Component {
         this.state = {
             suite: null,
             jenkinsBuildInfo: null,
+            waitForTime: 1000,
             additional_info: null,
             filter: filter
         };
@@ -63,16 +64,19 @@ class SuitePaneRoute extends Component {
 
     getJenkinsBuildData() {
         const retryIfEmpty = function () {
-            if (!this.state.jenkinsBuildInfo){
-                setTimeout(this.getJenkinsBuildData(), 1000)
+            if (this.state.waitForTime > 20000) {
+                return null
             }
+            this.setState({waitForTime: (this.state.waitForTime * 2) }, () => {
+                setTimeout(this.getJenkinsBuildData, this.state.waitForTime);
+            });
         };
 
         const { selectedSuite, selectedBuild } = this.props.params;
 
         jenkins.getBuildData(selectedSuite, selectedBuild, (response, error) => {
             if (response) {
-                this.setState({jenkinsBuildInfo: {data: response.data}}, retryIfEmpty)
+                this.setState({jenkinsBuildInfo: {data: response.data}})
             }
             else if (error && error.response && error.response.data && error.response.data.error) {
                 this.setState({jenkinsBuildInfo: {error: error.response.data.error}}, retryIfEmpty)

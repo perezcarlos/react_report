@@ -109,7 +109,7 @@ class SuiteHeaderPane extends Component {
                             alt="" title={this.props.loadState}
                         />
                         <span className="suite-title h1">
-                            {this.props.additionalInfo.suite || this.props.locationParams.selectedSuite}
+                            {(this.props.additionalInfo.suite || this.props.locationParams.selectedSuite).replace(/[_-]/g," ")}
                         </span>
                         <span className="build-number h4">
                             {`\t#${this.props.additionalInfo.build || this.props.locationParams.selectedBuild}`}

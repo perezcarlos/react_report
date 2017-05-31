@@ -40,7 +40,14 @@ class App extends Component {
       hashHistory.push('/noSuite');
       this.loadData()
     }
+  }
 
+  componentDidUpdate(prevProps) {
+      if (prevProps.params !== this.props.params) {
+          this.setState({
+              buildSelection: this.props.params
+          })
+      }
   }
 
   onSelect(buildSelection) {
