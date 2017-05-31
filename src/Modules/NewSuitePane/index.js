@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hashHistory } from 'react-router';
 import database from '../../database';
 import jenkins from '../../jenkins';
 import SuiteFeatures from './SuiteFeaturesPane';
@@ -107,7 +108,7 @@ class NewSuitePane extends Component {
         }
     }
 
-    responseHandle (response, error) {
+    responseHandle (__, error) {
         if (error) {
                 if(error.response.data.error) {
                     console.error(error.response.data.error);
@@ -119,7 +120,7 @@ class NewSuitePane extends Component {
                 selectedFeatures: [],
                 selectedSuites: [],
                 filter: ''
-            }, console.log(response));
+            });
         }
     }
 
@@ -134,7 +135,11 @@ class NewSuitePane extends Component {
                     this.setState({
                         selectedFeatures: [],
                         filter: ''
-                    }, this.responseHandle(response, error));
+                    }, () => {
+                        this.responseHandle(response, error);
+                        const path = `suite/${response.suiteName}/build/${response.nextBuildId}`;
+                        setTimeout(hashHistory.push(path), 5000);
+                    });
                 })
             )
         } else if (this.state.selectedTab === 'suites') {

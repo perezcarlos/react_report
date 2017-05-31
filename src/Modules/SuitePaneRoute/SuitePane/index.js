@@ -63,7 +63,7 @@ class SuitePane extends Component {
 
         this.setState({
             statuses: statuses,
-            failSpecs: failed_specs,
+            failedSpecs: failed_specs,
             statusImage: status_image
         })
     }

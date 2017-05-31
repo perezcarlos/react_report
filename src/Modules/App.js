@@ -30,7 +30,8 @@ class App extends Component {
     if (this.props.location.pathname !== '/') {
       this.setState({
         suite_loaded: true,
-        suites: {}
+        suites: {},
+        buildSelection: this.props.params || null
       }, () => {
           this.loadData()
         }

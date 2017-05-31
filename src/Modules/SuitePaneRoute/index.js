@@ -64,7 +64,7 @@ class SuitePaneRoute extends Component {
     getJenkinsBuildData() {
         const retryIfEmpty = function () {
             if (!this.state.jenkinsBuildInfo){
-                setTimeout(this.getJenkinsBuildData(), 200)
+                setTimeout(this.getJenkinsBuildData(), 1000)
             }
         };
 
