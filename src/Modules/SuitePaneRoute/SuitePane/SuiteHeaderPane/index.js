@@ -21,7 +21,7 @@ class SuiteHeaderPane extends Component {
 
     onRebuild () {
         return (
-            jenkins.launch(this.props.additionalInfo, (error, response) => {
+            jenkins.rebuild(this.props.additionalInfo, (error, response) => {
                 if (error) {
                     console.log("There is an error", error)
                 }
@@ -37,7 +37,7 @@ class SuiteHeaderPane extends Component {
             failedSpecs: this.props.failedSpecs
         });
         return (
-            jenkins.launch(params, (error, response) => {
+            jenkins.rebuildFailed(params, (error, response) => {
                 if (error) {
                     console.log("There is an error", error)
                 }
@@ -71,7 +71,7 @@ class SuiteHeaderPane extends Component {
                   Rebuild Failed
               </button>
               <button className="btn btn-default" onClick={this.onRebuild}>
-                  Rebuild All
+                  Rebuild
               </button>
           </div>
       )
@@ -103,17 +103,9 @@ class SuiteHeaderPane extends Component {
             return (
                 <div>
                     <div className="suite-header panel-title">
-                        <img
-                            className="status-image"
-                            src={this.props.statusImage}
-                            alt="" title={this.props.loadState}
-                        />
-                        <span className="suite-title h1">
-                            {(this.props.additionalInfo.suite || this.props.locationParams.selectedSuite).replace(/[_-]/g," ")}
-                        </span>
-                        <span className="build-number h4">
-                            {`\t#${this.props.additionalInfo.build || this.props.locationParams.selectedBuild}`}
-                        </span>
+                        <img className="status-image" src={this.props.status_image} alt=""/>
+                        <span className="suite-title h1">{this.props.additionalInfo.suite || "ERROR"}</span>
+                        <span className="build-number h4">{`\t#${this.props.additionalInfo.build}`}</span>
                         {this.renderRetried()}
                     </div>
                     {this.renderRebuild()}

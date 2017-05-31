@@ -1,105 +1,53 @@
-const axios = require('axios');
+import jsonp from 'jsonp';
+//import $ from 'jquery';
 
 var Jenkins = class {
-    constructor() {
+    constructor(jobName = null) {
         this.defaultJobName = 'qa-test-job';
     }
 
-    constructJobName = function (params) {
-        const jobName = params.jobName || params.suite || this.defaultJobName;
+    launchByFeatures = function(params, callback) {
+        const host = `https://server2.qa.redbooth.com:8446/job/${this.defaultJobName}/buildWithParameters?`;
+        const parameters = `branch=${params.branch}&environment=${params.environment}&features=${params.features}`;
 
-        return jobName
+        jsonp(`${host}${parameters}`, {timeout: 5000}, function (error, response) {
+            callback(error, response)
+        })
     };
 
-    constructParameters = function (params) {
-        var environment = '';
-        if (params.environment.includes('.staging')) {
+    launchBySuite = function(params, callback) {
+        const host = `https://server2.qa.redbooth.com:8446/job/${params.jobName}/buildWithParameters?`;
+        const parameters = `branch=${params.branch}&environment=${params.environment}`;
 
-            environment = params.environment.split('.staging')[0].split('//')[1] || ''
+        jsonp(`${host}${parameters}`, {timeout: 5000}, function (error, response) {
+            callback(error, response)
+        })
+    };
 
+    rebuild = function(params, callback) {
+        const url = `https://server2.qa.redbooth.com:8446/job/${params.suite}`;
+        var rebuild_url = '';
+
+        if (params.features_list){
+            const environment = params.environment.split('.staging')[0].split('//')[1] || '';
+            const parameters = `branch=${params.branch}&environment=${environment}&features=${params.features_list.join()}`;
+            rebuild_url = `${url}/buildWithParameters?${parameters}`
         } else {
-            environment = params.environment
+            rebuild_url = `${url}/${params.build}/retry`;
         }
 
-        var parameters = {
-            environment: environment,
-            branch: params.branch
-        };
-
-        if (params.features) {
-            parameters = Object.assign({}, parameters, {features: params.features});
-        } else if (params.features_list) {
-            parameters = Object.assign({}, parameters, {features: params.features_list.join()});
-        }
-
-        if (params.failedSpecs){
-            parameters = Object.assign({}, parameters, {FAILEDSPECS: params.failedSpecs.join()});
-        }
-
-        return parameters
+        jsonp(`${rebuild_url}`, {timeout: 5000}, function (error, response) {callback(error, response)})
     };
 
-    launch = function(params, callback) {
-        const usedJobName = this.constructJobName(params);
-        const parameters = this.constructParameters(params);
+    rebuildFailed = function(params, callback) {
+        const environment = params.environment.split('.staging')[0].split('//')[1] || '';
 
-        axios({
-            url: `/jenkins/job/${usedJobName}/buildWithParameters`,
-            method: 'post',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            params: parameters
-        })
-            .then(() => {
-                this.getSuiteData(usedJobName, (response, error) => {
-                    callback(
-                        {
-                            suiteData: response.data,
-                            suiteName: usedJobName,
-                            nextBuildId: response.data.nextBuildNumber
-                        },
-                        error
-                    )
-                })
+        const url = `https://server2.qa.redbooth.com:8446/job/${params.suite}`;
+        const parameters = `branch=${params.branch}&environment=${environment}&FAILED_SPECS=${params.failedSpecs}`;
+        const rebuild_url = `${url}/buildWithParameters?${parameters}`;
 
-            })
-            .catch(function(error){
-                callback(null, error)
-            });
+        jsonp(`${rebuild_url}`, {timeout: 5000}, function (error, response) {callback(error, response)})
     };
-
-    getSuiteData = function(suiteName, callback) {
-        axios({
-            url: `/jenkins/job/${suiteName}/api/json`,
-            method: 'get',
-            headers: {
-                'Content-type': 'application/json'
-            }
-        })
-            .then(function(response){
-                callback(response, null)
-            })
-            .catch(function(error){
-                callback(null, error)
-            });
-    };
-
-    getBuildData = function(suiteName, buildNumber, callback) {
-        axios({
-            url: `/jenkins/job/${suiteName}/${buildNumber}/api/json`,
-            method: 'get',
-            headers: {
-                'Content-type': 'application/json'
-            }
-        })
-            .then(function(response){
-                callback(response, null)
-            })
-            .catch(function(error){
-                callback(null, error)
-            });
-    }
 };
 
 export default new Jenkins();

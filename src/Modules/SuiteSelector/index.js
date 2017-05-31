@@ -17,17 +17,8 @@ class SuiteSelectorPane extends Component {
         this.buildOptionClass=this.buildOptionClass.bind(this);
     }
 
-    componentDidUpdate (prevProps) {
-        if (prevProps !== this.props) {
-            this.setState({
-                selectedSuite: this.props.buildSelection.selectedSuite || '',
-                selectedBuild: this.props.buildSelection.selectedBuild || ''
-            })
-        }
-    }
-
     render () {
-        const suite = this.props.suites[this.state.selectedSuite.replace(/[-\s]/g, "_")] || {};
+        const suite = this.props.suites[this.state.selectedSuite] || {};
         const executions = suite || {};
         return (
             <div className="selectors">
@@ -36,7 +27,7 @@ class SuiteSelectorPane extends Component {
                         <h3 className="panel-title">Select a suite: </h3>
                     </div>
                     <div className="panel-body">
-                        {this.renderSuites(this.props.suites)}
+                        {this.renderSuites(Object.keys(this.props.suites))}
                     </div>
                 </div>
 
@@ -53,12 +44,12 @@ class SuiteSelectorPane extends Component {
     }
 
     onSelectSuite (event) {
-        this.setState({selectedSuite: event.currentTarget.value, selectedBuild: ''})
+        this.setState({selectedSuite: event.target.value, selectedBuild: ''})
     }
 
     onSelectBuild (event) {
         this.setState({selectedBuild: event.currentTarget.value}, () => {
-            this.props.onSelect(this.state)
+            this.props.onSelect({selectedSuite: this.state.selectedSuite, selectedBuild: this.state.selectedBuild})
         })
     }
 
@@ -82,15 +73,15 @@ class SuiteSelectorPane extends Component {
         return (
             <div className="suite-selector list-group">
                 {
-                    Object.keys(suites).map((key, index)=>{
+                    suites.map((suiteName, index)=>{
                         return(
                             <button
-                                className={this.suiteOptionClass(suites[key].job_name || key)}
+                                className={this.suiteOptionClass(suiteName)}
                                 key={index}
-                                value={suites[key].job_name || key}
+                                value={suiteName}
                                 onClick={this.onSelectSuite}
                             >
-                                {key.replace(/[_-]/g, " ")}
+                                {suiteName.replace(/[_-]/g, " ")}
                             </button>
                         )
                     })
