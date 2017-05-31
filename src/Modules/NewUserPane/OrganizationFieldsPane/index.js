@@ -18,7 +18,7 @@ class OrganizationFieldsPane extends Component {
     componentDidMount () {
         this.setState({
             organizationName: localStorage.getItem('organizationName') || '',
-            enableFeatures: localStorage.getItem('enableFeatures') === 'true' ? true : false
+            enableFeatures: localStorage.getItem('enableFeatures') == 'true' ? true : false
         }, () => {this.props.onFilled(this.state)});
     }
 

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { hashHistory } from 'react-router';
+import { hashHistory } from 'react-router'
 import SuitePane from './SuitePane/index';
 import database from '../../database';
-import jenkins from '../../jenkins';
 
 
 class SuitePaneRoute extends Component {
@@ -17,14 +16,11 @@ class SuitePaneRoute extends Component {
 
         this.state = {
             suite: null,
-            jenkinsBuildInfo: null,
-            waitForTime: 1000,
             additional_info: null,
             filter: filter
         };
         this.onFilterChange = this.onFilterChange.bind(this);
         this.getBuildData = this.getBuildData.bind(this);
-        this.getJenkinsBuildData = this.getJenkinsBuildData.bind(this);
         this.onValidate = this.onValidate.bind(this);
     }
 
@@ -54,38 +50,13 @@ class SuitePaneRoute extends Component {
     }
 
     getBuildData() {
-        database.ref(`builds/${this.props.params.selectedSuite.replace(/[-\s]/g, "_")}_${this.props.params.selectedBuild}/`).on('value', (snapshot) => {
+        database.ref(`builds/${this.props.params.selectedSuite}_${this.props.params.selectedBuild}/`).on('value', (snapshot) => {
             this.setState ({
                 suite: snapshot.val() ? snapshot.val().executions : {},
                 additional_info: snapshot.val() ? snapshot.val().additional_info : {}
-            }, this.getJenkinsBuildData());
-        });
-    }
-
-    getJenkinsBuildData() {
-        const retryIfEmpty = function () {
-            if (this.state.waitForTime > 20000) {
-                return null
-            }
-            this.setState({waitForTime: (this.state.waitForTime * 2) }, () => {
-                setTimeout(this.getJenkinsBuildData, this.state.waitForTime);
             });
-        };
-
-        const { selectedSuite, selectedBuild } = this.props.params;
-
-        jenkins.getBuildData(selectedSuite, selectedBuild, (response, error) => {
-            if (response) {
-                this.setState({jenkinsBuildInfo: {data: response.data}})
-            }
-            else if (error && error.response && error.response.data && error.response.data.error) {
-                this.setState({jenkinsBuildInfo: {error: error.response.data.error}}, retryIfEmpty)
-            } else {
-                this.setState({jenkinsBuildInfo: {error: error}}, retryIfEmpty)
-            }
         });
     }
-
 
     onValidate(value) {
         var spec_found = null;
@@ -111,10 +82,8 @@ class SuitePaneRoute extends Component {
             <SuitePane
                 suite={this.state.suite}
                 additionalInfo={this.state.additional_info}
-                locationParams={this.props.params}
                 onFilterChange={this.onFilterChange}
                 onValidate={this.onValidate}
-                jenkinsInfo={this.state.jenkinsBuildInfo}
                 filter={this.state.filter}
             />
         )

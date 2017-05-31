@@ -30,8 +30,7 @@ class App extends Component {
     if (this.props.location.pathname !== '/') {
       this.setState({
         suite_loaded: true,
-        suites: {},
-        buildSelection: this.props.params || null
+        suites: {}
       }, () => {
           this.loadData()
         }
@@ -40,19 +39,12 @@ class App extends Component {
       hashHistory.push('/noSuite');
       this.loadData()
     }
-  }
 
-  componentDidUpdate(prevProps) {
-      if (prevProps.params !== this.props.params) {
-          this.setState({
-              buildSelection: this.props.params
-          })
-      }
   }
 
   onSelect(buildSelection) {
     if (this.state.buildSelection) {
-      database.ref(`builds/${this.state.buildSelection.selectedSuite.replace(/[-\s]/g, "_")}_${this.state.buildSelection.selectedBuild}/`).off()
+      database.ref(`builds/${this.state.buildSelection.selectedSuite}_${this.state.buildSelection.selectedBuild}/`).off()
     }
 
     this.setState ({
