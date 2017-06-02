@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import groupBy from 'lodash.groupby';
+import { groupBy } from 'lodash';
 
 
 class FilterSelectorPane extends Component {

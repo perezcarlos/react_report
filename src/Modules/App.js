@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { hashHistory } from 'react-router'
+import _ from 'lodash'
 import loading from '../Images/loading.gif'
 import AppHeader from './AppHeader'
 import SuiteSelectorPane from './SuiteSelector/index';
@@ -13,7 +14,7 @@ class App extends Component {
     this.state = {
       suite_loaded: null,
       suites: null,
-      buildSelection: this.props.params || null,
+      buildSelection: this.props.params || {},
       failedSpecs: ''
     };
     this.onSelect = this.onSelect.bind(this);
@@ -31,7 +32,7 @@ class App extends Component {
       this.setState({
         suite_loaded: true,
         suites: {},
-        buildSelection: this.props.params || null
+        buildSelection: this.props.params || {}
       }, () => {
           this.loadData()
         }
@@ -45,13 +46,13 @@ class App extends Component {
   componentDidUpdate(prevProps) {
       if (prevProps.params !== this.props.params) {
           this.setState({
-              buildSelection: this.props.params
+              buildSelection: this.props.params || {}
           })
       }
   }
 
   onSelect(buildSelection) {
-    if (this.state.buildSelection) {
+    if (this.state.buildSelection && !_.isEmpty(this.state.buildSelection) ) {
       database.ref(`builds/${this.state.buildSelection.selectedSuite.replace(/[-\s]/g, "_")}_${this.state.buildSelection.selectedBuild}/`).off()
     }
 
