@@ -53,7 +53,8 @@ class App extends Component {
 
   onSelect(buildSelection) {
     if (this.state.buildSelection && !_.isEmpty(this.state.buildSelection) ) {
-      database.ref(`builds/${this.state.buildSelection.selectedSuite.replace(/[-\s]/g, "_")}_${this.state.buildSelection.selectedBuild}/`).off()
+      const suite = this.state.buildSelection.selectedSuite.replace(/[-\s]/g, "_").toLowerCase();
+      database.ref(`builds/${suite}_${this.state.buildSelection.selectedBuild}/`).off()
     }
 
     this.setState ({

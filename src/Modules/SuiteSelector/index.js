@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash'
 
 class SuiteSelectorPane extends Component {
     constructor (props) {
@@ -27,7 +28,7 @@ class SuiteSelectorPane extends Component {
     }
 
     render () {
-        const suite = this.props.suites[this.state.selectedSuite.replace(/[-\s]/g, "_")] || {};
+        const suite = this.props.suites[this.state.selectedSuite.replace(/[-\s]/g, "_").toLowerCase()] || {};
         const executions = suite || {};
         return (
             <div className="selectors">
