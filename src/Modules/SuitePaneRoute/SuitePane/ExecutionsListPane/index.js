@@ -51,13 +51,15 @@ class ExecutionsListPane extends Component {
                 </div>
             )
         } else if (this.props.loadState === 'aborted') {
-            <div className="error">
-                <div className="alert alert-danger">
-                    <label>
-                        <strong>No data found!</strong>{` Job could be aborted, check for jenkins job`}
-                    </label>
+            return (
+                <div className="error">
+                    <div className="alert alert-danger">
+                        <label>
+                            <strong>No data found!</strong>{` Job could be aborted, check for jenkins job`}
+                        </label>
+                    </div>
                 </div>
-            </div>
+            )
         }
         else {
             return (

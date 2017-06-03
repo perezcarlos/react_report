@@ -1,4 +1,12 @@
 import React, { Component } from 'react';
+import {
+    Form,
+    FormGroup,
+    ControlLabel,
+    FormControl,
+    Panel,
+    Button
+} from 'react-bootstrap';
 import UserPane from './UserFieldsPane/index';
 import OrganizationPane from './OrganizationFieldsPane/index';
 import SubscriptionPane from './SubscriptionFieldsPane/index';
@@ -101,15 +109,18 @@ class NewUserPane extends Component {
     renderTextFields () {
         return (
             <div>
-                <div className="environment">
-                    <label >{`Environment: `}</label>
-                    <input className="environment-input"
+            <Form inline>
+                <FormGroup className="environment">
+                    <ControlLabel >{`Environment: `}</ControlLabel>
+                    {' '}
+                    <FormControl className="environment-input"
                            value={this.state.environment}
                            onChange={this.onEnvironmentFilled}
                            type="textField"
                            {...{disabled: !this.state.isAvailable}}
                     />
-                </div>
+                </FormGroup>
+            </Form>
                 <div className="new-user-fields">
                     <UserPane onFilled={this.onUserFilled} isAvailable={this.state.isAvailable}/>
                     <OrganizationPane onFilled={this.onOrganizationFilled} isAvailable={this.state.isAvailable}/>
@@ -136,27 +147,22 @@ class NewUserPane extends Component {
     render () {
         return (
             <div className="suite-pane col-md-12">
-                <div className="no-suite-loaded panel panel-default">
-                    <div className="panel-heading">
-                        <div className="panel-title">
-                            <h1>Create new user</h1>
-                        </div>
-                    </div>
+                <Panel className="no-suite-loaded" header="Create new user">
                     <div className="panel-body">
                         <div className="create-new-user">
                             <div>
                                 {this.renderTextFields()}
-                                <button
-                                    className="sendButton btn btn-default"
+                                <Button
+                                    className="sendButton"
                                     {...this.isButtonEnabled()}
                                     onClick={this.onSend}
                                 >
                                     {this.state.buttonText}
-                                    </button>
+                                </Button>
                             </div>
                         </div>
                     </div>
-                </div>
+                </Panel>
             </div>
         )
     }

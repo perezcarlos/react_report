@@ -1,38 +1,97 @@
-import React from 'react';
+import React, { Component } from 'react';
 import uuid from 'uuid';
+import { isEmpty } from 'lodash';
+import { Button, Collapse, Well } from 'react-bootstrap'
 
-const AdditionalInfoPane = ({additionalInfo}) => {
-    const id = `additional-${uuid()}`;
-    if (!additionalInfo) {
-        return null;
+class AdditionalInfoPane extends Component {
+
+    constructor (props) {
+        super (props);
+
+        this.state = {
+            id: `additional-${uuid()}`,
+            info: {},
+            isOpen: false
+        };
+
+        this.isOpenToggle=this.isOpenToggle.bind(this);
     }
 
-    // Format date to a legible format
-    const info = Object.assign({}, additionalInfo, {date: (new Date(additionalInfo.date))});
+    componentDidMount () {
+        var info = {};
 
-    return(
-        <div className="additional-build-info">
-            <a href={`#${id}`} data-toggle="collapse">Show more info</a>
-            <pre className="additional-info collapse" id={id}>
-                {
-                    Object.keys(info).map((key) => {
-                        return(
-                            <div key={key} id={key}>
-                                <p>
-                                    <b>{key}</b>
-                                    {`: ${info[key]}`}
-                                </p>
-                            </div>
-                        );
-                    })
-                }
-            </pre>
-        </div>
-    )
+        if (this.props.additionalInfo && !isEmpty(this.props.additionalInfo)) {
+            info = Object.assign({}, this.props.additionalInfo, {date: (new Date(this.props.additionalInfo.date))})
+        }
+        this.setState({
+            info: info
+        })
+    }
+
+    componentDidUpdate (prevProps) {
+        if (prevProps !== this.props) {
+            var info = {};
+
+            if (this.props.additionalInfo && !isEmpty(this.props.additionalInfo)) {
+                info = Object.assign({}, this.props.additionalInfo, {date: (new Date(this.props.additionalInfo.date))})
+            }
+            this.setState({
+                info: info
+            })
+        }
+    }
+
+    isOpenToggle () {
+        if ( this.state.isOpen === true ) {
+            this.setState({
+                isOpen: false
+            })
+        } else {
+            this.setState({
+                isOpen: true
+            })
+        }
+    }
+
+    render () {
+        if (!this.state.info || isEmpty(this.state.info)) {
+            return (
+                <div className="additional-build-info">
+                    <Button bsStyle="link" disabled>Show more info</Button>
+                </div>
+            )
+        }
+
+        return (
+            <div className="additional-build-info">
+                <Button bsStyle="link" onClick={this.isOpenToggle}>
+                    Show more info
+                </Button>
+                <Collapse className="additional-info" in={this.state.isOpen}>
+                    <div>
+                        <Well>
+                            {
+                                Object.keys(this.state.info).map((key) => {
+                                    return (
+                                        <div key={key} id={key}>
+                                            <p>
+                                                <b>{key}</b>
+                                                {`: ${this.state.info[key]}`}
+                                            </p>
+                                        </div>
+                                    );
+                                })
+                            }
+                        </Well>
+                    </div>
+                </Collapse>
+            </div>
+        )
+    }
 };
 
 AdditionalInfoPane.defaultProps = {
-    additionInfo: {}
+    additionalInfo: {}
 };
 
 export default AdditionalInfoPane;

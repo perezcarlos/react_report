@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { hashHistory } from 'react-router';
+import { Panel, Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
 import database from '../../database';
 import jenkins from '../../jenkins';
 import SuiteFeatures from './SuiteFeaturesPane';
@@ -170,27 +171,35 @@ class NewSuitePane extends Component {
 
     renderTextFields () {
         return (
-            <div className="text-fields">
-                <div className="branch">
-                    <label id='branch'>{'Branch: '}</label>
-                    <input
-                        label='#branch'
+            <Form inline className="text-fields">
+                <FormGroup className="branch">
+                    <ControlLabel
+                        id='branch'
+                    >
+                        {'Branch: '}
+                    </ControlLabel>
+                    <FormControl
                         type="text"
                         value={this.state.branch}
+                        placeholder="ex: master"
                         onChange={this.onFilledBranch}
                     />
-                </div>
+                </FormGroup>
 
-                <div className="environment">
-                    <label id='environment'>{'Environment: '}</label>
-                    <input
-                        label='#environment'
+                <FormGroup className="environment">
+                    <ControlLabel
+                        id='environment'
+                    >
+                        {'Environment: '}
+                    </ControlLabel>
+                    <FormControl
                         type="text"
                         value={this.state.environment}
+                        placeholder="ex: release"
                         onChange={this.onFilledEnvironment}
                     />
-                </div>
-            </div>
+                </FormGroup>
+            </Form>
         )
     }
 
@@ -207,28 +216,21 @@ class NewSuitePane extends Component {
     render () {
         return (
             <div className="suite-pane col-md-12">
-                <div className="no-suite-loaded panel panel-default">
-                    <div className="panel-heading">
-                        <div className="panel-title">
-                            <h1>Launch new suite</h1>
-                        </div>
-                    </div>
-                    <div className="panel-body">
-                        <div className="launch-new-suite">
-                            <div>
-                                {this.renderTextFields()}
-                                <div className={`selected-tab ${this.state.selectedTab}`}>
-                                    <TabSelector
-                                        selectedTab={this.state.selectedTab}
-                                        onSelectTab={this.onSelectTab}
-                                    />
-                                    {this.renderSelectedTab()}
-                                </div>
-                                <button className="sendButton btn btn-default" {...this.isButtonEnabled()} onClick={this.onSend}>Send</button>
+                <Panel className="no-suite-loaded" header="Launch New suite">
+                    <div className="launch-new-suite">
+                        <div>
+                            {this.renderTextFields()}
+                            <div className={`selected-tab ${this.state.selectedTab}`}>
+                                <TabSelector
+                                    selectedTab={this.state.selectedTab}
+                                    onSelectTab={this.onSelectTab}
+                                />
+                                {this.renderSelectedTab()}
                             </div>
+                            <Button className="sendButton btn btn-default" {...this.isButtonEnabled()} onClick={this.onSend}>Send</Button>
                         </div>
                     </div>
-                </div>
+                </Panel>
             </div>
         )
     }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ButtonGroup, Button, FormGroup, FormControl } from 'react-bootstrap'
 
 
 class SuiteFeaturesPane extends Component {
@@ -42,10 +43,10 @@ class SuiteFeaturesPane extends Component {
     }
 
     buttonClass (feature) {
-        const base_class = `btn btn-default feature-select-option ${feature}`;
+        const base_class = `feature-select-option ${feature}`;
         if(this.isSelected(feature)) {
             return(
-                `${base_class} selected`
+                `${base_class} active`
             )
         } else {
             return(
@@ -63,36 +64,40 @@ class SuiteFeaturesPane extends Component {
         const filterMatcher = new RegExp(`^${filter}| ${filter}`, 'g');
 
         return(
-            this.props.features.sort().map((feature) => {
-                const shownFeature = feature.replace(/_/g, " ")
-                if(this.props.filter === '') {
-                    return (
-                        <button
-                            className={this.buttonClass(feature)}
-                            key={feature}
-                            value={feature}
-                            onClick={this.onSelectedFeatures}
-                            {...this.isDisabled(feature)}
-                        >
-                            {shownFeature}
-                        </button>
-                    )
-                } else if (shownFeature.match(filterMatcher)){
-                    return (
-                        <button
-                            className={this.buttonClass(feature)}
-                            key={feature}
-                            value={feature}
-                            onClick={this.onSelectedFeatures}
-                            {...this.isDisabled(feature)}
-                        >
-                            {shownFeature}
-                        </button>
-                    )
-                } else {
-                    return null;
+            <ButtonGroup>
+                {
+                    this.props.features.sort().map((feature) => {
+                        const shownFeature = feature.replace(/_/g, " ");
+                        if (this.props.filter === '') {
+                            return (
+                                <Button
+                                    className={this.buttonClass(feature)}
+                                    key={feature}
+                                    value={feature}
+                                    onClick={this.onSelectedFeatures}
+                                    {...this.isDisabled(feature)}
+                                >
+                                    {shownFeature}
+                                </Button>
+                            )
+                        } else if (shownFeature.match(filterMatcher)) {
+                            return (
+                                <Button
+                                    className={this.buttonClass(feature)}
+                                    key={feature}
+                                    value={feature}
+                                    onClick={this.onSelectedFeatures}
+                                    {...this.isDisabled(feature)}
+                                >
+                                    {shownFeature}
+                                </Button>
+                            )
+                        } else {
+                            return null;
+                        }
+                    })
                 }
-            })
+            </ButtonGroup>
         )
     }
 
@@ -118,12 +123,14 @@ class SuiteFeaturesPane extends Component {
             <div className="suite-features-pane">
                 <p>Select the features you want to launch: </p>
                 {this.renderSelectedFeaturesLabel()}
-                <input
-                    className="features-filter"
-                    type="text" placeholder="Search"
-                    onChange={this.onFilter}
-                    value={this.props.filter}
-                />
+                <FormGroup>
+                    <FormControl
+                        type="text" placeholder="Search"
+                        onChange={this.onFilter}
+                        value={this.props.filter}
+                        className="search-filter"
+                    />
+                </FormGroup>
                 <div className="features-selection">
                     {this.renderFeaturesBox()}
                 </div>

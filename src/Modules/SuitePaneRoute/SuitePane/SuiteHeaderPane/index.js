@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import jenkins from './../../../../jenkins';
+import {
+    ButtonGroup,
+    Button,
+    OverlayTrigger,
+    Tooltip
+} from 'react-bootstrap'
 
 
 class SuiteHeaderPane extends Component {
@@ -9,15 +15,10 @@ class SuiteHeaderPane extends Component {
 
         this.onRebuild=this.onRebuild.bind(this);
         this.onRebuildFailed=this.onRebuildFailed.bind(this);
-        this.getFailedSpecs=this.getFailedSpecs.bind(this);
         this.renderRebuild=this.renderRebuild.bind(this);
         this.renderRetried=this.renderRetried.bind(this);
         this.rebuildFailedButtonClass=this.rebuildFailedButtonClass.bind(this);
     }
-
-    getFailedSpecs () {
-        return ''
-    };
 
     onRebuild () {
         return (
@@ -62,18 +63,21 @@ class SuiteHeaderPane extends Component {
 
     renderRebuild () {
       return (
-          <div className="rebuild-pane btn-group">
-              <button
-                  className="btn btn-default"
+          <ButtonGroup className="rebuild-pane">
+              <Button
+                  bsStyle="primary"
                   onClick={this.onRebuildFailed}
                   {...this.rebuildFailedButtonClass()}
               >
                   Rebuild Failed
-              </button>
-              <button className="btn btn-default" onClick={this.onRebuild}>
+              </Button>
+              <Button
+                  bsStyle="primary"
+                  onClick={this.onRebuild}
+              >
                   Rebuild All
-              </button>
-          </div>
+              </Button>
+          </ButtonGroup>
       )
     };
 
@@ -93,6 +97,10 @@ class SuiteHeaderPane extends Component {
     };
 
     render () {
+        const statusTooltip = (
+            <Tooltip id="tooltip" placement="bottom">{this.props.loadState}</Tooltip>
+        );
+
         if (!this.props.additionalInfo) {
             return (
                 <div className="suite-header panel-title">
@@ -103,11 +111,13 @@ class SuiteHeaderPane extends Component {
             return (
                 <div>
                     <div className="suite-header panel-title">
-                        <img
-                            className="status-image"
-                            src={this.props.statusImage}
-                            alt="" title={this.props.loadState}
-                        />
+                        <OverlayTrigger overlay={statusTooltip}>
+                            <img
+                                className="status-image"
+                                src={this.props.statusImage}
+                                alt="status"
+                            />
+                        </OverlayTrigger>
                         <span className="suite-title h1">
                             {(this.props.additionalInfo.suite || this.props.locationParams.selectedSuite).replace(/[_-]/g," ")}
                         </span>

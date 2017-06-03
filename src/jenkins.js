@@ -33,7 +33,7 @@ var Jenkins = class {
         }
 
         if (params.failedSpecs){
-            parameters = Object.assign({}, parameters, {FAILEDSPECS: params.failedSpecs.join()});
+            parameters = Object.assign({}, parameters, {FAILED_SPECS: params.failedSpecs.join()});
         }
 
         return parameters

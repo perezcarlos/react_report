@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash'
+import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 class SuiteSelectorPane extends Component {
     constructor (props) {
@@ -32,23 +33,13 @@ class SuiteSelectorPane extends Component {
         const executions = suite || {};
         return (
             <div className="selectors">
-                <div className="panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">Select a suite: </h3>
-                    </div>
-                    <div className="panel-body">
-                        {this.renderSuites(this.props.suites)}
-                    </div>
-                </div>
+                <Panel header="Select a suite">
+                    {this.renderSuites(this.props.suites)}
+                </Panel>
 
-                <div className="panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">Select a build: </h3>
-                    </div>
-                    <div className="panel-body">
-                        {this.renderBuilds(executions)}
-                    </div>
-                </div>
+                <Panel header="Select a build">
+                    {this.renderBuilds(executions)}
+                </Panel>
             </div>
         )
     }
@@ -65,51 +56,51 @@ class SuiteSelectorPane extends Component {
 
     suiteOptionClass(option) {
         if(this.state.selectedSuite === option ){
-            return (`list-group-item suite-selector-option ${option} active`)
+            return (`suite-selector-option ${option} active`)
         }else {
-            return(`list-group-item suite-selector-option ${option}`)
+            return(`suite-selector-option ${option}`)
         }
     }
 
     buildOptionClass(option) {
         if(this.state.selectedBuild === option ){
-            return (`list-group-item build-selector-option ${option} active`)
+            return (`build-selector-option ${option} active`)
         }else {
-            return(`list-group-item build-selector-option ${option}`)
+            return(`build-selector-option ${option}`)
         }
     }
 
     renderSuites (suites) {
         return (
-            <div className="suite-selector list-group">
+            <ListGroup className="suite-selector">
                 {
                     Object.keys(suites).map((key, index)=>{
                         return(
-                            <button
+                            <ListGroupItem
                                 className={this.suiteOptionClass(suites[key].job_name || key)}
                                 key={index}
                                 value={suites[key].job_name || key}
                                 onClick={this.onSelectSuite}
                             >
                                 {key.replace(/[_-]/g, " ")}
-                            </button>
+                            </ListGroupItem>
                         )
                     })
                 }
-            </div>
+            </ListGroup>
         )
     }
 
     renderBuilds (suite) {
         if (!suite.builds) {
             return (
-                <button disabled={true} className="list-group-item active">
+                <ListGroupItem disabled className="active">
                     <h5 className="list-group-item-heading">First select a suite</h5>
-                </button>
+                </ListGroupItem>
             )
         }
         return(
-            <div className="build-selector list-group">
+            <ListGroup className="build-selector">
                 {
                     Object.keys(suite.builds).reverse().map((key) => {
                         var option_string = '';
@@ -122,7 +113,7 @@ class SuiteSelectorPane extends Component {
                             option_string = key
                         }
                         return (
-                            <button
+                            <ListGroupItem
                                 key={key}
                                 value={key}
                                 onClick={this.onSelectBuild}
@@ -130,11 +121,11 @@ class SuiteSelectorPane extends Component {
                             >
                                 <b className="list-group-item-heading">{option_string}</b>
                                 <p className="list-group-item-text">{`date: ${date}`}</p>
-                            </button>
+                            </ListGroupItem>
                         )
                     })
                 }
-            </div>
+            </ListGroup>
         )
     }
 }

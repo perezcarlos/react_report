@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-
+import { Form, FormGroup, ControlLabel, FormControl, Checkbox } from 'react-bootstrap'
 
 class OrganizationFieldsPane extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            organizationName: null,
-            enableFeatures: null,
+            organizationName: '',
+            enableFeatures: true,
         };
         this.renderFields=this.renderFields.bind(this);
         this.onNameChange=this.onNameChange.bind(this);
@@ -43,31 +43,31 @@ class OrganizationFieldsPane extends Component {
 
     renderFields () {
         return(
-            <div className="fields">
-                <div>
-                    <label className="organizationName" >{`Name: `}</label>
-                    <input
+            <Form className="fields">
+                <FormGroup>
+                    <ControlLabel className="organizationName" >{`Name: `}</ControlLabel>
+                    <FormControl
                         id="organizationName"
                         value={this.state.organizationName}
                         onChange={this.onNameChange}
                         onBlur={this.onOrganizationNameFilled}
-                        type="textField"
+                        type="text"
                         placeholder="ex: Redbooth BCN"
                         {...{disabled: !this.props.isAvailable}}
                     />
-                </div>
+                </FormGroup>
 
-                <div>
-                    <label className="enableFeatures" >{`Enable all features: `}</label>
-                    <input
+                <FormGroup>
+                    <ControlLabel className="enableFeatures" >{`Enable all features: `}</ControlLabel>
+                    <Checkbox
                         id="enableFeatures"
                         onChange={this.onEnabledChange}
                         type="checkbox"
                         {...{checked: this.state.enableFeatures}}
                         {...{disabled: !this.props.isAvailable}}
                     />
-                </div>
-            </div>
+                </FormGroup>
+            </Form>
         )
     }
 

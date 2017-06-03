@@ -1,42 +1,34 @@
 import React, { Component } from 'react';
+import { Navbar, Nav, NavItem, Glyphicon } from 'react-bootstrap';
 
 
 class AppHeader extends Component {
-
-    constructor (props) {
-        super(props);
-
-        this.state = {
-            section: '#/'
-        }
-    }
-
     render () {
         return (
-            <div className="App-header">
-                <ul className="nav nav-tabs">
-                    <li role="presentation">
+            <Navbar staticTop className="App-header">
+                <Navbar.Header>
+                    <Navbar.Brand>
                         <a href="#/noSuite" className="title home">
-                            <i className="glyphicon glyphicon-home"/>
-                            <span>
-                                QA-Report
+                            <Glyphicon glyph="home"/>
+                            <span className="title-text">
+                                {" QA-Report"}
                             </span>
                         </a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#/newSuite" className="new-suite ">
-                            <i className="glyphicon glyphicon-plus-sign"/>
-                        </a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#/newUser" className="new-user">
-                            <i className="glyphicon glyphicon-user">
-                                <i className="glyphicon glyphicon-plus-sign"/>
-                            </i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                    </Navbar.Brand>
+                </Navbar.Header>
+                <Nav>
+                    <NavItem className="new-suite" href="#/newSuite" >
+                        <Glyphicon glyph="plus-sign"/>
+                    </NavItem>
+                </Nav>
+                <Nav>
+                    <NavItem className="new-user" href="#/newUser" >
+                        <Glyphicon glyph="user">
+                            <Glyphicon glyph="plus-sign"/>
+                        </Glyphicon>
+                    </NavItem>
+                </Nav>
+            </Navbar>
         )
     }
 };
