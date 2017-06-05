@@ -1,33 +1,60 @@
-import React from 'react';
-import uuid from 'uuid'
+import React, {Component} from 'react';
+import { Button, Collapse, Well } from 'react-bootstrap'
 
 
-const AdditionalSpecInfoPane = ({additionalInfo} ) => {
-    const id = uuid();
-    if(!additionalInfo){
-        return(
-            <div className="spec-additional-info">
-                <a disabled="disabled" href="#">More info</a>
-            </div>
-        )
+class AdditionalSpecInfoPane extends Component {
+    constructor (props)  {
+        super(props);
+
+        this.state = {
+            isOpen: false
+        };
+
+        this.isOpenToggle=this.isOpenToggle.bind(this);
     }
-    return(
-        <div className="spec-additional-info">
-            <a data-toggle="collapse" href={`#${id}`}>More info</a>
-            <pre id={id} className="collapse">
-            {
-                Object.keys(additionalInfo).map((key) => {
-                    return(
-                        <p key={key}>
-                            <b>{key}</b>
-                            {`: ${JSON.stringify(additionalInfo[key])}`}
-                        </p>
-                    );
-                })
-            }
-            </pre>
-        </div>
-    );
+
+    isOpenToggle () {
+        if ( this.state.isOpen === true ) {
+            this.setState({
+                isOpen: false
+            })
+        } else {
+            this.setState({
+                isOpen: true
+            })
+        }
+    }
+
+    render () {
+        if (!this.props.additionalInfo) {
+            return (
+                <div className="spec-additional-info">
+                    <Button bsStyle="link" disabled>More info</Button>
+                </div>
+            )
+        }
+        return (
+            <div className="spec-additional-info">
+                <Button bsStyle="link" onClick={this.isOpenToggle}>
+                    More info
+                </Button>
+                <Collapse className="additional-info" in={this.state.isOpen}>
+                    <Well>
+                        {
+                            Object.keys(this.props.additionalInfo).map((key) => {
+                                return (
+                                    <p key={key}>
+                                        <b>{key}</b>
+                                        {`: ${JSON.stringify(this.props.additionalInfo[key])}`}
+                                    </p>
+                                );
+                            })
+                        }
+                    </Well>
+                </Collapse>
+            </div>
+        );
+    }
 };
 
 export default AdditionalSpecInfoPane;

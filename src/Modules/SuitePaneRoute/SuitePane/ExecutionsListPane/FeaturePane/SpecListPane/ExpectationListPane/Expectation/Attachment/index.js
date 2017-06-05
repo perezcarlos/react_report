@@ -1,18 +1,46 @@
-import React from 'react';
-import uuid from 'uuid';
-import Modal from './Modal';
+import React , { Component } from 'react';
+import { Button, Modal, Collapse } from 'react-bootstrap'
 
 
-const AttachmentPane = ({attachment, id} ) => {
-    const modalId = `modal-${uuid()}`;
-    return (
-        <div id={id} className="collapse">
-            <a className="thumbnail" href="#" data-toggle="modal" data-target={`#${modalId}`} >
-                <img alt="No attachment found" src={attachment}/>
-            </a>
-            <Modal key={modalId} attachment={attachment} id={modalId} />
-        </div>
-    );
+class AttachmentPane extends Component {
+    constructor ( props ) {
+        super (props);
+
+        this.state = {
+            isOpen: false
+        };
+
+        this.isOpenToggle=this.isOpenToggle.bind(this);
+    }
+
+    isOpenToggle () {
+        if (this.state.isOpen === true ) {
+            this.setState({
+                isOpen: false
+            })
+        } else {
+            this.setState({
+                isOpen: true
+            })
+        }
+    }
+
+    render () {
+        return (
+            <Collapse in={this.props.isOpen}>
+                <div>
+                    <Button className="thumbnail" onClick={this.isOpenToggle}>
+                        <img alt="No attachment found" src={this.props.attachment}/>
+                    </Button>
+                    <Modal show={this.state.isOpen} onHide={this.isOpenToggle}>
+                        <Modal.Body>
+                            <img alt="No attachment found" src={this.props.attachment}/>
+                        </Modal.Body>
+                    </Modal>
+                </div>
+            </Collapse>
+        );
+    }
 };
 
 export default AttachmentPane;

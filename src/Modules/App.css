@@ -186,12 +186,13 @@ button {
     outline: 0;
 }
 
-.additional-info {
+.additional-build-info .additional-info {
     width: 40%;
     text-align: left;
 }
 
-.additional-info.collapse.in, .additional-info.collapsing {
+.additional-build-info .additional-info.collapse.in,
+.additional-build-info .additional-info.collapsing {
     display: inline-block;
     float: left;
     margin-right: 100%;
@@ -211,11 +212,12 @@ button {
     color: gray;
 }
 
-.spec-additional-info pre {
+.spec-additional-info .well {
     max-width: 900px;
+    overflow: scroll;
 }
 
-.spec-additional-info a {
+.spec-additional-info button {
     float: right;
 }
 
@@ -252,7 +254,7 @@ button {
     white-space: pre-wrap;
 }
 
-.console-output a {
+.console-output button {
     float: right;
 }
 

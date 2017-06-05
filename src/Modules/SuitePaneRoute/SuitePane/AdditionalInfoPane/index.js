@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import uuid from 'uuid';
 import { isEmpty } from 'lodash';
 import { Button, Collapse, Well } from 'react-bootstrap'
 
@@ -9,7 +8,6 @@ class AdditionalInfoPane extends Component {
         super (props);
 
         this.state = {
-            id: `additional-${uuid()}`,
             info: {},
             isOpen: false
         };
@@ -68,22 +66,20 @@ class AdditionalInfoPane extends Component {
                     Show more info
                 </Button>
                 <Collapse className="additional-info" in={this.state.isOpen}>
-                    <div>
-                        <Well>
-                            {
-                                Object.keys(this.state.info).map((key) => {
-                                    return (
-                                        <div key={key} id={key}>
-                                            <p>
-                                                <b>{key}</b>
-                                                {`: ${this.state.info[key]}`}
-                                            </p>
-                                        </div>
-                                    );
-                                })
-                            }
-                        </Well>
-                    </div>
+                    <Well>
+                        {
+                            Object.keys(this.state.info).map((key) => {
+                                return (
+                                    <div key={key} id={key}>
+                                        <p>
+                                            <b>{key}</b>
+                                            {`: ${this.state.info[key]}`}
+                                        </p>
+                                    </div>
+                                );
+                            })
+                        }
+                    </Well>
                 </Collapse>
             </div>
         )

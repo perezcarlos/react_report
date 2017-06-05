@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Alert } from 'react-bootstrap';
 import Feature from './FeaturePane';
 import groupBy from 'lodash.groupby';
 
@@ -43,32 +44,32 @@ class ExecutionsListPane extends Component {
         if (this.props.loadState === 'loading') {
             return (
                 <div className="error">
-                    <div className="alert alert-info">
+                    <Alert bsStyle="info">
                         <label>
                             <strong>Wait</strong>{` for data to be loaded`}
                         </label>
-                    </div>
+                    </Alert>
                 </div>
             )
         } else if (this.props.loadState === 'aborted') {
             return (
                 <div className="error">
-                    <div className="alert alert-danger">
+                    <Alert bsStyle="danger">
                         <label>
                             <strong>No data found!</strong>{` Job could be aborted, check for jenkins job`}
                         </label>
-                    </div>
+                    </Alert>
                 </div>
             )
         }
         else {
             return (
                 <div className="error">
-                    <div className="alert alert-danger">
+                    <Alert bsStyle="danger">
                         <label>
                             <strong>No data found!</strong>{` Check data and selected suite and build`}
                         </label>
-                    </div>
+                    </Alert>
                 </div>
             )
         }
@@ -100,11 +101,11 @@ class ExecutionsListPane extends Component {
             console.error(error_text);
             return (
                 <div className="error">
-                    <div className="alert alert-danger">
+                    <Alert bsStyle="danger">
                         <label>
                             <strong>Oops!</strong>{` ${error_text}. Please select another one`}
                         </label>
-                    </div>
+                    </Alert>
                 </div>
             )
         } else {
