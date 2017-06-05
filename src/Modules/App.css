@@ -189,6 +189,7 @@ button {
 .additional-build-info .additional-info {
     width: 40%;
     text-align: left;
+    overflow: scroll;
 }
 
 .additional-build-info .additional-info.collapse.in,
