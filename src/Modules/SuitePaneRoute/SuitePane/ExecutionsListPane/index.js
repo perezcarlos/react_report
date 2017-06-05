@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Alert } from 'react-bootstrap';
 import Feature from './FeaturePane';
-import groupBy from 'lodash.groupby';
+import { groupBy } from 'lodash';
 
 
 class ExecutionsListPane extends Component {

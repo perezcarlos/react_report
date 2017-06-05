@@ -20,7 +20,6 @@
     "firebase": "^3.6.1",
     "jsonp": "^0.2.1",
     "lodash": "^4.17.4",
-    "lodash.groupby": "^4.6.0",
     "morgan": "^1.8.1",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.10",

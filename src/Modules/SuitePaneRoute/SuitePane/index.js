@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import groupBy from 'lodash.groupby';
+import { groupBy } from 'lodash';
 import ExecutionsList from './ExecutionsListPane/index';
 import AdditionalInfo from './AdditionalInfoPane/index';
 import SuiteHeader from './SuiteHeaderPane/index';
