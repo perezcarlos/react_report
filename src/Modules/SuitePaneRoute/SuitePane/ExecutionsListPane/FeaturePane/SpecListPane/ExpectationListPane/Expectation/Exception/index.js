@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 
 
-const ExceptionPane = ({exception, id} ) => {
-    return (
-        <a className="exception" data-toggle="collapse" href={`#${id}`}>{exception}</a>
-    );
+class ExceptionPane extends Component {
+
+    render () {
+        return (
+            <div>
+                <Button
+                    className="exception"
+                    bsStyle="link"
+                    onClick={this.props.isBacktraceOpenToggle}
+                >
+                    {this.props.exception}
+                </Button>
+            </div>
+        );
+    }
 };
 
 export default ExceptionPane;

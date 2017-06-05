@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Form, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 
 
 class UserFieldsPane extends Component {
@@ -58,59 +59,75 @@ class UserFieldsPane extends Component {
 
     renderFields () {
         return(
-            <div className="fields">
-                <div>
-                    <label className="firstName" >{`First name: `}</label>
-                    <input
+            <Form className="fields">
+                <FormGroup>
+                    <ControlLabel
+                        className="firstName"
+                    >
+                        {`First name: `}
+                    </ControlLabel>
+                    <FormControl
                         id="firstName"
                         value={this.state.firstName}
                         onChange={this.onFirstNameChange}
                         onBlur={this.onFilledField}
-                        type="textField"
+                        type="text"
                         placeholder="ex: Carlos"
                         {...{disabled: !this.props.isAvailable}}
                     />
-                </div>
+                </FormGroup>
 
-                <div>
-                    <label className="lastName" >{`Last name: `}</label>
-                    <input
+                <FormGroup>
+                    <ControlLabel
+                        className="lastName"
+                    >
+                        {`Last name: `}
+                    </ControlLabel>
+                    <FormControl
                         id="lastName"
                         value={this.state.lastName}
                         onChange={this.onLastNameChange}
                         onBlur={this.onFilledField}
-                        type="textField"
+                        type="text"
                         placeholder="ex: Perez"
                         {...{disabled: !this.props.isAvailable}}
                     />
-                </div>
+                </FormGroup>
 
-                <div>
-                    <label className="login" >{`Login: `}</label>
-                    <input
+                <FormGroup>
+                    <ControlLabel
+                        className="login"
+                    >
+                        {`Login: `}
+                    </ControlLabel>
+                    <FormControl
                         id="login"
                         value={this.state.login}
                         onChange={this.onLoginChange}
                         onBlur={this.onFilledField}
-                        type="textField"
+                        type="text"
                         placeholder="ex: caper"
                         {...{disabled: !this.props.isAvailable}}
                     />
-                </div>
+                </FormGroup>
 
-                <div>
-                    <label className="email" >{`Email: `}</label>
-                    <input
+                <FormGroup>
+                    <ControlLabel
+                        className="email"
+                    >
+                        {`Email: `}
+                    </ControlLabel>
+                    <FormControl
                         id="email"
                         value={this.state.email}
                         onChange={this.onEmailChange}
                         onBlur={this.onFilledField}
-                        type="textField"
+                        type="email"
                         placeholder="ex: example@example.com"
                         {...{disabled: !this.props.isAvailable}}
                     />
-                </div>
-            </div>
+                </FormGroup>
+            </Form>
         )
     }
 

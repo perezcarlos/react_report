@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ButtonGroup, Button} from 'react-bootstrap'
 
 
 class TabSelectorPane extends Component {
@@ -15,7 +16,7 @@ class TabSelectorPane extends Component {
 
     getTabClass (tab) {
         if(this.props.selectedTab === tab){
-            return("btn btn-default new-suite-tab selected")
+            return("btn btn-default new-suite-tab active")
         } else {
             return("btn btn-default new-suite-tab")
         }
@@ -29,22 +30,22 @@ class TabSelectorPane extends Component {
         return(
             <div className="new-suite-tab-selector">
                 <label>Launch new suite by:</label>
-                <div className="btn-group buttons">
+                <ButtonGroup className="buttons">
                     {
                         this.state.selectableTabs.map( (tab) => {
                             return(
-                                <button
+                                <Button
                                     key={tab}
                                     className={this.getTabClass(tab)}
                                     value={tab}
                                     onClick={this.onSelectTab}
                                 >
                                     <span>{tab}</span>
-                                </button>
+                                </Button>
                             )
                         })
                     }
-                </div>
+                </ButtonGroup>
             </div>
         )
     }

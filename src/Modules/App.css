@@ -1,435 +1,412 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
 
 .App-header {
-  text-align: left;
-  color: #fff;
-  height: 5%;
-  margin: 5px;
-  font-size: 40px;
-  border: solid 1px #000;
-  border-radius: 5px;
-  background-image: linear-gradient(180deg,#51575d 0,#51565A);
-  text-shadow: 0 -1px 0 #1f1f20;
+    font-size: 40px;
 }
 
-.App-header a {
-  padding: 1%;
-  color: #fff;
-  text-decoration: none;
-  border-right: solid 1px;
-  border-radius: 5px;
+.App-header .container {
+    margin-left: 5px;
 }
 
-.App-header a:not(.title){
-  padding-bottom: 15px;
+.App-header .title {
+    font-size: 40px;
 }
 
-.App-header a i{
-  vertical-align: text-bottom;
+.App-header .title span{
+    vertical-align: middle;
 }
 
-.App-header a span {
-  vertical-align: text-top;
-}
-
-.App-header .new-user i i {
-  float: right;
-  font-size: 20px;
-}
-
-.App-header span {
-  margin-left: 5px;
-}
-
-.App-header li a:hover, .App-header li a:focus {
-  background-color: #2d2d2d;
-  border: solid 1px;
+.App-header span span{
+    font-size: 20px;
+    vertical-align: text-top;
 }
 
 .App-body {
-  display: inline-block;
-  width: 100%;
-}
-
-button:disabled {
-  color: #bababa;
+    display: inline-block;
+    width: 100%;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 body {
-  background-color: whitesmoke;
+    background-color: whitesmoke;
 }
 
 tbody {
-  text-align: left;
+    text-align: left;
 }
 
 .error {
-  padding-top: 2%;
-  color: #b64743;
+    padding-top: 2%;
+    color: #b64743;
 }
 
 .error div {
-  display: inline;
-  float: left;
+    display: inline;
+    float: left;
 }
 
 .status-success i {
-  color: #67b168;
+    color: #67b168;
 }
 
 .status-failed i {
-  color: #b64743;
+    color: #b64743;
 }
 
 .status-warning i {
-  color: #d58512;
+    color: #d58512;
 }
 
 .status-pending i {
-  color: #6f6f6f;
+    color: #6f6f6f;
 }
 
 .no-suites-found, .no-suite-loaded {
-  vertical-align: middle;
+    vertical-align: middle;
+}
+
+.no-suite-loaded .panel-heading {
+    font-size: 35px;
+    text-align: left;
 }
 
 .no-suites-found img {
-  width: 4%;
-  float: left;
-  vertical-align: middle;
+    width: 4%;
+    float: left;
+    vertical-align: middle;
 }
 
 .status-image {
-  width: 40px;
-  float: left;
+    width: 40px;
+    float: left;
 }
 
 .no-suite-loaded .selectors{
-  text-align: center;
-  margin: 0;
+    text-align: center;
+    margin: 0;
 }
 
 .validated, .status {
-  text-align: center;
-  width: 2px;
+    text-align: center;
+    width: 2px;
 }
 
 .selectors {
-  position: relative;
-  text-align: left;
-  float: left;
-  width: 15%;
-  margin-left: 5px;
-  padding: 5px;
-  border-radius: 5px;
+    position: relative;
+    text-align: left;
+    float: left;
+    width: 15%;
+    margin-left: 5px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .selectors .panel-body {
-  padding: inherit;
+    padding: inherit;
 }
 
-.selectors button.active,
-.selectors button.active:focus,
-.selectors button.active:hover{
-  pointer-events: none;
-  background-image: linear-gradient(to bottom,#51575d  0,#51565a 100%);
-  text-shadow: 0 -1px 0 #1f1f20;
-  border-color: black;
-  background-color: #6f6f6f;
+.selectors button.active:focus{
+    outline: 0;
 }
 
 .suite-selector, .build-selector {
-  max-height: 310px;
-  overflow: scroll;
+    max-height: 310px;
+    overflow: scroll;
 }
 
 .list-group {
-  margin-bottom: inherit;
+    margin-bottom: inherit;
 }
 
 button {
-  text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 .suite-pane {
-  position: relative;
-  max-width: 84%;
-  top: 5px;
-  border-radius: 5px;
+    position: relative;
+    max-width: 84%;
+    top: 5px;
+    border-radius: 5px;
 }
 
 .suite-pane .panel-heading {
-  display: inline-block;
-  width: 100%;
+    display: inline-block;
+    width: 100%;
 }
 
 .suite-pane .suite-header {
-  float: left;
+    float: left;
 }
 
 .suite-pane .rebuild-pane {
-  float: right;
-  max-width: 40%;
-  margin-top: 1%;
+    float: right;
+    max-width: 40%;
+    margin-top: 1%;
 }
 
 .suite-pane .panel-body {
-  overflow-y: scroll;
-  height: 80vh;
+    overflow-y: scroll;
+    height: 80vh;
 }
 
 .suite-pane .panel-title {
-  text-align: left;
-  max-width: 60%;
+    text-align: left;
+    max-width: 60%;
+    margin-top: 10px;
 }
 
 .suite-title {
-  text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 .additional-build-info {
-  text-align: left;
+    text-align: left;
+}
+
+.additional-build-info button {
+    padding: 0px 0px 5px 0px;
+}
+
+.additional-build-info button:focus {
+    outline: 0;
+}
+
+.additional-build-info .additional-info {
+    width: 40%;
+    text-align: left;
+    overflow: scroll;
+}
+
+.additional-build-info .additional-info.collapse.in,
+.additional-build-info .additional-info.collapsing {
+    display: inline-block;
+    float: left;
+    margin-right: 100%;
 }
 
 .modal-dialog{
-  width: 80%;
+    width: 80%;
 }
 
 .suite-header {
-  text-align: left;
-  margin-top: 1%;
+    text-align: left;
+    margin-top: 1%;
 }
 
 .feature-name label {
-  font-size: small;
-  color: gray;
+    font-size: small;
+    color: gray;
 }
 
-a[disabled] {
-  color: gray;
-  pointer-events: none;
+.spec-additional-info .well {
+    max-width: 900px;
+    overflow: scroll;
 }
 
-.spec-additional-info pre {
-  max-width: 900px;
+.spec-additional-info button {
+    float: right;
 }
 
-.spec-additional-info a {
-  float: right;
+.spec-additional-info .additional-info button {
+    float: none;
 }
 
 .spec-name {
-  border: none;
-  background: transparent;
-  color: #337ab7;
-  text-transform: none;
+    border: none;
+    background: transparent;
+    color: #337ab7;
+    text-transform: none;
 }
 
 .spec-name:hover {
-  cursor: hand;
-  text-decoration: underline;
+    cursor: hand;
+    text-decoration: underline;
 }
 
 .spec-name:focus {
-  outline:0;
+    outline:0;
 }
 
 .feature-name h2 {
-  margin-bottom: 1px;
+    margin-bottom: 1px;
 }
 
 .console-output {
-  display: inline;
+    display: inline;
 }
 
 .console-output pre {
-  max-width: 90%;
+    max-width: 90%;
 }
 
 .console-output pre p {
-  width: 99%;
-  white-space: pre-wrap;
+    width: 99%;
+    white-space: pre-wrap;
 }
 
-.console-output a {
-  float: right;
-}
-
-pre.additional-info {
-  max-width: 40%;
-  text-align: left;
-}
-
-pre.additional-info.collapse.in, pre.additional-info.collapsing {
-  display: inline-block;
-  float: left;
-  margin-right: 100%;
+.console-output button {
+    float: right;
 }
 
 .filter-selector-pane {
-  text-align: left;
+    text-align: left;
 }
 
 .filter-selector {
-  margin-right: 100%;
-  display: inline;
+    padding-top: 5px;
+    width: 100%;
+    display: inline-block;
 }
 
 .filter-selector .selected {
-  background: #cbcbcb;
+    background: #cbcbcb;
 }
 
 .filter-selector .btn-group {
-  display: inline-flex;
-  padding-right: 5px;
+    display: inline-flex;
+    padding-right: 5px;
 }
 
 .btn-group.filter-selector {
-  display: table-row-group;
+    display: table-row-group;
 }
 
 .sub-filter-selector button {
-  border: 0;
-  background: inherit;
-  width: 100%;
+    border: 0;
+    background: inherit;
+    width: 100%;
 }
 
 .sub-filter-selector {
-  max-height: 470px;
-  overflow: scroll;
+    max-height: 470px;
+    overflow: scroll;
 }
 
 .sub-filter-selector li {
-  padding-bottom: 5px;
+    padding-bottom: 5px;
 }
 
 .execution-list {
-  padding: 2%;
+    padding: 2%;
 }
 
 td label {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 img {
-  width: 100%;
+    width: 100%;
 }
 
 a.exception {
-  display: table;
+    display: table;
 }
 
 .thumbnail {
-  width: 30%;
+    width: 30%;
 }
 
 .selected-tab{
-  border: solid whitesmoke 1px;
-  margin-top: 5px;
-  padding: 0px 5px 5px 5px;
+    margin-top: 5px;
+    padding: 0px 5px 5px 5px;
 }
 
 .new-suite-tab-selector {
-  float: left;
-  width: 150px;
-  margin-right: 100%;
+    float: left;
+    width: 150px;
+    margin-right: 100%;
 }
 
-.new-suite-tab-selector .selected{
-  background-image: -webkit-linear-gradient(top,#cbcbcb,#cdcdcd);
-  background-image: linear-gradient(180deg,#cbcbcb,#cdcdcd);
-  border-color: #6c6c6c #d6d6d6 #d6d6d6 #6c6c6c;
+.new-suite-tab-selector button:focus{
+    outline: 0;
 }
 
-.features-selection {
-  background: white;
-  border: solid 1px #cccccc;
-  text-align: left;
-  display: inline-block;
-  width: 100%;
+.features-selection .btn-group {
+    background: white;
+    text-align: left;
+    display: inline-block;
+    width: 100%;
 }
 
 .feature-select-option, .suite-select-option {
-  border-radius: 1px;
-  width: 10%;
-  height: 60px;
-  overflow: hidden;
-  overflow-y: hidden;
-  white-space: pre-wrap;
-  text-align: center;
-  float: left;
-}
-
-.feature-select-option.selected, .suite-select-option.selected {
-  background-image: linear-gradient(180deg,#cbcbcb 0, #cdcdcd);
-  border-color: #6c6c6c #d6d6d6 #d6d6d6 #6c6c6c;
-  border-width: 5px 3px 3px 5px;
-}
-
-.feature-select-option.selected:hover, .feature-select-option.selected:focus {
-  background-color: #cbcbcb;
+    width: 10%;
+    height: 60px;
+    overflow: hidden;
+    white-space: pre-line;
+    text-align: center;
+    float: left;
 }
 
 .features-filter{
-  float: right;
-  margin-left: 100%;
+    float: right;
+    margin-left: 100%;
 }
 
 .text-fields {
-  text-align: left;
+    text-align: left;
 }
 
 .sendButton {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 
 .retried {
-  margin-left: 5px;
+    margin-left: 5px;
+}
+
+.launch-new-suite .text-fields input {
+    max-width: 70%;
+    margin-left: 5px;
+}
+
+.search-filter {
+    max-width: 15%;
 }
 
 .create-new-user .fields-pane {
-  text-align: left;
-  border: solid 1px #cccccc;
-  width: 32%;
-  margin: 1%;
-  padding: 1%;
-  border-radius: 5px;
+    text-align: left;
+    border: solid 1px #cccccc;
+    width: 32%;
+    margin: 1%;
+    padding: 1%;
+    border-radius: 5px;
 }
 
 .create-new-user div.environment {
-  width: 100%;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 .create-new-user .fields-pane div, .create-new-user .fields-pane div label {
-  margin: 2%;
+    margin: 2%;
 }
 
 .new-user-fields {
-  display: inline-flex;
-  width: 100%;
-  text-align: center;
-  border: solid 1px #cccccc;
-  background-color: whitesmoke;
-  border-radius: 5px;
+    display: inline-flex;
+    width: 100%;
+    text-align: center;
+    border: solid 1px #cccccc;
+    background-color: whitesmoke;
+    border-radius: 5px;
 }
 
 input[type="textField"] {
-  min-width: 300px;
+    min-width: 300px;
 }

@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-
+import {
+    Form,
+    FormGroup,
+    ControlLabel,
+    FormControl,
+    Checkbox
+} from 'react-bootstrap';
 
 class SubscriptionFieldsPane extends Component {
     constructor(props) {
@@ -7,10 +13,10 @@ class SubscriptionFieldsPane extends Component {
 
         this.state = {
             states: ['active', 'trialing', 'expired', 'canceled'],
-            product: null,
+            product: '',
             state: null,
-            date: null,
-            zuora: null
+            date: '',
+            zuora: false
         };
 
         this.renderFields=this.renderFields.bind(this);
@@ -74,10 +80,10 @@ class SubscriptionFieldsPane extends Component {
 
     renderStates () {
         return (
-            <div>
-                <label className="state" >{`State: `}</label>
-                <select
-                    selected="selected"
+            <FormGroup>
+                <ControlLabel className="state" >{`State: `}</ControlLabel>
+                <FormControl
+                    componentClass="select"
                     id="state"
                     onChange={this.onStateChange}
                     onBlur={this.onFilledField}
@@ -90,32 +96,32 @@ class SubscriptionFieldsPane extends Component {
                             )
                         })
                     }
-                </select>
-            </div>
+                </FormControl>
+            </FormGroup>
         )
     }
 
     renderFields () {
         return(
-            <div className="fields">
-                <div>
-                    <label id="product" >{`Product: `}</label>
-                    <input
+            <Form className="fields">
+                <FormGroup>
+                    <ControlLabel id="product" >{`Product: `}</ControlLabel>
+                    <FormControl
                         id="product"
                         value={this.state.product}
                         onChange={this.onProductChange}
                         onBlur={this.onFilledField}
-                        type="textField"
+                        type="text"
                         placeholder="ex: business-1y"
                         {...{disabled: !this.props.isAvailable}}
                     />
-                </div>
+                </FormGroup>
 
                 {this.renderStates()}
 
-                <div>
-                    <label className="date" >{`Creation date: `}</label>
-                    <input
+                <FormGroup>
+                    <ControlLabel className="date" >{`Creation date: `}</ControlLabel>
+                    <FormControl
                         id="date"
                         value={this.state.date}
                         onChange={this.onDateChange}
@@ -123,11 +129,11 @@ class SubscriptionFieldsPane extends Component {
                         type="date"
                         {...{disabled: !this.props.isAvailable}}
                     />
-                </div>
+                </FormGroup>
 
-                <div>
-                    <label className="zuora" >{`Create zuora subscription: `}</label>
-                    <input
+                <FormGroup>
+                    <ControlLabel className="zuora" >{`Create zuora subscription: `}</ControlLabel>
+                    <Checkbox
                         id="zuora"
                         onChange={this.onZuoraChange}
                         onBlur={this.onFilledField}
@@ -135,8 +141,8 @@ class SubscriptionFieldsPane extends Component {
                         {...{checked: this.state.zuora}}
                         {...{disabled: !this.props.isAvailable}}
                     />
-                </div>
-            </div>
+                </FormGroup>
+            </Form>
         )
     }
 

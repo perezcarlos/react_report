@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { groupBy } from 'lodash';
+import { ButtonGroup, Button, DropdownButton, MenuItem } from 'react-bootstrap';
 
 
 class FilterSelectorPane extends Component {
@@ -30,8 +31,8 @@ class FilterSelectorPane extends Component {
     render() {
         return (
         <div className="filter-selector-pane">
-            <label>Filter by: </label>
-            <div className="btn-group filter-selector buttons" role="group">
+            <b>Filter by: </b>
+            <div className="filter-selector buttons">
                 {
                     this.state.filters.map((filter, index) => {
                         return(
@@ -45,7 +46,7 @@ class FilterSelectorPane extends Component {
     }
 
     onSelectFilter (event){
-        const fullFilter = event.target.value;
+        const fullFilter = event.currentTarget.attributes.value.value;
         this.setState(
             {
                 selectedFilter:
@@ -61,60 +62,53 @@ class FilterSelectorPane extends Component {
 
     getFilterButtonClass (filter){
         if(this.state.selectedFilter.filter === filter){
-            return "btn btn-default selected"
+            return "active"
         } else {
-            return "btn btn-default"
+            return ""
         }
     }
 
     renderFilter(filter, key) {
         return(
-            <div key={key} className="btn-group">
-                <button
+            <ButtonGroup key={key} className="btn-group">
+                <Button
                     key={key}
                     value={`${filter}-all`}
-                    type="button"
+                    bsStyle="default"
                     className={this.getFilterButtonClass(filter)}
                     onClick={this.onSelectFilter}
                 >
                     {filter}
-                </button>
+                </Button>
                 {this.renderSubFilter(filter)}
-            </div>
+            </ButtonGroup>
         )
     }
 
     renderSubFilter(filter){
         return (
             <div>
-                <button
-                    type="button"
-                    className="btn btn-default dropdown-toggle"
-                    data-toggle="dropdown"
+                <DropdownButton
+                    id="bg-nested-dropdown"
+                    title=""
                 >
-                    <span className="caret"></span>
-                    <span className="sr-only">Toggle Dropdown</span>
-                </button>
-                <ul className="dropdown-menu sub-filter-selector">
                     {
                         this.getSubFilters(filter).map((subfilter) => {
                             const subFilterClass = this.state.selectedFilter.subFilter === subfilter ?
-                                `${subfilter} selected` : {subfilter};
+                                `${subfilter} active` : {subfilter};
                             return(
-                                <li key={subfilter}>
-                                    <button
-                                        key={subfilter}
-                                        value={`${filter}-${subfilter}`}
-                                        className={subFilterClass}
-                                        onClick={this.onSelectFilter}
-                                    >
-                                        {subfilter}
-                                    </button>
-                                </li>
+                                <MenuItem
+                                    key={subfilter}
+                                    value={`${filter}-${subfilter}`}
+                                    className={subFilterClass}
+                                    onClick={this.onSelectFilter}
+                                >
+                                    {subfilter}
+                                </MenuItem>
                             )
                         })
                     }
-                </ul>
+                </DropdownButton>
             </div>
         )
     }

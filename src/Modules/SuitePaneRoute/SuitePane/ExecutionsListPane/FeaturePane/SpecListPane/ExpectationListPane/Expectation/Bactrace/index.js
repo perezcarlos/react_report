@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Collapse, Well } from 'react-bootstrap';
 
+class BacktracePane extends Component {
 
-const BacktracePane = ({backtrace, id} ) => {
-    return (
-        <pre className="collapse" id={id} >
-            {
-                backtrace.map((backtrc, index) => {
-                    return(
-                        <p key={index}>{backtrc}</p>
-                    )
-                })
-            }
-        </pre>
-    );
-}
+    render () {
+        return (
+            <Collapse in={this.props.isOpen}>
+                <Well>
+                    {
+                        this.props.backtrace.map((backtrc, index) => {
+                            return (
+                                <p key={index}>{backtrc}</p>
+                            )
+                        })
+                    }
+                </Well>
+            </Collapse>
+        );
+    }
+};
 
 export default BacktracePane;

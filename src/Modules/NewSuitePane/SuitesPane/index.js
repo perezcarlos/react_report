@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ButtonGroup, Button } from 'react-bootstrap'
 
 
 class SuitesPane extends Component {
@@ -60,10 +61,10 @@ class SuitesPane extends Component {
     }
 
     buttonClass (suite) {
-        const base_class = `btn btn-default suite-select-option ${suite}`;
+        const base_class = `suite-select-option ${suite}`;
         if(this.isSelected(suite)) {
             return(
-                `${base_class} selected`
+                `${base_class} active`
             )
         } else {
             return(
@@ -81,35 +82,39 @@ class SuitesPane extends Component {
         const filterMatcher = new RegExp(`^${filter}| ${filter}`, 'g');
 
         return(
-            this.state.suites.map((suite) => {
-                if(this.props.filter === '') {
-                    return (
-                        <button
-                            className={this.buttonClass(suite.jobName)}
-                            key={suite.jobName}
-                            value={suite.jobName}
-                            onClick={this.onSelectedSuites}
-                            {...this.isDisabled(suite.jobName)}
-                        >
-                            {suite.name}
-                        </button>
-                    )
-                } else if (suite.name.match(filterMatcher)){
-                    return (
-                        <button
-                            className={this.buttonClass(suite.jobName)}
-                            key={suite.jobName}
-                            value={suite.jobName}
-                            onClick={this.onSelectedSuites}
-                            {...this.isDisabled(suite.jobName)}
-                        >
-                            {suite.name}
-                        </button>
-                    )
-                } else {
-                    return null;
+            <ButtonGroup>
+                {
+                    this.state.suites.map((suite) => {
+                        if (this.props.filter === '') {
+                            return (
+                                <Button
+                                    className={this.buttonClass(suite.jobName)}
+                                    key={suite.jobName}
+                                    value={suite.jobName}
+                                    onClick={this.onSelectedSuites}
+                                    {...this.isDisabled(suite.jobName)}
+                                >
+                                    {suite.name}
+                                </Button>
+                            )
+                        } else if (suite.name.match(filterMatcher)) {
+                            return (
+                                <Button
+                                    className={this.buttonClass(suite.jobName)}
+                                    key={suite.jobName}
+                                    value={suite.jobName}
+                                    onClick={this.onSelectedSuites}
+                                    {...this.isDisabled(suite.jobName)}
+                                >
+                                    {suite.name}
+                                </Button>
+                            )
+                        } else {
+                            return null;
+                        }
+                    })
                 }
-            })
+            </ButtonGroup>
         )
     }
 

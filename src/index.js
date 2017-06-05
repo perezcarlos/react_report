@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './Modules/App';
-import './index.css';
 import { Router, Route, hashHistory } from 'react-router'
+import './index.css';
 import SuitePaneRoute from './Modules/SuitePaneRoute/index'
 import NoSuite from './Modules/NoSuitePane/index'
 import NewSuite from './Modules/NewSuitePane/index'

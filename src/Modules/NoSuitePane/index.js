@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { hashHistory } from 'react-router'
+import { hashHistory } from 'react-router';
+import { Button } from 'react-bootstrap'
 
 
 class NoSuitePane extends Component {
@@ -26,7 +27,7 @@ class NoSuitePane extends Component {
                     <div className="panel-body">
                         <div className="new-suite">
                             <h3>If you wish you can launch a new one</h3>
-                            <button className="launch btn btn-default" onClick={this.goToNewCreation}>Launch</button>
+                            <Button className="launch btn btn-default" onClick={this.goToNewCreation}>Launch</Button>
                         </div>
                     </div>
                 </div>
