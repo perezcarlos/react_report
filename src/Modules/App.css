@@ -221,6 +221,10 @@ button {
     float: right;
 }
 
+.spec-additional-info .additional-info button {
+    float: none;
+}
+
 .spec-name {
     border: none;
     background: transparent;

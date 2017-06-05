@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Button, Collapse, Well } from 'react-bootstrap'
+import DataRow from "./DataRowPane/index";
 
 
 class AdditionalSpecInfoPane extends Component {
@@ -43,10 +44,11 @@ class AdditionalSpecInfoPane extends Component {
                         {
                             Object.keys(this.props.additionalInfo).map((key) => {
                                 return (
-                                    <p key={key}>
-                                        <b>{key}</b>
-                                        {`: ${JSON.stringify(this.props.additionalInfo[key])}`}
-                                    </p>
+                                    <DataRow
+                                        key={key}
+                                        dataKey={key}
+                                        dataValue={this.props.additionalInfo[key]}
+                                    />
                                 );
                             })
                         }
