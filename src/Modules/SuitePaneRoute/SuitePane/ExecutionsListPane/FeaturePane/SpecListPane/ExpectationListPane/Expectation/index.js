@@ -82,7 +82,9 @@ class ExpectationPane extends Component {
                         bsStyle="link"
                         onClick={this.isAttachmentOpenToggle}
                     >
-                        {this.props.expectation.description}
+                        <label>
+                            {this.props.expectation.description}
+                        </label>
                     </Button>
                     <ConsoleOutput consoleOutput={this.props.expectation.console_output}/>
                     <Attachment
@@ -101,7 +103,9 @@ class ExpectationPane extends Component {
                         bsStyle="link"
                         onClick={this.isAttachmentOpenToggle}
                     >
-                        {this.props.expectation.description}
+                        <label>
+                            {this.props.expectation.description}
+                        </label>
                     </Button>
                     <ConsoleOutput consoleOutput={this.props.expectation.console_output}/>
                     <Exception
