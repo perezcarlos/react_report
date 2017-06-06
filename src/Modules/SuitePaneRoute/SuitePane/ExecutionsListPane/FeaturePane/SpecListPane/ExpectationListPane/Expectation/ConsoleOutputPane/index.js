@@ -13,7 +13,7 @@ class ConsoleOutputPane extends Component {
     }
 
     isOpenToggle () {
-        if (this.state === true) {
+        if (this.state.isOpen === true) {
             this.setState({
                 isOpen: false
             })
@@ -35,7 +35,7 @@ class ConsoleOutputPane extends Component {
             return (
                 <div className="console-output">
                     <Button bsStyle="link" onClick={this.isOpenToggle}>Console output</Button>
-                    <Collapse in={this.state.isOpen} className="console-output">
+                    <Collapse in={this.state.isOpen} className="console-output-text">
                         <Well>
                             {
                                 this.props.consoleOutput.map((output) => {

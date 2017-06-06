@@ -313,8 +313,11 @@ img {
     width: 100%;
 }
 
-a.exception {
+button.exception {
     display: table;
+    max-width: 900px;
+    overflow: overlay;
+
 }
 
 .thumbnail {
