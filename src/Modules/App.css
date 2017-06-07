@@ -316,7 +316,8 @@ img {
 button.exception {
     display: table;
     max-width: 900px;
-    overflow: overlay;
+    white-space: pre-line;
+    text-align: left;
 
 }
 
