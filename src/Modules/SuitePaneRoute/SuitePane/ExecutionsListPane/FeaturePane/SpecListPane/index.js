@@ -54,11 +54,11 @@ class SpecListPane extends Component {
             <table className="table table-striped">
                 <thead>
                 <tr>
-                    <th>Validated</th>
-                    <th>Status</th>
-                    <th>Spec</th>
-                    <th>Describe</th>
-                    <th>Run time</th>
+                    <th className="validated">Validated</th>
+                    <th className="status">Status</th>
+                    <th className="spec">Spec</th>
+                    <th className="describe">Describe</th>
+                    <th className="run-time">Run time</th>
                 </tr>
                 </thead>
                 <tbody>

@@ -38,9 +38,13 @@ class DataRowPane extends Component {
                         {this.props.dataKey}
                     </Button>
                     <Collapse className="data-value" in={this.state.isOpen}>
-                        <div>
+                        <div className={`${this.props.dataKey}`}>
                             {
-                                JSON.stringify(this.props.dataValue)
+                                Object.keys(this.props.dataValue).map( (key) => {
+                                    return (
+                                        <p key={`    ${key}`} ><b>{key}</b>{`: ${JSON.stringify(this.props.dataValue[key])}`}</p>
+                                    )
+                                })
                             }
                         </div>
                     </Collapse>

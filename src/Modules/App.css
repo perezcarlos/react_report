@@ -103,7 +103,7 @@ tbody {
 
 .validated, .status {
     text-align: center;
-    width: 2px;
+    width: 70px;
 }
 
 .selectors {
@@ -135,6 +135,7 @@ tbody {
 
 button {
     text-transform: capitalize;
+    outline: 0;
 }
 
 .suite-pane {
@@ -216,6 +217,7 @@ button {
 .spec-additional-info .well {
     max-width: 900px;
     overflow: scroll;
+    max-height: 400px;
 }
 
 .spec-additional-info button {
@@ -224,6 +226,12 @@ button {
 
 .spec-additional-info .additional-info button {
     float: none;
+    padding-left: 0;
+    outline: 0;
+}
+
+.data-value.collapse, .data-value.collapsing {
+    padding-left: 25px;
 }
 
 .spec-name {

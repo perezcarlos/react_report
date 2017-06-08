@@ -79,10 +79,10 @@ class SpecPane extends Component {
                 <td className={`status status-${this.state.class_name} text-center`}>
                     <i className={`glyphicon ${this.state.icon_class}`}></i>
                 </td>
-                <td>
+                <td className="spec">
                     <button
                         href={`#${this.props.spec.id}`}
-                        className="spec-name"
+                        className="spec spec-name"
                         data-toggle="collapse"
                         value={this.props.spec.name}
                         onClick={this.onSelectSpec}
@@ -91,13 +91,13 @@ class SpecPane extends Component {
                         {this.props.spec.name}
                     </button>
                 </td>
-                <td>
+                <td className="describe">
                     <div>
                         {this.props.spec.description}
                         <AdditionalSpecInfo additionalInfo={this.props.spec.additional_spec_info}/>
                     </div>
                 </td>
-                <td>{this.props.spec.run_time}</td>
+                <td className="run-time">{this.props.spec.run_time}</td>
             </tr>
         );
     }
