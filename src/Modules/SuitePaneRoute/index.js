@@ -18,6 +18,7 @@ class SuitePaneRoute extends Component {
         this.state = {
             suite: null,
             jenkinsBuildInfo: null,
+            selectedSpec: null,
             waitForTime: 1000,
             additional_info: null,
             filter: filter
@@ -27,6 +28,7 @@ class SuitePaneRoute extends Component {
         this.getJenkinsBuildData = this.getJenkinsBuildData.bind(this);
         this.onValidate = this.onValidate.bind(this);
         this.onSelectedSpec = this.onSelectedSpec.bind(this);
+        this.getSelectedSpecByName = this.getSelectedSpecByName.bind(this);
     }
 
     componentDidMount() {
@@ -58,9 +60,18 @@ class SuitePaneRoute extends Component {
         database.ref(`builds/${this.props.params.selectedSuite.replace(/[-\s]/g, "_").toLowerCase()}_${this.props.params.selectedBuild}/`).on('value', (snapshot) => {
             this.setState ({
                 suite: snapshot.val() ? snapshot.val().executions : {},
-                additional_info: snapshot.val() ? snapshot.val().additional_info : {}
+                additional_info: snapshot.val() ? snapshot.val().additional_info : {},
+                selectedSpec: this.state.selectedSpec ? this.getSelectedSpecByName(this.state.selectedSpec.name) : null
             }, this.getJenkinsBuildData());
         });
+    }
+
+    getSelectedSpecByName(specName) {
+        var spec = null;
+        database.ref(`builds/${this.props.params.selectedSuite}_${this.props.params.selectedBuild}/executions/${specName}`).once('value', (snapshot) => {
+            spec = snapshot.val()
+        });
+        return spec
     }
 
     getJenkinsBuildData() {
@@ -100,12 +111,6 @@ class SuitePaneRoute extends Component {
             database.ref(`builds/${this.props.params.selectedSuite}_${this.props.params.selectedBuild}/executions/${value.specName}`).update({
                 validated: value.validated,
                 status: status
-            }).then( () =>{
-                database.ref(`builds/${this.props.params.selectedSuite}_${this.props.params.selectedBuild}/executions/${value.specName}`).once('value', (snapshot) => {
-                    this.setState({
-                        selectedSpec: snapshot.val()
-                    })
-                });
             })
         }
         else {
