@@ -26,6 +26,7 @@ class SuitePaneRoute extends Component {
         this.getBuildData = this.getBuildData.bind(this);
         this.getJenkinsBuildData = this.getJenkinsBuildData.bind(this);
         this.onValidate = this.onValidate.bind(this);
+        this.onSelectedSpec = this.onSelectedSpec.bind(this);
     }
 
     componentDidMount() {
@@ -99,11 +100,23 @@ class SuitePaneRoute extends Component {
             database.ref(`builds/${this.props.params.selectedSuite}_${this.props.params.selectedBuild}/executions/${value.specName}`).update({
                 validated: value.validated,
                 status: status
+            }).then( () =>{
+                database.ref(`builds/${this.props.params.selectedSuite}_${this.props.params.selectedBuild}/executions/${value.specName}`).once('value', (snapshot) => {
+                    this.setState({
+                        selectedSpec: snapshot.val()
+                    })
+                });
             })
         }
         else {
             return null
         }
+    }
+
+    onSelectedSpec (selectedSpec) {
+        this.setState({
+            selectedSpec: selectedSpec
+        })
     }
 
     render() {
@@ -116,6 +129,8 @@ class SuitePaneRoute extends Component {
                 onValidate={this.onValidate}
                 jenkinsInfo={this.state.jenkinsBuildInfo}
                 filter={this.state.filter}
+                selectedSpec={this.state.selectedSpec}
+                onSelectedSpec={this.onSelectedSpec}
             />
         )
     }

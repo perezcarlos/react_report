@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Spec from './SpecPane';
-import ExpectationList from './ExpectationListPane';
-import uuid from 'uuid';
+import { ListGroup } from 'react-bootstrap'
+import Spec from './SpecPane/index';
 
 class SpecListPane extends Component {
     constructor (props) {
@@ -9,86 +8,25 @@ class SpecListPane extends Component {
 
         this.state = {
             specRows: [],
-            selectedSpecs: []
         };
-
-        this.getSpecList=this.getSpecList.bind(this);
-        this.onSelectedSpecs=this.onSelectedSpecs.bind(this);
-    }
-
-    componentDidMount () {
-        this.getSpecList()
-    }
-
-    componentDidUpdate (prevProps) {
-        if (prevProps.specs !== this.props.specs ) {
-            this.getSpecList()
-        }
-    }
-
-    getSpecList () {
-        this.setState ({
-            specRows: Object.values(this.props.specs).reduce((memo, item) => {
-                const id = `test-${uuid()}`;
-                memo.push({
-                    id: id,
-                    ...item
-                });
-                memo.push({
-                    id: id,
-                    ...item
-                });
-                return memo
-            }, [])
-        })
-    }
-
-    onSelectedSpecs (selectedSpecs) {
-        this.setState({
-            selectedSpecs: selectedSpecs
-        })
     }
 
     render () {
         return (
-            <table className="table table-striped">
-                <thead>
-                <tr>
-                    <th className="validated">Validated</th>
-                    <th className="status">Status</th>
-                    <th className="spec">Spec</th>
-                    <th className="describe">Describe</th>
-                    <th className="run-time">Run time</th>
-                </tr>
-                </thead>
-                <tbody>
+            <ListGroup>
                 {
-                    this.state.specRows.map((item, index) => {
-                        if (index % 2 === 0) {
-                            return (
-                                <Spec
-                                    key={`${item.id}-foobar`}
-                                    spec={item}
-                                    onValidate={this.props.onValidate}
-                                    selectedSpecs={this.state.selectedSpecs}
-                                    onSelectedSpecs={this.onSelectedSpecs}
-                                />
-                            );
-                        } else {
-                            return (
-                                <ExpectationList
-                                    key={item.id}
-                                    spec={item}
-                                    expectations={item.expectations}
-                                    id={item.id}
-                                    selectedSpecs={this.state.selectedSpecs}
-                                />
-                            );
-                        }
+                    this.props.specs.map((item, index) => {
+                        return (
+                            <Spec
+                                key={index}
+                                spec={item}
+                                selectedSpec={this.props.selectedSpec}
+                                onSelectedSpec={this.props.onSelectedSpec}
+                            />
+                        )
                     })
                 }
-                </tbody>
-            </table>
+            </ListGroup>
         )
     }
 };

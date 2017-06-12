@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import { Button } from 'react-bootstrap'
-import Exception from './Exception';
-import Backtrace from './Bactrace';
-import Attachment from './Attachment';
-import ConsoleOutput from './ConsoleOutputPane'
+import Exception from './Exception/index';
+import Backtrace from './Bactrace/index';
+import Attachment from './Attachment/index';
+import ConsoleOutput from './ConsoleOutputPane/index'
 
 
 class ExpectationPane extends Component {
@@ -77,7 +77,7 @@ class ExpectationPane extends Component {
         if (!this.props.expectation.exception) {
             const attachmentId = `attachment-${uuid()}`;
             return (
-                <div className={`alert alert-${this.state.expectationClass}`}>
+                <div className={`alert alert-${this.state.expectationClass} expectation`}>
                     <Button
                         bsStyle="link"
                         onClick={this.isAttachmentOpenToggle}
@@ -98,7 +98,7 @@ class ExpectationPane extends Component {
             const attachmentId = `attachment-${uuid()}`;
             const backtraceId = `backtrace-${uuid()}`;
             return (
-                <div className={`alert alert-${this.state.expectationClass}`}>
+                <div className={`alert alert-${this.state.expectationClass} expectation`}>
                     <Button
                         bsStyle="link"
                         onClick={this.isAttachmentOpenToggle}

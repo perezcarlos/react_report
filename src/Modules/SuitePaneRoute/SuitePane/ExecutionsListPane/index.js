@@ -90,6 +90,8 @@ class ExecutionsListPane extends Component {
                                     specs={this.state.filteredSpecs[key]}
                                     id={key}
                                     onValidate={this.props.onValidate}
+                                    selectedSpec={this.props.selectedSpec}
+                                    onSelectedSpec={this.props.onSelectedSpec}
                                 />
                             )
                         })
@@ -110,12 +112,16 @@ class ExecutionsListPane extends Component {
             )
         } else {
             return (
-                <Feature
-                    key={this.props.filter.subFilter}
-                    specs={this.state.filteredSpecs[this.props.filter.subFilter]}
-                    id={this.props.filter.subFilter}
-                    onValidate={this.props.onValidate}
-                />
+                <div className="execution-list">
+                    <Feature
+                        key={this.props.filter.subFilter}
+                        specs={this.state.filteredSpecs[this.props.filter.subFilter]}
+                        id={this.props.filter.subFilter}
+                        onValidate={this.props.onValidate}
+                        selectedSpec={this.props.selectedSpec}
+                        onSelectedSpec={this.props.onSelectedSpec}
+                    />
+                </div>
             )
         }
     }
