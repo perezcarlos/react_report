@@ -4,7 +4,6 @@ import SpecList from './SpecListPane';
 
 class FeaturePane extends Component {
 
-
     render () {
         return (
             <div className="spec-group" key={this.props.id}>

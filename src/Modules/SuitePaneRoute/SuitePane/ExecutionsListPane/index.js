@@ -27,7 +27,7 @@ class ExecutionsListPane extends Component {
     }
     
     getFilteredSpecs () {
-        var filtered = null;
+        let filtered = null;
         
         if (this.props.specs) {
             filtered = groupBy(this.props.specs, (x) => x[this.props.filter.filter]);
@@ -83,7 +83,7 @@ class ExecutionsListPane extends Component {
             return (
                 <div className="execution-list">
                     {
-                        Object.keys(this.state.filteredSpecs).map((key) => {
+                        Object.keys(this.state.filteredSpecs).sort().map((key) => {
                             return (
                                 <Feature
                                     key={key}
