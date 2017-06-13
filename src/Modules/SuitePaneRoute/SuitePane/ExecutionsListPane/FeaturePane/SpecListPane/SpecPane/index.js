@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { ListGroupItem, Glyphicon } from 'react-bootstrap'
+import Validate from '../../../../SpecDetailPane/ValidatedPane'
 
 
 class SpecPane extends Component {
@@ -74,13 +75,17 @@ class SpecPane extends Component {
         if (this.props.spec) {
             return (
                 <ListGroupItem
-                    header={this.props.spec.name.replace(/[_-]/g, ' ')}
+                    componentClass="div"
                     className={this.isSelectedClass()}
                     value={this.props.spec.name}
-                    onClick={this.onSelectSpec}
                     {...this.isSpecDisabled()}
                 >
-                    <Glyphicon className={this.state.class_name} glyph={this.state.icon_class}/>
+                    <Validate spec={this.props.spec} onValidate={this.props.onValidate}/>
+                    <span className="spec-name-button" onClick={this.onSelectSpec}>
+                        <label>{this.props.spec.name.replace(/[_-]/g, ' ')}</label>
+                        {' '}
+                        <Glyphicon className={`icon ${this.state.class_name}`} glyph={this.state.icon_class}/>
+                    </span>
                 </ListGroupItem>
             )
         }

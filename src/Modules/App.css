@@ -60,19 +60,19 @@ tbody {
     float: left;
 }
 
-.status-success i {
+span.icon.success {
     color: #67b168;
 }
 
-.status-failed i {
+span.icon.failed {
     color: #b64743;
 }
 
-.status-warning i {
+span.icon.warning {
     color: #d58512;
 }
 
-.status-pending i {
+span.icon.pending {
     color: #6f6f6f;
 }
 
@@ -177,6 +177,41 @@ button label {
 
 .suite-title {
     text-transform: capitalize;
+}
+
+.validated-pane {
+    width: 3%;
+    display: inline-block;
+    text-align: left;
+}
+
+.spec.spec-name {
+    padding: 0;
+    width: 100%;
+}
+
+.spec.spec-name .validated-pane {
+    height: 40px;
+    margin: 0 0 0 2%;
+}
+
+.spec-name-button {
+    display: inline-block;
+    height: 40px;
+    width: 95%;
+    padding: 15px 0 40px 0;
+}
+
+.spec-name {
+    display: inline-block;
+    width: 96%;
+    color: #337ab7;
+    text-transform: none;
+    text-align: left;
+}
+
+.spec-name.active span {
+    color: white;
 }
 
 .additional-build-info {
@@ -318,32 +353,6 @@ button label {
     height: 100%;
     border-radius: 5px;
     overflow-y: scroll;
-}
-
-.spec-name {
-    color: #337ab7;
-    text-transform: none;
-    text-align: left;
-}
-
-.spec-name.active span {
-    color: white;
-}
-
-span.failed {
-    color: #a94442;
-}
-
-span.success {
-    color: #3c763d;
-}
-
-span.warning {
-    color: #a8a34f;
-}
-
-.validated-pane {
-    text-align: left;
 }
 
 .spec-description {

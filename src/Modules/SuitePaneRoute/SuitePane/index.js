@@ -154,6 +154,7 @@ class SuitePane extends Component {
                                 className="executions"
                                 selectedSpec={this.props.selectedSpec}
                                 onSelectedSpec={this.props.onSelectedSpec}
+                                onValidate={this.props.onValidate}
                             />
                             <SpecDetail
                                 spec={this.props.selectedSpec}

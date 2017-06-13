@@ -27,8 +27,16 @@ class ValidatedPane extends Component{
         }
     }
 
-    onValidate (event){
-        this.setState({validated: event.target.checked}, () => {
+    onValidate (){
+        var nextStatus = null;
+
+        if (this.state.validated === true) {
+            nextStatus = false
+        } else {
+            nextStatus = true
+        }
+
+        this.setState({validated: nextStatus}, () => {
             this.props.onValidate(this.state)
         });
     }
@@ -55,9 +63,7 @@ class ValidatedPane extends Component{
     render() {
         return (
             <div className="validated-pane" >
-                <label>Validated:</label>
-                {' '}
-                <input type="checkbox" onChange={this.onValidate} {...this.checkboxProperties()}/>
+                <input type="checkbox" onClick={this.onValidate} {...this.checkboxProperties()}/>
             </div>
         )
     }

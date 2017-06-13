@@ -22,6 +22,7 @@ class SpecListPane extends Component {
                                 spec={item}
                                 selectedSpec={this.props.selectedSpec}
                                 onSelectedSpec={this.props.onSelectedSpec}
+                                onValidate={this.props.onValidate}
                             />
                         )
                     })

@@ -20,11 +20,11 @@ class SpecDetailPane extends Component {
             return (
                 <div className="spec-detail">
                     <div className="selected-spec">
-                        <h2 className="spec-name">{this.props.spec.name.replace(/[_-]/g, ' ')}</h2>
                         <Validated
                             spec={this.props.spec}
                             onValidate={this.props.onValidate}
                         />
+                        <h2 className="spec-name">{this.props.spec.name.replace(/[_-]/g, ' ')}</h2>
                         <p className="spec-description">{this.props.spec.description}</p>
                         <AdditionalSpecInfo additionalInfo={this.props.spec.additional_spec_info}/>
                         <ExpectationsList expectations={this.props.spec.expectations}/>
