@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Alert } from 'react-bootstrap';
+import { Alert} from 'react-bootstrap';
+import SelectViewTab from './SelectViewTabPane';
 import Feature from './FeaturePane';
 import { groupBy } from 'lodash';
 
@@ -9,11 +10,13 @@ class ExecutionsListPane extends Component {
         super (props);
         
         this.state = ({
-            filteredSpecs: null
+            filteredSpecs: null,
+            selectedView: 'list'
         });
         
         this.getFilteredSpecs=this.getFilteredSpecs.bind(this);
         this.errorsRender=this.errorsRender.bind(this);
+        this.setSelectedView=this.setSelectedView.bind(this);
     }
     
     componentDidMount () {
@@ -37,6 +40,12 @@ class ExecutionsListPane extends Component {
         
         this.setState({
             filteredSpecs: filtered
+        })
+    }
+
+    setSelectedView(view) {
+        this.setState({
+            selectedView: view
         })
     }
 
@@ -81,21 +90,27 @@ class ExecutionsListPane extends Component {
         }
         if (this.props.filter.subFilter === 'all') {
             return (
-                <div className="execution-list">
-                    {
-                        Object.keys(this.state.filteredSpecs).sort().map((key) => {
-                            return (
-                                <Feature
-                                    key={key}
-                                    specs={this.state.filteredSpecs[key]}
-                                    id={key}
-                                    onValidate={this.props.onValidate}
-                                    selectedSpec={this.props.selectedSpec}
-                                    onSelectedSpec={this.props.onSelectedSpec}
-                                />
-                            )
-                        })
-                    }
+                <div>
+                    <SelectViewTab
+                        selectedView={this.state.selectedView}
+                        setSelectedView={this.setSelectedView}
+                    />
+                    <div className={`execution-list ${this.state.selectedView}`}>
+                        {
+                            Object.keys(this.state.filteredSpecs).sort().map((key) => {
+                                return (
+                                    <Feature
+                                        key={key}
+                                        specs={this.state.filteredSpecs[key]}
+                                        id={key}
+                                        onValidate={this.props.onValidate}
+                                        selectedSpec={this.props.selectedSpec}
+                                        onSelectedSpec={this.props.onSelectedSpec}
+                                    />
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             )
         } else if (JSON.stringify(Object.keys(this.state.filteredSpecs)).indexOf(`"${this.props.filter.subFilter}"`) === -1) {

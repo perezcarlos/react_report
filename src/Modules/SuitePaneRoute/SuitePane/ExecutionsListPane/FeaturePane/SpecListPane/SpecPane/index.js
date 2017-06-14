@@ -75,7 +75,6 @@ class SpecPane extends Component {
         if (this.props.spec) {
             return (
                 <ListGroupItem
-                    componentClass="div"
                     className={this.isSelectedClass()}
                     value={this.props.spec.name}
                     {...this.isSpecDisabled()}
