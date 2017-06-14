@@ -155,11 +155,14 @@ class SuitePane extends Component {
                                 selectedSpec={this.props.selectedSpec}
                                 onSelectedSpec={this.props.onSelectedSpec}
                                 onValidate={this.props.onValidate}
+                                onSelectedView={this.props.onSelectedView}
+                                selectedView={this.props.selectedView}
                             />
                             <SpecDetail
                                 spec={this.props.selectedSpec}
                                 onValidate={this.props.onValidate}
                                 loadState={this.state.loadState}
+                                selectedView={this.props.selectedView}
                             />
                         </div>
                     </div>

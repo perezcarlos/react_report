@@ -25,7 +25,7 @@ class SelectViewTabPane extends Component {
     }
 
     onSelectedView (key) {
-        this.props.setSelectedView(this.state.tabs[key])
+        this.props.onSelectedView(this.state.tabs[key])
     }
 
     render () {

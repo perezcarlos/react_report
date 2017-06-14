@@ -8,6 +8,8 @@ class SpecDetailPane extends Component {
     render () {
         if (this.props.loadState === "pending" || this.props.loadState === "error") {
             return null
+        } else if (this.props.selectedView === 'list') {
+            return null;
         } else if (!this.props.spec) {
             return (
                 <div className="spec-detail">

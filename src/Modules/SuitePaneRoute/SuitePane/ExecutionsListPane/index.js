@@ -10,13 +10,11 @@ class ExecutionsListPane extends Component {
         super (props);
         
         this.state = ({
-            filteredSpecs: null,
-            selectedView: 'list'
+            filteredSpecs: null
         });
         
         this.getFilteredSpecs=this.getFilteredSpecs.bind(this);
         this.errorsRender=this.errorsRender.bind(this);
-        this.setSelectedView=this.setSelectedView.bind(this);
     }
     
     componentDidMount () {
@@ -40,12 +38,6 @@ class ExecutionsListPane extends Component {
         
         this.setState({
             filteredSpecs: filtered
-        })
-    }
-
-    setSelectedView(view) {
-        this.setState({
-            selectedView: view
         })
     }
 
@@ -92,10 +84,10 @@ class ExecutionsListPane extends Component {
             return (
                 <div>
                     <SelectViewTab
-                        selectedView={this.state.selectedView}
-                        setSelectedView={this.setSelectedView}
+                        selectedView={this.props.selectedView}
+                        onSelectedView={this.props.onSelectedView}
                     />
-                    <div className={`execution-list ${this.state.selectedView}`}>
+                    <div className={`execution-list ${this.props.selectedView}`}>
                         {
                             Object.keys(this.state.filteredSpecs).sort().map((key) => {
                                 return (
@@ -106,6 +98,7 @@ class ExecutionsListPane extends Component {
                                         onValidate={this.props.onValidate}
                                         selectedSpec={this.props.selectedSpec}
                                         onSelectedSpec={this.props.onSelectedSpec}
+                                        selectedView={this.props.selectedView}
                                     />
                                 )
                             })
@@ -127,15 +120,21 @@ class ExecutionsListPane extends Component {
             )
         } else {
             return (
-                <div className="execution-list">
-                    <Feature
-                        key={this.props.filter.subFilter}
-                        specs={this.state.filteredSpecs[this.props.filter.subFilter]}
-                        id={this.props.filter.subFilter}
-                        onValidate={this.props.onValidate}
-                        selectedSpec={this.props.selectedSpec}
-                        onSelectedSpec={this.props.onSelectedSpec}
+                <div>
+                    <SelectViewTab
+                        selectedView={this.props.selectedView}
+                        onSelectedView={this.props.onSelectedView}
                     />
+                    <div className={`execution-list ${this.props.selectedView}`}>
+                        <Feature
+                            key={this.props.filter.subFilter}
+                            specs={this.state.filteredSpecs[this.props.filter.subFilter]}
+                            id={this.props.filter.subFilter}
+                            onValidate={this.props.onValidate}
+                            selectedSpec={this.props.selectedSpec}
+                            onSelectedSpec={this.props.onSelectedSpec}
+                        />
+                    </div>
                 </div>
             )
         }
