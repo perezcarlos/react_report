@@ -9,8 +9,7 @@ class SpecListPane extends Component {
         super(props);
 
         this.state = {
-            specRows: [],
-            selectedSpecs: []
+            specRows: []
         };
 
         this.getSpecList=this.getSpecList.bind(this);
@@ -22,28 +21,26 @@ class SpecListPane extends Component {
     }
 
     componentDidUpdate (prevProps) {
-        if (prevProps.specs !== this.props.specs ) {
+        if (prevProps.specs !== this.props.specs) {
             this.getSpecList()
         }
     }
 
     getSpecList () {
-        if (this.props.selectedView && this.props.selectedView === "list") {
-            this.setState({
-                specRows: Object.values(this.props.specs).reduce((memo, item) => {
-                    const id = `test-${uuid()}`;
-                    memo.push({
-                        id: id,
-                        ...item
-                    });
-                    memo.push({
-                        id: id,
-                        ...item
-                    });
-                    return memo
-                }, [])
-            })
-        }
+        this.setState({
+            specRows: Object.values(this.props.specs).reduce((memo, item) => {
+                const id = `test-${uuid()}`;
+                memo.push({
+                    id: id,
+                    ...item
+                });
+                memo.push({
+                    id: id,
+                    ...item
+                });
+                return memo
+            }, [])
+        })
     }
 
     renderListView () {

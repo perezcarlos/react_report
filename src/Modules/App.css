@@ -324,11 +324,14 @@ button label {
     height: 85%;
 }
 
+.execution-list {
+    overflow-y: scroll;
+    height: 60vh;
+}
+
 .execution-list.detail {
     padding: 2px 12px 2px 2px;
     width: 40%;
-    height: 100%;
-    overflow: scroll;
     border-radius: 5px;
     float: left;
 }
