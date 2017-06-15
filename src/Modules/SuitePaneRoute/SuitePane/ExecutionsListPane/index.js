@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Alert } from 'react-bootstrap';
+import { Alert} from 'react-bootstrap';
+import SelectViewTab from './SelectViewTabPane';
 import Feature from './FeaturePane';
 import { groupBy } from 'lodash';
 
@@ -27,7 +28,7 @@ class ExecutionsListPane extends Component {
     }
     
     getFilteredSpecs () {
-        var filtered = null;
+        let filtered = null;
         
         if (this.props.specs) {
             filtered = groupBy(this.props.specs, (x) => x[this.props.filter.filter]);
@@ -81,19 +82,28 @@ class ExecutionsListPane extends Component {
         }
         if (this.props.filter.subFilter === 'all') {
             return (
-                <div className="execution-list">
-                    {
-                        Object.keys(this.state.filteredSpecs).map((key) => {
-                            return (
-                                <Feature
-                                    key={key}
-                                    specs={this.state.filteredSpecs[key]}
-                                    id={key}
-                                    onValidate={this.props.onValidate}
-                                />
-                            )
-                        })
-                    }
+                <div>
+                    <SelectViewTab
+                        selectedView={this.props.selectedView}
+                        onSelectedView={this.props.onSelectedView}
+                    />
+                    <div className={`execution-list ${this.props.selectedView}`}>
+                        {
+                            Object.keys(this.state.filteredSpecs).sort().map((key) => {
+                                return (
+                                    <Feature
+                                        key={key}
+                                        specs={this.state.filteredSpecs[key]}
+                                        id={key}
+                                        onValidate={this.props.onValidate}
+                                        selectedSpec={this.props.selectedSpec}
+                                        onSelectedSpec={this.props.onSelectedSpec}
+                                        selectedView={this.props.selectedView}
+                                    />
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             )
         } else if (JSON.stringify(Object.keys(this.state.filteredSpecs)).indexOf(`"${this.props.filter.subFilter}"`) === -1) {
@@ -110,12 +120,22 @@ class ExecutionsListPane extends Component {
             )
         } else {
             return (
-                <Feature
-                    key={this.props.filter.subFilter}
-                    specs={this.state.filteredSpecs[this.props.filter.subFilter]}
-                    id={this.props.filter.subFilter}
-                    onValidate={this.props.onValidate}
-                />
+                <div>
+                    <SelectViewTab
+                        selectedView={this.props.selectedView}
+                        onSelectedView={this.props.onSelectedView}
+                    />
+                    <div className={`execution-list ${this.props.selectedView}`}>
+                        <Feature
+                            key={this.props.filter.subFilter}
+                            specs={this.state.filteredSpecs[this.props.filter.subFilter]}
+                            id={this.props.filter.subFilter}
+                            onValidate={this.props.onValidate}
+                            selectedSpec={this.props.selectedSpec}
+                            onSelectedSpec={this.props.onSelectedSpec}
+                        />
+                    </div>
+                </div>
             )
         }
     }

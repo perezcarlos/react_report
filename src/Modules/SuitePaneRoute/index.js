@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { hashHistory } from 'react-router';
 import SuitePane from './SuitePane/index';
+import { encodeObjectToQuery } from '../../utilities';
 import database from '../../database';
 import jenkins from '../../jenkins';
 
@@ -10,6 +11,7 @@ class SuitePaneRoute extends Component {
         super(props);
 
         const fullFilter = this.props.location.query.filter ? this.props.location.query.filter.split("-") : [null, null];
+        const selectedView = this.props.location.query.view ? this.props.location.query.view : 'list';
         const filter = {
             filter: fullFilter[0] || 'status',
             subFilter: fullFilter[1] || 'all'
@@ -18,14 +20,20 @@ class SuitePaneRoute extends Component {
         this.state = {
             suite: null,
             jenkinsBuildInfo: null,
+            selectedSpec: null,
             waitForTime: 1000,
             additional_info: null,
-            filter: filter
+            filter: filter,
+            selectedView: selectedView
         };
         this.onFilterChange = this.onFilterChange.bind(this);
         this.getBuildData = this.getBuildData.bind(this);
         this.getJenkinsBuildData = this.getJenkinsBuildData.bind(this);
         this.onValidate = this.onValidate.bind(this);
+        this.onSelectedSpec = this.onSelectedSpec.bind(this);
+        this.getSelectedSpecByName = this.getSelectedSpecByName.bind(this);
+        this.onSelectedView = this.onSelectedView.bind(this);
+        this.addQueryParam = this.addQueryParam.bind(this);
     }
 
     componentDidMount() {
@@ -44,11 +52,27 @@ class SuitePaneRoute extends Component {
         }
     }
 
+    addQueryParam (param) {
+        const params = {...this.props.location.query, ...param};
+        const queryString = encodeObjectToQuery(params);
+
+        return `${this.props.location.pathname}?${queryString}`;
+    }
+
     onFilterChange(value) {
         this.setState ({
             filter: value
         }, () => {
-            const path = `${this.props.location.pathname}?filter=${value.filter}-${value.subFilter}`;
+            const path = this.addQueryParam({filter: `${value.filter}-${value.subFilter}`});
+            hashHistory.push(path);
+        })
+    }
+
+    onSelectedView(view) {
+        this.setState ({
+            selectedView: view
+        }, () => {
+            const path = this.addQueryParam({view: view});
             hashHistory.push(path);
         })
     }
@@ -57,9 +81,18 @@ class SuitePaneRoute extends Component {
         database.ref(`builds/${this.props.params.selectedSuite.replace(/[-\s]/g, "_").toLowerCase()}_${this.props.params.selectedBuild}/`).on('value', (snapshot) => {
             this.setState ({
                 suite: snapshot.val() ? snapshot.val().executions : {},
-                additional_info: snapshot.val() ? snapshot.val().additional_info : {}
+                additional_info: snapshot.val() ? snapshot.val().additional_info : {},
+                selectedSpec: this.state.selectedSpec ? this.getSelectedSpecByName(this.state.selectedSpec.name) : null
             }, this.getJenkinsBuildData());
         });
+    }
+
+    getSelectedSpecByName(specName) {
+        var spec = null;
+        database.ref(`builds/${this.props.params.selectedSuite}_${this.props.params.selectedBuild}/executions/${specName}`).once('value', (snapshot) => {
+            spec = snapshot.val()
+        });
+        return spec
     }
 
     getJenkinsBuildData() {
@@ -106,6 +139,12 @@ class SuitePaneRoute extends Component {
         }
     }
 
+    onSelectedSpec (selectedSpec) {
+        this.setState({
+            selectedSpec: selectedSpec
+        })
+    }
+
     render() {
         return (
             <SuitePane
@@ -116,6 +155,10 @@ class SuitePaneRoute extends Component {
                 onValidate={this.onValidate}
                 jenkinsInfo={this.state.jenkinsBuildInfo}
                 filter={this.state.filter}
+                selectedSpec={this.state.selectedSpec}
+                onSelectedSpec={this.onSelectedSpec}
+                onSelectedView={this.onSelectedView}
+                selectedView={this.state.selectedView}
             />
         )
     }

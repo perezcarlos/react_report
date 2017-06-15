@@ -19,7 +19,7 @@ class AdditionalInfoPane extends Component {
         var info = {};
 
         if (this.props.additionalInfo && !isEmpty(this.props.additionalInfo)) {
-            info = Object.assign({}, this.props.additionalInfo, {date: (new Date(this.props.additionalInfo.date))})
+            info = {...this.props.additionalInfo, ...{date: (new Date(this.props.additionalInfo.date))}}
         }
         this.setState({
             info: info
@@ -31,7 +31,7 @@ class AdditionalInfoPane extends Component {
             var info = {};
 
             if (this.props.additionalInfo && !isEmpty(this.props.additionalInfo)) {
-                info = Object.assign({}, this.props.additionalInfo, {date: (new Date(this.props.additionalInfo.date))})
+                info = {...this.props.additionalInfo, ...{date: (new Date(this.props.additionalInfo.date))}}
             }
             this.setState({
                 info: info

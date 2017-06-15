@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
-import Spec from './SpecPane';
-import ExpectationList from './ExpectationListPane';
+import { ListGroup } from 'react-bootstrap';
 import uuid from 'uuid';
+import Spec from './SpecPane/index';
+import ExpectationList from '../../../SpecDetailPane/ExpectationListPane';
 
 class SpecListPane extends Component {
     constructor (props) {
         super(props);
 
         this.state = {
-            specRows: [],
-            selectedSpecs: []
+            specRows: []
         };
 
         this.getSpecList=this.getSpecList.bind(this);
-        this.onSelectedSpecs=this.onSelectedSpecs.bind(this);
+        this.renderListView=this.renderListView.bind(this);
     }
 
     componentDidMount () {
@@ -21,13 +21,13 @@ class SpecListPane extends Component {
     }
 
     componentDidUpdate (prevProps) {
-        if (prevProps.specs !== this.props.specs ) {
+        if (prevProps.specs !== this.props.specs) {
             this.getSpecList()
         }
     }
 
     getSpecList () {
-        this.setState ({
+        this.setState({
             specRows: Object.values(this.props.specs).reduce((memo, item) => {
                 const id = `test-${uuid()}`;
                 memo.push({
@@ -43,13 +43,7 @@ class SpecListPane extends Component {
         })
     }
 
-    onSelectedSpecs (selectedSpecs) {
-        this.setState({
-            selectedSpecs: selectedSpecs
-        })
-    }
-
-    render () {
+    renderListView () {
         return (
             <table className="table table-striped">
                 <thead>
@@ -70,8 +64,7 @@ class SpecListPane extends Component {
                                     key={`${item.id}-foobar`}
                                     spec={item}
                                     onValidate={this.props.onValidate}
-                                    selectedSpecs={this.state.selectedSpecs}
-                                    onSelectedSpecs={this.onSelectedSpecs}
+                                    selectedView={this.props.selectedView}
                                 />
                             );
                         } else {
@@ -81,7 +74,7 @@ class SpecListPane extends Component {
                                     spec={item}
                                     expectations={item.expectations}
                                     id={item.id}
-                                    selectedSpecs={this.state.selectedSpecs}
+                                    selectedView={this.props.selectedView}
                                 />
                             );
                         }
@@ -89,6 +82,30 @@ class SpecListPane extends Component {
                 }
                 </tbody>
             </table>
+        )
+    }
+
+    render () {
+        if (this.props.selectedView && this.props.selectedView === "list") {
+            return this.renderListView()
+        }
+
+        return (
+            <ListGroup>
+                {
+                    this.props.specs.map((item, index) => {
+                        return (
+                            <Spec
+                                key={index}
+                                spec={item}
+                                selectedSpec={this.props.selectedSpec}
+                                onSelectedSpec={this.props.onSelectedSpec}
+                                onValidate={this.props.onValidate}
+                            />
+                        )
+                    })
+                }
+            </ListGroup>
         )
     }
 };

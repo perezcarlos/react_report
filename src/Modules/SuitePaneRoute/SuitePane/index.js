@@ -4,6 +4,7 @@ import ExecutionsList from './ExecutionsListPane/index';
 import AdditionalInfo from './AdditionalInfoPane/index';
 import SuiteHeader from './SuiteHeaderPane/index';
 import FilterSelector from './FilterSelectorPane/index';
+import SpecDetail from './SpecDetailPane'
 import passed from '../../../Images/passed.png'
 import failed from '../../../Images/failed.png'
 import pending from '../../../Images/pending.gif'
@@ -137,19 +138,33 @@ class SuitePane extends Component {
                         />
                     </div>
                     <div className="panel-body">
-                        <AdditionalInfo additionalInfo={this.props.additionalInfo}/>
-                        <FilterSelector
-                            onChange={this.props.onFilterChange}
-                            filter={this.props.filter}
-                            specs={this.props.suite}
-                        />
-                        <ExecutionsList
-                            specs={this.props.suite}
-                            filter={this.props.filter}
-                            loadState={this.state.loadState}
-                            className="executions"
-                            onValidate={this.props.onValidate}
-                        />
+                        <div>
+                            <AdditionalInfo additionalInfo={this.props.additionalInfo}/>
+                            <FilterSelector
+                                onChange={this.props.onFilterChange}
+                                filter={this.props.filter}
+                                specs={this.props.suite}
+                            />
+                        </div>
+                        <div className="executions-detail">
+                            <ExecutionsList
+                                specs={this.props.suite}
+                                filter={this.props.filter}
+                                loadState={this.state.loadState}
+                                className="executions"
+                                selectedSpec={this.props.selectedSpec}
+                                onSelectedSpec={this.props.onSelectedSpec}
+                                onValidate={this.props.onValidate}
+                                onSelectedView={this.props.onSelectedView}
+                                selectedView={this.props.selectedView}
+                            />
+                            <SpecDetail
+                                spec={this.props.selectedSpec}
+                                onValidate={this.props.onValidate}
+                                loadState={this.state.loadState}
+                                selectedView={this.props.selectedView}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

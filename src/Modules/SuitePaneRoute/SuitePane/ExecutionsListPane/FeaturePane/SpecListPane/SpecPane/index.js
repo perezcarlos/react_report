@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import AdditionalSpecInfo from './AdditionalSpecInfoPane';
-import Validated from './ValidatedPane'
+import { ListGroupItem, Glyphicon, Button } from 'react-bootstrap'
+import Validate from '../../../../SpecDetailPane/ValidatedPane'
+import AdditionalSpecInfo from '../../../../SpecDetailPane/AdditionalSpecInfoPane'
 
 
 class SpecPane extends Component {
@@ -9,11 +10,13 @@ class SpecPane extends Component {
 
         this.state = {
             icon_class: '',
-            class_name: ''
+            class_name: '',
         };
 
         this.onSelectSpec=this.onSelectSpec.bind(this);
         this.isSpecDisabled=this.isSpecDisabled.bind(this);
+        this.isSelectedClass=this.isSelectedClass.bind(this);
+        this.renderListView=this.renderListView.bind(this);
     }
 
     componentDidMount () {
@@ -21,41 +24,33 @@ class SpecPane extends Component {
             switch (this.props.spec.status) {
                 case "failed":
                     this.setState({
-                        icon_class: "glyphicon-remove",
+                        icon_class: "remove",
                         class_name: "failed"
                     });
                     break;
                 case "passed":
                     this.setState({
-                        icon_class: "glyphicon-ok",
+                        icon_class: "ok",
                         class_name: "success"
                     });
                     break;
                 case "pending":
                     this.setState({
-                        icon_class: "glyphicon-time",
+                        icon_class: "time",
                         class_name: "pending"
                     });
                     break;
                 default:
                     this.setState({
-                        icon_class: "glyphicon-alert",
+                        icon_class: "alert",
                         class_name: "warning"
                     })
             }
         }
     }
 
-    onSelectSpec (event) {
-        const position = this.props.selectedSpecs.indexOf(event.currentTarget.value);
-
-        if (!~position){
-            this.props.selectedSpecs.push(event.currentTarget.value)
-        } else if (~position) {
-            this.props.selectedSpecs.splice(position, 1);
-        }
-
-        this.props.onSelectedSpecs(this.props.selectedSpecs);
+    onSelectSpec () {
+        this.props.onSelectedSpec(this.props.spec);
     }
 
     isSpecDisabled () {
@@ -70,26 +65,34 @@ class SpecPane extends Component {
         }
     }
 
-    render () {
+    isSelectedClass () {
+        if (this.props.selectedSpec && this.props.selectedSpec.name === this.props.spec.name) {
+            return "spec spec-name active"
+        } else {
+            return "spec spec-name"
+        }
+    }
+
+    renderListView () {
         return (
             <tr>
                 <td className="validated">
-                    <Validated spec={this.props.spec} onValidate={this.props.onValidate}/>
+                    <Validate spec={this.props.spec} onValidate={this.props.onValidate}/>
                 </td>
                 <td className={`status status-${this.state.class_name} text-center`}>
-                    <i className={`glyphicon ${this.state.icon_class}`}></i>
+                    <Glyphicon glyph={this.state.icon_class} className={this.state.icon_class}></Glyphicon>
                 </td>
                 <td className="spec">
-                    <button
+                    <Button
                         href={`#${this.props.spec.id}`}
+                        bsStyle="link"
                         className="spec spec-name"
                         data-toggle="collapse"
                         value={this.props.spec.name}
-                        onClick={this.onSelectSpec}
                         {...this.isSpecDisabled()}
                     >
                         {this.props.spec.name}
-                    </button>
+                    </Button>
                 </td>
                 <td className="describe">
                     <div>
@@ -100,6 +103,29 @@ class SpecPane extends Component {
                 <td className="run-time">{this.props.spec.run_time}</td>
             </tr>
         );
+    }
+
+    render () {
+        if (this.props.spec) {
+            if (this.props.selectedView === 'list') {
+                return this.renderListView()
+            }
+
+            return (
+                <ListGroupItem
+                    className={this.isSelectedClass()}
+                    value={this.props.spec.name}
+                    {...this.isSpecDisabled()}
+                >
+                    <Validate spec={this.props.spec} onValidate={this.props.onValidate}/>
+                    <span className="spec-name-button" onClick={this.onSelectSpec}>
+                        <label>{this.props.spec.name.replace(/[_-]/g, ' ')}</label>
+                        {' '}
+                        <Glyphicon className={`icon ${this.state.class_name}`} glyph={this.state.icon_class}/>
+                    </span>
+                </ListGroupItem>
+            )
+        }
     }
 };
 

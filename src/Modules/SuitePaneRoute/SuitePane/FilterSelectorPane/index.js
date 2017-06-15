@@ -93,7 +93,7 @@ class FilterSelectorPane extends Component {
                     title=""
                 >
                     {
-                        this.getSubFilters(filter).map((subfilter) => {
+                        this.getSubFilters(filter).sort().map((subfilter) => {
                             const subFilterClass = this.state.selectedFilter.subFilter === subfilter ?
                                 `${subfilter} active` : {subfilter};
                             return(
