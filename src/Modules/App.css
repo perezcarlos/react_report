@@ -189,6 +189,7 @@ button label {
 .spec.spec-name {
     padding: 0;
     width: 100%;
+    cursor: pointer;
 }
 
 .spec.spec-name .validated-pane {
@@ -201,6 +202,11 @@ button label {
     height: 40px;
     width: 95%;
     padding: 15px 0 40px 0;
+    cursor: pointer;
+}
+
+.spec-name-button label {
+    cursor: pointer;
 }
 
 .spec-name {
