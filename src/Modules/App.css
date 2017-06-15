@@ -60,19 +60,20 @@ tbody {
     float: left;
 }
 
-span.icon.success {
+span .success, span.ok {
     color: #67b168;
 }
 
-span.icon.failed {
+span .failed, span.remove {
     color: #b64743;
 }
 
-span.icon.warning {
+span .warning, span.alert.glyphicon{
+    padding: 0;
     color: #d58512;
 }
 
-span.icon.pending {
+span .pending {
     color: #6f6f6f;
 }
 
@@ -323,7 +324,7 @@ button label {
     height: 85%;
 }
 
-.execution-list {
+.execution-list.detail {
     padding: 2px 12px 2px 2px;
     width: 40%;
     height: 100%;

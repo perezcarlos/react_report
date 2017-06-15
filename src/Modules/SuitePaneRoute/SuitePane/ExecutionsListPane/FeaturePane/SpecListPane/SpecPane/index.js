@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { ListGroupItem, Glyphicon } from 'react-bootstrap'
+import { ListGroupItem, Glyphicon, Button } from 'react-bootstrap'
 import Validate from '../../../../SpecDetailPane/ValidatedPane'
+import AdditionalSpecInfo from '../../../../SpecDetailPane/AdditionalSpecInfoPane'
 
 
 class SpecPane extends Component {
@@ -15,6 +16,7 @@ class SpecPane extends Component {
         this.onSelectSpec=this.onSelectSpec.bind(this);
         this.isSpecDisabled=this.isSpecDisabled.bind(this);
         this.isSelectedClass=this.isSelectedClass.bind(this);
+        this.renderListView=this.renderListView.bind(this);
     }
 
     componentDidMount () {
@@ -71,8 +73,44 @@ class SpecPane extends Component {
         }
     }
 
+    renderListView () {
+        return (
+            <tr>
+                <td className="validated">
+                    <Validate spec={this.props.spec} onValidate={this.props.onValidate}/>
+                </td>
+                <td className={`status status-${this.state.class_name} text-center`}>
+                    <Glyphicon glyph={this.state.icon_class} className={this.state.icon_class}></Glyphicon>
+                </td>
+                <td className="spec">
+                    <Button
+                        href={`#${this.props.spec.id}`}
+                        bsStyle="link"
+                        className="spec spec-name"
+                        data-toggle="collapse"
+                        value={this.props.spec.name}
+                        {...this.isSpecDisabled()}
+                    >
+                        {this.props.spec.name}
+                    </Button>
+                </td>
+                <td className="describe">
+                    <div>
+                        {this.props.spec.description}
+                        <AdditionalSpecInfo additionalInfo={this.props.spec.additional_spec_info}/>
+                    </div>
+                </td>
+                <td className="run-time">{this.props.spec.run_time}</td>
+            </tr>
+        );
+    }
+
     render () {
         if (this.props.spec) {
+            if (this.props.selectedView === 'list') {
+                return this.renderListView()
+            }
+
             return (
                 <ListGroupItem
                     className={this.isSelectedClass()}

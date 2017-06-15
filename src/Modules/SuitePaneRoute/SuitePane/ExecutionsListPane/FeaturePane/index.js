@@ -16,6 +16,7 @@ class FeaturePane extends Component {
                     onValidate={this.props.onValidate}
                     onSelectedSpec={this.props.onSelectedSpec}
                     selectedSpec={this.props.selectedSpec}
+                    selectedView={this.props.selectedView}
                 />
             </div>
         )
