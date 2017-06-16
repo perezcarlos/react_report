@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { hashHistory } from 'react-router';
 import SuitePane from './SuitePane/index';
+import Alert from '../GeneralAlert';
 import { encodeObjectToQuery } from '../../utilities';
 import database from '../../database';
 import jenkins from '../../jenkins';
@@ -24,7 +25,8 @@ class SuitePaneRoute extends Component {
             waitForTime: 1000,
             additional_info: null,
             filter: filter,
-            selectedView: selectedView
+            selectedView: selectedView,
+            alert: { header: 'Test message', message: 'This is a test', shown: false, type: 'info' }
         };
         this.onFilterChange = this.onFilterChange.bind(this);
         this.getBuildData = this.getBuildData.bind(this);
@@ -33,6 +35,7 @@ class SuitePaneRoute extends Component {
         this.onSelectedSpec = this.onSelectedSpec.bind(this);
         this.getSelectedSpecByName = this.getSelectedSpecByName.bind(this);
         this.onSelectedView = this.onSelectedView.bind(this);
+        this.showAlert = this.showAlert.bind(this);
         this.addQueryParam = this.addQueryParam.bind(this);
     }
 
@@ -145,22 +148,53 @@ class SuitePaneRoute extends Component {
         })
     }
 
+    showAlert (alert = {}) {
+        const alertShown = {...this.state.alert, ...alert, ...{shown: true}};
+
+        this.setState({
+            alert: alertShown
+        })
+    }
+
     render() {
-        return (
-            <SuitePane
-                suite={this.state.suite}
-                additionalInfo={this.state.additional_info}
-                locationParams={this.props.params}
-                onFilterChange={this.onFilterChange}
-                onValidate={this.onValidate}
-                jenkinsInfo={this.state.jenkinsBuildInfo}
-                filter={this.state.filter}
-                selectedSpec={this.state.selectedSpec}
-                onSelectedSpec={this.onSelectedSpec}
-                onSelectedView={this.onSelectedView}
-                selectedView={this.state.selectedView}
-            />
-        )
+        if (this.state.alert.shown === true) {
+            return (
+                <div>
+                    <Alert alert={this.state.alert}/>
+                    <SuitePane
+                        suite={this.state.suite}
+                        additionalInfo={this.state.additional_info}
+                        locationParams={this.props.params}
+                        onFilterChange={this.onFilterChange}
+                        onValidate={this.onValidate}
+                        jenkinsInfo={this.state.jenkinsBuildInfo}
+                        filter={this.state.filter}
+                        selectedSpec={this.state.selectedSpec}
+                        onSelectedSpec={this.onSelectedSpec}
+                        onSelectedView={this.onSelectedView}
+                        selectedView={this.state.selectedView}
+                        showAlert={this.showAlert}
+                    />
+                </div>
+            )
+        } else {
+            return (
+                <SuitePane
+                    suite={this.state.suite}
+                    additionalInfo={this.state.additional_info}
+                    locationParams={this.props.params}
+                    onFilterChange={this.onFilterChange}
+                    onValidate={this.onValidate}
+                    jenkinsInfo={this.state.jenkinsBuildInfo}
+                    filter={this.state.filter}
+                    selectedSpec={this.state.selectedSpec}
+                    onSelectedSpec={this.onSelectedSpec}
+                    onSelectedView={this.onSelectedView}
+                    selectedView={this.state.selectedView}
+                    showAlert={this.showAlert}
+                />
+            )
+        }
     }
 }
 
