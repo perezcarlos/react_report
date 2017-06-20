@@ -77,6 +77,14 @@ span .pending {
     color: #6f6f6f;
 }
 
+.general-alert {
+    position: absolute;
+    width: 40%;
+    margin-left: 59%;
+    z-index: 999;
+    margin-top: 3%;
+}
+
 .no-suites-found, .no-suite-loaded {
     vertical-align: middle;
 }

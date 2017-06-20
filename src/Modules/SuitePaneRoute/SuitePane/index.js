@@ -135,6 +135,7 @@ class SuitePane extends Component {
                             loadState={this.state.loadState}
                             locationParams={this.props.locationParams}
                             failedSpecs={this.state.failedSpecs}
+                            showAlert={this.props.showAlert}
                         />
                     </div>
                     <div className="panel-body">

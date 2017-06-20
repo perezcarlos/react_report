@@ -22,28 +22,31 @@ class SuiteHeaderPane extends Component {
 
     onRebuild () {
         return (
-            jenkins.launch(this.props.additionalInfo, (error, response) => {
+            jenkins.launch(this.props.additionalInfo, (response, error) => {
                 if (error) {
-                    console.log("There is an error", error)
+                    this.props.showAlert({header: 'Rebuild failed', message: error.message, type: 'danger'})
                 }
                 else {
-                    console.log("The response is", response)
+                    const message = `The build ${this.props.additionalInfo.build} for ${this.props.additionalInfo.suite} has been re-build correctly`;
+                    this.props.showAlert({header: 'Rebuild success', message: message})
                 }
             })
         )
     };
 
     onRebuildFailed () {
-        const params = Object.assign({}, this.props.additionalInfo, {
-            failedSpecs: this.props.failedSpecs
-        });
+        const params = {
+            ...this.props.additionalInfo,
+            ...{failedSpecs: this.props.failedSpecs}
+        };
         return (
-            jenkins.launch(params, (error, response) => {
+            jenkins.launch(params, (response, error) => {
                 if (error) {
-                    console.log("There is an error", error)
+                    this.props.showAlert({header: 'Rebuild failed', message: error.message, type: 'danger'})
                 }
                 else {
-                    console.log("The response is", response)
+                    const message = `The failed specs in build ${this.props.additionalInfo.build} for ${this.props.additionalInfo.suite} has been re-build correctly`;
+                    this.props.showAlert({header: 'Rebuild failed specs succeed ', message: message})
                 }
             })
         )
